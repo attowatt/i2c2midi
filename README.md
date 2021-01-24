@@ -45,6 +45,14 @@ Based on that setup, there are few things to note and are hardcoded within the f
 
 ## Protoboard layout
 
+**BOM:**
+- Teensy 3.2
+- 2 x 2.2kΩ Resistor (R1, R2)
+- 2 x 47Ω Resistor (R3, R4)
+- 2 x 5 generic female header pins (or proper 10 pin shrouded header)
+- 2 x 3 generic female header pins
+- Green Thonkiconn Stereo 3.5mm Audio Jacks (PJ366ST) (Note: graphic shows different model)
+
 ![](hardware/i2c2midi_protoboard.png)
 
 ## Schematic
