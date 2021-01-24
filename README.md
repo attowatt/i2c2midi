@@ -7,7 +7,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 - 3 hp
 - Inputs: I2C 3 pin
 - Outputs: MIDI TRS (Type A)
-- Teensy 3.2
+- Based on Teensy 3.2
 
 ## Pictures 
 
