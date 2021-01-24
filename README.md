@@ -77,7 +77,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) and [Ar
 - 2 x 47Ω Resistor (R3, R4)
 - 2 x 5 generic female header pins (or proper 10 pin shrouded header)
 - 2 x 3 generic female header pins
-- Green Thonkiconn Stereo 3.5mm Audio Jacks (PJ366ST) (Note: graphic shows different model)
+- 1 x Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST) (Note: graphic shows different jack)
 
 The following graphic shows the Protoboard with (right) and without components (left). Note the deliberately broken connections on the board:
 
