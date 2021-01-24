@@ -6,8 +6,8 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 
 
 ## Details
-- DIY eurorack module 
-- 3 hp
+- DIY eurorack module (prototype)
+- 3 hp (LEGO front panel)
 - Inputs: I2C 3 pin
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
