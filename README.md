@@ -19,6 +19,23 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 
 ![](pictures/i2c2midi_side.jpg)
 
+## How to use it
+
+**Send MIDI notes:**
+```
+EX 2
+EX.M.CH channel
+EX.M.N note velocity
+```
+
+**Send MIDI CCs:**
+```
+EX 2
+EX.M.CH channel
+EX.M.N controller value
+```
+
+
 
 ## Repository
 - `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
