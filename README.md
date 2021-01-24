@@ -43,9 +43,9 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 - `<status>`refers to the [MIDI status](https://www.midimountain.com/midi/midi_status.htm). MIDI note on messages have the status 144-159 for channels 1-16. MIDI CC messages have the status 176-191 for channels 1-16.
 
-- Sending a MIDI note on (note 48, velocity 127, channel 1) therefore looks like this: `0x42 0x4F 144 48 127`.
+- Sending a MIDI note on (e.g. note 48, velocity 127, channel 1) therefore looks like this: `0x42 0x4F 144 48 127`.
 
-- Sending a MIDI CC (controller 1, value 60, channel 1) therefore looks like this: `0x42 0x4F 176 1 60`.
+- Sending a MIDI CC (e.g. controller 1, value 60, channel 1) therefore looks like this: `0x42 0x4F 176 1 60`.
 
 The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/).
 
