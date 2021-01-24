@@ -11,15 +11,16 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 - Inputs: I2C 3 pin
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
-
-
-## Pictures 
+ 
 
 ![](pictures/i2c2midi_top.jpg)
 
 ![](pictures/i2c2midi_side.jpg)
 
+
 ## How to use it
+
+Connect the module to Teletype via I2C. Then use the following code in a Teletype script.
 
 **Send MIDI notes:**
 ```
