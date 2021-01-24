@@ -77,7 +77,7 @@ In order to access +5V from the bus board and to power the Teensy via its VIN pi
 
 ## Thanks
 
-I would like to thank scanner-darkly for developing the disting EX Teletype OPs and helping me out on several occasions during the making of this module.
+I would like to thank [scanner-darkly](https://github.com/scanner-darkly) for developing the disting EX Teletype OPs and helping me out on several occasions during the making of this module.
 
 ## Sources
 - https://www.pjrc.com/teensy/external_power.html
