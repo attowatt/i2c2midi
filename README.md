@@ -26,7 +26,7 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
   - Schematic
   - Protoboard layout (with and without components)
   - Fritzing file
-  - Important note about power cabling (!)
+  - Illustration regarding the power cabling (!)
 - `pictures` — Some pictures of the first working prototype.
 
 
