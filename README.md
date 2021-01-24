@@ -33,7 +33,7 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 ## About the firmware
 
 As of now, the firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
-Based on that setup, there are few things to note and are hardcoded within the firmware:
+Based on that setup, there are a few things to note and hardcoded within the firmware:
 
 - The following addresses are specifically reserved for the disting EX within the Teletype firmware: `0x41`, `0x42`, `0x43`, `0x44` (65, 66, 67, 68). Since the module should act like a second disting EX, it is set up to listen to I2C messages on address `0x42` (66). This could be changed to act as the first (65), third (67) or fourth (68) disting EX instead.
 
