@@ -20,22 +20,23 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 
 ## How to use it
 
-Connect the module to Teletype via I2C. Then use the following code in a Teletype script.
+After connecting the module to Teletype via I2C, use the following code in a Teletype script:
 
-**Send MIDI notes:**
+**Send MIDI notes**
 ```
 EX 2
 EX.M.CH channel
 EX.M.N note velocity
 ```
 
-**Send MIDI CCs:**
+**Send MIDI CCs**
 ```
 EX 2
 EX.M.CH channel
 EX.M.N controller value
 ```
 
+The firmware takes care of Note off messages automatically, but is currently monophonic per channel.
 
 
 ## Repository
@@ -100,7 +101,7 @@ See the illustration ([B]) below:
 
 ## Thanks
 
-I would like to thank [scanner-darkly](https://github.com/scanner-darkly) for developing the disting EX Teletype OPs and helping me out on several occasions during the making of this module.
+Thanks to [scanner-darkly](https://github.com/scanner-darkly) for developing the disting EX Teletype OPs and helping out on several occasions during the making of this module.
 
 ## Sources
 - https://www.pjrc.com/teensy/external_power.html
