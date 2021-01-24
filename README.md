@@ -4,6 +4,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 
 Currently in prototype status. It was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.
 
+
 ## Details
 - DIY eurorack module 
 - 3 hp
@@ -11,11 +12,13 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
 
+
 ## Pictures 
 
 ![](pictures/i2c2midi_top.jpg)
 
 ![](pictures/i2c2midi_side.jpg)
+
 
 ## Repository
 - `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
@@ -25,7 +28,8 @@ Currently in prototype status. It was built using a horizontal protoboard and a 
   - Fritzing file
   - Important note about power cabling (!)
 - `pictures` — Some pictures of the first working prototype.
-  
+
+
 ## About the firmware
 
 As of now, the firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
@@ -43,6 +47,9 @@ Based on that setup, there are few things to note and are hardcoded within the f
 
 - Sending a MIDI CC (controller 1, value 60, channel 1) therefore looks like this: `0x42 0x4F 176 1 60`.
 
+The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/).
+
+
 ## Protoboard layout
 
 **BOM:**
@@ -55,9 +62,11 @@ Based on that setup, there are few things to note and are hardcoded within the f
 
 ![](hardware/i2c2midi_protoboard.png)
 
+
 ## Schematic
 
 ![](hardware/i2c2midi_schematic.png)
+
 
 ## Powering it from a Eurorack bus board
 
@@ -66,4 +75,11 @@ In order to access +5V from the bus board and to power the Teensy via its VIN pi
 
 ![](hardware/i2c2midi_reversed_cable.png)
 
+## Thanks
 
+I would like to thank scanner-darkly for developing the disting EX Teletype OPs and helping me out on several occasions during the making of this module.
+
+## Sources
+- https://www.pjrc.com/teensy/external_power.html
+- https://www.pjrc.com/teensy/td_libs_MIDI.html
+- https://github.com/nox771/i2c_t3
