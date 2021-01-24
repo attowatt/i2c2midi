@@ -52,7 +52,7 @@ Based on that setup, there are few things to note and are hardcoded within the f
 ## Powering it from a Eurorack bus board
 
 As of now, I went with a dirty hack to power the module directly from a Eurorack case. Please be warned – *this is NOT a good solution and one should proceed with absolute caution!*
-In order to power the Teensy via its VIN pin (5V-6V tolerant), I use a standard eurorack 16 to 10 pin power cable – with the 16 pin jack plugged to the bus board ***UPSIDE DOWN***. See the illustration ([B]) below:
+In order to access +5V from the bus board and to power the Teensy via its VIN pin (5V-6V tolerant), I use a standard eurorack 16 to 10 pin power cable – with the 16 pin jack plugged to the bus board ***UPSIDE DOWN***. See the illustration ([B]) below:
 
 ![](hardware/i2c2midi_reversed_cable.png)
 
