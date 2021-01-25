@@ -4,6 +4,8 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 
 *Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*
 
+[Schematic](#schematic)  
+
 
 ## Details
 - DIY eurorack module (prototype)
