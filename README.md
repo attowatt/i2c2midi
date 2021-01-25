@@ -2,7 +2,7 @@
 
 i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's primarily build to be used together with [monome Teletype](https://monome.org/docs/teletype/). It receives I2C messages and converts them to either MIDI notes or MIDI CC messages, to control external devices like synths and effects.
 
-Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.
+*Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*
 
 
 ## Details
