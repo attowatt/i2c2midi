@@ -4,7 +4,15 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 
 *Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*
 
-[Schematic](#schematic)  
+## Table of content
+[Details](#details)
+[Usage](#usage)
+[About the firmware](#about-the-firmware)
+[Schematic](#schematic)
+[Protoboard layout](#protoboard-layout)
+[Powering it from a Eurorack bus board](#powering-it-from-a-eurorack-bus-board)
+[Repository content](#repository-content)
+[Thanks](#thanks)
 
 
 ## Details
@@ -19,14 +27,6 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 
 ![](pictures/i2c2midi_side.jpg)
 
-## Repository Content
-- `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
-- `hardware` — Everything hardware related
-  - Schematic
-  - Protoboard layout (with and without components)
-  - Fritzing file
-  - Illustration regarding the power cabling (!)
-- `pictures` — Some pictures of the first working prototype.
 
 ## Usage
 After connecting the module to Teletype via I2C, use the following code in a Teletype script:
@@ -46,7 +46,8 @@ EX.M.N controller value
 ```
 
 
-## Note off messages
+**Note off messages**
+
 The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on Messages arrives or after 500 ms. 
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
 
@@ -70,6 +71,10 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/).
 
+## Schematic
+
+![](hardware/i2c2midi_schematic.png)
+
 
 ## Protoboard layout
 
@@ -86,9 +91,7 @@ The following graphic shows the Protoboard with (right) and without components (
 ![](hardware/i2c2midi_protoboard.png)
 
 
-## Schematic
 
-![](hardware/i2c2midi_schematic.png)
 
 
 ## Powering it from a Eurorack bus board
@@ -100,6 +103,16 @@ In order to access +5V from the bus board and to power the Teensy via its VIN pi
 See the illustration ([B]) below:
 
 ![](hardware/i2c2midi_reversed_cable.png)
+
+## Repository content
+- `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
+- `hardware` — Everything hardware related
+  - Schematic
+  - Protoboard layout (with and without components)
+  - Fritzing file
+  - Illustration regarding the power cabling (!)
+- `pictures` — Some pictures of the first working prototype.
+
 
 ## Thanks
 
