@@ -18,7 +18,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 ![](pictures/i2c2midi_side.jpg)
 
 
-## How to use it
+## Usage
 
 After connecting the module to Teletype via I2C, use the following code in a Teletype script:
 
@@ -36,7 +36,8 @@ EX.M.CH channel
 EX.M.N controller value
 ```
 
-The firmware takes care of Note off messages automatically, but is currently monophonic per channel.
+The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on Messages arrives or after 500 ms. 
+*Todo: Make the note duration of 500 ms editable via I2C as well.*
 
 
 ## Repository
