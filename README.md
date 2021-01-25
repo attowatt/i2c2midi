@@ -14,6 +14,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 [Protoboard layout](#protoboard-layout)  
 [Powering it from a Eurorack bus board](#powering-it-from-a-eurorack-bus-board)  
 [Repository content](#repository-content)  
+[Collaboration and further development welcome! ](#collaboration-and-furtherdevelopmentwelcome) 
 [Thanks](#thanks)  
 
 
@@ -124,6 +125,10 @@ In order to access +5V from the bus board and to power the Teensy via its VIN pi
 ## Thanks
 
 Thanks to [scanner-darkly](https://github.com/scanner-darkly) for developing the disting EX Teletype OPs and helping out on several occasions during the making of this module.
+
+## Collaboration and further development welcome!
+Since this is just a prototype – additional ideas, recommendations, tips and help for improvement is greatly appreciated!
+
 
 ## Sources
 - https://www.pjrc.com/teensy/external_power.html
