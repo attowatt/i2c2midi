@@ -1,8 +1,10 @@
 # i2c2midi
 
-i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's primarily build to be used together with [monome Teletype](https://monome.org/docs/teletype/). It receives I2C messages and converts them to either MIDI notes or MIDI CC messages, to control external devices like synths and effects.
+i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's primarily build to be used together with [monome Teletype](https://monome.org/docs/teletype/). It receives I2C messages from Teletype and converts them to either MIDI notes or MIDI CC messages to control external devices like synths and effects.
 
 *Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*
+
+![](hardware/i2c2midi_diagram.png)
 
 ## Table of content
 [Specs](#specs)  
@@ -101,9 +103,13 @@ As of now, I went with a dirty hack to power the module directly from a Eurorack
 
 In order to access +5V from the bus board and to power the Teensy via its VIN pin (5V-6V tolerant), I use a standard eurorack 16 to 10 pin power cable – with the 16 pin jack plugged to the bus board ***UPSIDE DOWN***. Again, please be careful when messing with Eurorack power.
 
-See the illustration ([B]) below:
+**Standard Eurorack**
 
-![](hardware/i2c2midi_reversed_cable.png)
+![](hardware/i2c2midi_power_default.png)
+
+***REVERSED (!!!)* to access +5V**
+
+![](hardware/i2c2midi_power_reversed.png)
 
 ## Repository content
 - `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
