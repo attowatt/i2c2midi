@@ -5,14 +5,14 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 *Currently in prototype status. The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*
 
 ## Table of content
-[Details](#details)
-[Usage](#usage)
-[About the firmware](#about-the-firmware)
-[Schematic](#schematic)
-[Protoboard layout](#protoboard-layout)
-[Powering it from a Eurorack bus board](#powering-it-from-a-eurorack-bus-board)
-[Repository content](#repository-content)
-[Thanks](#thanks)
+[Specs](#specs)  
+[Usage](#usage)  
+[About the firmware](#about-the-firmware)  
+[Schematic](#schematic)  
+[Protoboard layout](#protoboard-layout)  
+[Powering it from a Eurorack bus board](#powering-it-from-a-eurorack-bus-board)  
+[Repository content](#repository-content)  
+[Thanks](#thanks)  
 
 
 ## Details
@@ -49,6 +49,7 @@ EX.M.N controller value
 **Note off messages**
 
 The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on Messages arrives or after 500 ms. 
+
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
 
 
@@ -69,7 +70,7 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 - Sending a MIDI CC (e.g. controller 1, value 60, channel 1) therefore looks like this: `0x42 0x4F 176 1 60`.
 
-The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/).
+The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for reading I2C and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/) for sending MIDI.
 
 ## Schematic
 
