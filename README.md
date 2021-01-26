@@ -25,6 +25,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
  
+*Todo: Create a PCB and proper front panel.*
 
 ![](pictures/i2c2midi_top.jpg)
 
@@ -51,7 +52,7 @@ EX.M.N controller value
 
 **Note off messages**
 
-The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on Messages arrives or after 500 ms. 
+The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on message arrives or after 500 ms. 
 
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
 
