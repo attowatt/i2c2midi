@@ -55,7 +55,7 @@ EX.M.N controller value
 The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on message arrives or after 500 ms. 
 
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
-
+*Todo: Make it handle polyphony.*
 
 ## About the firmware
 
