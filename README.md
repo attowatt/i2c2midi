@@ -78,7 +78,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 
 ## Schematic
 
-![](hardware/i2c2midi_schematic.png)
+
 
 
 ## Protoboard layout
