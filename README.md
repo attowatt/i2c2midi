@@ -95,7 +95,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 - 1 x 0.33 uF capacitor
 - 1 x 0.1 uF capacitor 
 
-The following graphic shows the Protoboard with (right) and without components (left). Note the deliberately broken connections on the board:
+The following graphic shows the Protoboard with and without components. Note the deliberately broken connections on the board:
 
 ![](hardware/i2c2midi_protoboard_v1-5.png)
 
