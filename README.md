@@ -78,7 +78,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 
 ## Schematic
 
-![](hardware/i2c2midi_schematic.png)
+![](hardware/i2c2midi_schematic_v1-5.png)
 
 
 ## Protoboard layout
@@ -93,7 +93,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 
 The following graphic shows the Protoboard with (right) and without components (left). Note the deliberately broken connections on the board:
 
-![](hardware/i2c2midi_protoboard.png)
+![](hardware/i2c2midi_protoboard_v1-5.png)
 
 
 
