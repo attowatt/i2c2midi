@@ -30,7 +30,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 ![](pictures/i2c2midi_top.jpg)
 
 ![](pictures/i2c2midi_side.jpg)
-
+*Note: Pictures show early version without voltage regulator.*
 
 ## Usage
 After connecting the module to Teletype via I2C, use the following code in a Teletype script:
