@@ -90,27 +90,20 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 - 2 x 5 generic female header pins (or proper 10 pin shrouded header)
 - 2 x 3 generic female header pins
 - 1 x Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST) (Note: graphic shows different jack)
+- 1 x 10 pin shrouded header
+- 1 x 7805 5V regulator
+- 1 x 0.33 uF capacitor
+- 1 x 0.1 uF capacitor 
 
 The following graphic shows the Protoboard with (right) and without components (left). Note the deliberately broken connections on the board:
 
 ![](hardware/i2c2midi_protoboard_v1-5.png)
 
 
-
-
-
 ## Powering it from a Eurorack bus board
 
 I've updated the circuit for a better power solution. It now uses a voltage regulator that converts 12V from the Eurorack bus board to 5V for the Teensy. I've also added a standard 10 pin shrouded header for better connection.
 
-
-**Standard Eurorack**
-
-![](hardware/i2c2midi_power_default.png)
-
-***REVERSED (!!!)* to access +5V**
-
-![](hardware/i2c2midi_power_reversed.png)
 
 ## Repository content
 - `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
