@@ -80,6 +80,12 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 
 ![](hardware/i2c2midi_schematic_v1-5.png)
 
+**MIDI TRS Type A Wiring:**
+Teensy | TRS | MIDI
+--- | --- | ---
+Teensy Pin 1 | → Tip | → MIDI Pin 5
+Teensy 3V3 | → Ring | → MIDI Pin 4
+Ground | → Sleeve | → MIDI Pin 2
 
 ## Protoboard layout
 
