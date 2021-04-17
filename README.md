@@ -96,15 +96,24 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ## BOM
 
-- Teensy 3.2
-- 2 x 2.2kΩ Resistor (R1, R2)
-- 2 x 47Ω Resistor (R3, R4)
-- 2 x 3 generic female header pins
-- 1 x Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST) (Note: graphic shows different jack)
-- 1 x 10 pin shrouded header
-- 1 x 7805 5V regulator
-- 1 x 0.33 uF capacitor
-- 1 x 0.1 uF capacitor 
+
+Part | Value
+--- | ---
+ | Teensy 3.2
+C1 | 0.33 uF capacitor
+C2 | 0.1 uF capacitor
+D1 | LED 3 mm
+D2 | LED 3 mm
+I2C | PIN HEADER
+IC1 | 7805 5V regulator
+R1 | 2.2k Ω resistor
+R2 | 2.2k Ω resistor
+R3 | 47 Ω resistor
+R4 | 47 Ω resistor
+R5 | 220 Ω resistor
+R6 | 220 Ω resistor
+SV1 | Power Header (2x5)
+U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
 
 
 ## Thanks
