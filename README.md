@@ -50,7 +50,8 @@ The firmware takes care of Note off messages automatically, but is currently mon
 
 **LEDs**
 
-The left LED lights up when I2C messages are incoming, the right LED lights up when MIDI messages are outgoing.
+The left LED lights up when I2C messages are incoming.
+The right LED lights up when MIDI messages are outgoing.
 
 ![](pictures/i2c2midi_v_2_0_side.jpg)
 
