@@ -7,9 +7,10 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 ## Table of content
 [Details](#Details)  
 [Usage](#usage)  
-[Changelog](#Changelog)  
-[Schematic](#schematic)
 [About the firmware](#about-the-firmware)  
+[Schematic](#schematic)
+[BOM](#BOM)
+[Changelog](#Changelog)  
 [Thanks](#thanks)  
 
 ![](pictures/i2c2midi_v_2_0.jpg)
@@ -48,20 +49,6 @@ The firmware takes care of Note off messages automatically, but is currently mon
 *Todo: Make it handle polyphony.*
 
 ![](pictures/i2c2midi_v_2_0_side.jpg)
-
-## Changelog
-
-**Version 2.0**
-- Proper PCB
-- Proper panel
-- Added two LEDs
-
-**Version 1.1**
-- Added a voltage regulator, so the module can be powered from the case with a normal eurorack power ribbon cable.
-
-**Version 1.0**
-- Initial version using a protoboard and LEGO 2x16 plate as front panel.
-
 
 
 ## About the firmware
@@ -114,6 +101,21 @@ R5 | 220 Ω resistor
 R6 | 220 Ω resistor
 POW | Power Header (2x5)
 U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
+
+
+## Changelog
+
+**Version 2.0**
+- Proper PCB
+- Proper panel
+- Added two LEDs
+
+**Version 1.1**
+- Added a voltage regulator, so the module can be powered from the case with a normal eurorack power ribbon cable.
+
+**Version 1.0**
+- Initial version using a protoboard and LEGO 2x16 plate as front panel.
+
 
 
 ## Thanks
