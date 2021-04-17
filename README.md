@@ -8,8 +8,8 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 [Details](#Details)  
 [Usage](#usage)  
 [About the firmware](#about-the-firmware)  
-[Schematic](#schematic)
-[BOM](#BOM)
+[Schematic](#schematic)  
+[BOM](#BOM)  
 [Changelog](#Changelog)  
 [Thanks](#thanks)  
 
@@ -82,7 +82,6 @@ Ground | → Sleeve | → MIDI Pin 2
 
 
 ## BOM
-
 
 Part | Value
 --- | ---
