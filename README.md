@@ -57,8 +57,9 @@ The firmware takes care of Note off messages automatically, but is currently mon
 **Version 1.1**
 - Added a voltage regulator, so the module can be powered from the case with a normal eurorack power ribbon cable.
 
-### Version 1.0**
+**Version 1.0**
 - Initial version using a protoboard and LEGO 2x16 plate as front panel.
+
 ![](pictures/i2c2midi_side.jpg)
 
 
