@@ -48,12 +48,11 @@ The firmware takes care of Note off messages automatically, but is currently mon
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
 *Todo: Make it handle polyphony.*
 
-![](pictures/i2c2midi_v_2_0_side.jpg)
-
-
 **LEDs**
 
 The left LED lights up when I2C messages are incoming, the right LED lights up when MIDI messages are outgoing.
+
+![](pictures/i2c2midi_v_2_0_side.jpg)
 
 
 ## About the firmware
