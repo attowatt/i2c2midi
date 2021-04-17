@@ -128,7 +128,6 @@ U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
 
 - To [scanner-darkly](https://github.com/scanner-darkly) – for developing the disting EX Teletype OPs and helping out on several occasions during the making of this module.
 - To [Ansome](https://www.instagram.com/ansomeuk/) – for helping me out on multiple occasions trying to learn Eagle CAD.
-- To [TomWhitwell](https://github.com/TomWhitwell/RadioMusic) – for open-sourcing his modules and providing essential Eurorack Eagle parts.
 
 
 ## Sources
