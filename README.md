@@ -2,35 +2,24 @@
 
 i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's primarily build to be used together with [monome Teletype](https://monome.org/docs/teletype/). It receives I2C messages from Teletype and converts them to either MIDI notes or MIDI CC messages to control external devices like synths and effects.
 
-*Currently in prototype status: The first prototype was built using a horizontal protoboard and a LEGO 2x16 plate as front panel.*  
-*Collaboration is welcomed: Ideas, recommendations, tips and help for improvement are greatly appreciated.*
-
 ![](hardware/i2c2midi_diagram.png)
 
 ## Table of content
-[Specs](#specs)  
+[Details](#Details)  
 [Usage](#usage)  
+[Changelog](#Changelog)  
+[Schematic](#schematic)
 [About the firmware](#about-the-firmware)  
-[Schematic](#schematic)  
-[Protoboard layout](#protoboard-layout)  
-[Powering it from a Eurorack bus board](#powering-it-from-a-eurorack-bus-board)  
-[Repository content](#repository-content)   
 [Thanks](#thanks)  
 
 
 ## Details
-- DIY eurorack module (prototype)
-- 3 hp (LEGO front panel)
+- DIY eurorack module (early stage)
+- 4 hp
 - Inputs: I2C 3 pin
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
  
-*Todo: Create a PCB and proper front panel.*
-
-![](pictures/i2c2midi_top.jpg)
-
-![](pictures/i2c2midi_side.jpg)
-*Note: Pictures show early version without voltage regulator.*
 
 ## Usage
 After connecting the module to Teletype via I2C, use the following code in a Teletype script:
@@ -57,6 +46,22 @@ The firmware takes care of Note off messages automatically, but is currently mon
 *Todo: Make the note duration of 500 ms editable via I2C as well.*
 *Todo: Make it handle polyphony.*
 
+
+## Changelog
+
+### Version 2.0: PCB, Panel and LEDs
+- Proper PCB
+- Proper panel
+- Added two LEDs
+
+### Version 1.1: Voltage Regulator
+- Added a voltage regulator, so the module can be powered from the case with a normal eurorack power ribbon cable.
+
+### Version 1.0: Protoboard
+- Initial version using a protoboard and LEGO 2x16 plate as front panel.
+![](pictures/i2c2midi_side.jpg)
+
+
 ## About the firmware
 
 As of now, the firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
@@ -76,9 +81,8 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for reading I2C and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/) for sending MIDI.
 
-## Schematic
 
-![](hardware/i2c2midi_schematic_v1-5.png)
+## Schematic
 
 **MIDI TRS Type A Wiring:**
 Teensy | TRS | MIDI
@@ -87,9 +91,9 @@ Teensy Pin 1 | → Tip | → MIDI Pin 5
 Teensy 3V3 | → Ring | → MIDI Pin 4
 Ground | → Sleeve | → MIDI Pin 2
 
-## Protoboard layout
 
-**BOM:**
+## BOM
+
 - Teensy 3.2
 - 2 x 2.2kΩ Resistor (R1, R2)
 - 2 x 47Ω Resistor (R3, R4)
@@ -100,33 +104,16 @@ Ground | → Sleeve | → MIDI Pin 2
 - 1 x 0.33 uF capacitor
 - 1 x 0.1 uF capacitor 
 
-The following graphic shows the Protoboard with and without components. Note the deliberately broken connections on the board:
-
-![](hardware/i2c2midi_protoboard_v1-5.png)
-
-
-## Powering it from a Eurorack bus board
-
-I've updated the circuit for a better power solution. It now uses a voltage regulator that converts 12V from the Eurorack bus board to 5V for the Teensy. I've also added a standard 10 pin shrouded header for better connection.
-
-
-## Repository content
-- `firmware` — The Teensy/Arduino code that converts I2C messages to MIDI out messages.
-- `hardware` — Everything hardware related
-  - Schematic
-  - Protoboard layout (with and without components)
-  - Fritzing file
-  - Illustration regarding the power cabling (!)
-- `pictures` — Some pictures of the first working prototype.
-
 
 ## Thanks
 
-Thanks to [scanner-darkly](https://github.com/scanner-darkly) for developing the disting EX Teletype OPs and helping out on several occasions during the making of this module.
-
+- To [scanner-darkly](https://github.com/scanner-darkly) – for developing the disting EX Teletype OPs and helping out on several occasions during the making of this module.
+- To [Ansome](https://www.instagram.com/ansomeuk/) – for helping me out on multiple occasions trying to learn Eagle CAD.
+- To [TomWhitwell](https://github.com/TomWhitwell/RadioMusic) – for open-sourcing his modules and providing essential Eurorack Eagle parts.
 
 
 ## Sources
+
 - https://www.pjrc.com/teensy/external_power.html
 - https://www.pjrc.com/teensy/td_libs_MIDI.html
 - https://github.com/nox771/i2c_t3
