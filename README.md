@@ -99,7 +99,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 Part | Value
 --- | ---
- | Teensy 3.2
+T32 | Teensy 3.2
 C1 | 0.33 uF capacitor
 C2 | 0.1 uF capacitor
 D1 | LED 3 mm
@@ -112,7 +112,7 @@ R3 | 47 Ω resistor
 R4 | 47 Ω resistor
 R5 | 220 Ω resistor
 R6 | 220 Ω resistor
-SV1 | Power Header (2x5)
+POW | Power Header (2x5)
 U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
 
 
