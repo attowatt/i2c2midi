@@ -51,6 +51,11 @@ The firmware takes care of Note off messages automatically, but is currently mon
 ![](pictures/i2c2midi_v_2_0_side.jpg)
 
 
+**LEDs**
+
+The left LED lights up when I2C messages are incoming, the right LED lights up when MIDI messages are outgoing.
+
+
 ## About the firmware
 
 As of now, the firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
