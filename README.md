@@ -13,7 +13,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 [Changelog](#Changelog)  
 [Thanks](#thanks)  
 
-![](pictures/i2c2midi_v_2_0.jpg)
+![](pictures/i2c2midi_v_2_0_side.jpg)
 
 ## Details
 - DIY eurorack module (early stage)
@@ -53,7 +53,7 @@ The firmware takes care of Note off messages automatically, but is currently mon
 The left LED lights up when I2C messages are incoming.
 The right LED lights up when MIDI messages are outgoing.
 
-![](pictures/i2c2midi_v_2_0_side.jpg)
+
 
 
 ## About the firmware
