@@ -22,8 +22,6 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 ![](../pictures/i2c2midi_v_2_0_build_5.jpg)
 
 
-
-
 ## III
 - Mount the spacer to the PCB with one of the two M3 screws.
 - Place the stereo jack (U1) and leds into their positions, but don't solder them yet.
@@ -39,9 +37,9 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 
 ## V
 - Connect the Teensy to your computer with a USB cable.
-- Download the firmware and open it with [Teensyduino](https://www.pjrc.com/teensy/td_download.html)
+- Download the firmware and open it with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
 - Under `Tools`, set `Board` to `Teensy 3.2`, `USB Type` to `Serial`, and select the `Port` that shows the Teensy.
-- Upload the firmware to your Teensy. 
+- Upload the firmware to your Teensy via `Sketch` → `Upload`. 
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
 
