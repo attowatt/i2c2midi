@@ -20,38 +20,65 @@ boolean noteOnQ[16] = { false,false,false,false,
                         false,false,false,false,
                         false,false,false,false };
 
+int led1 = 2;
+int led2 = 3;
+unsigned long lastLEDMillis1 = 0;
+unsigned long lastLEDMillis2 = 0;
+
+int animationSpeed = 100;
+
 void setup()
 {
-    // light up the onboard LED on power on
-    pinMode(LED_BUILTIN,OUTPUT); 
+  // light up the onboard LED on power on
+  pinMode(LED_BUILTIN,OUTPUT); 
+  pinMode(led1,OUTPUT); 
+  pinMode(led2,OUTPUT); 
 
-    // setup for Slave mode, address (= 66), pins 18/19, external pullups, 400kHz
-    Wire.begin(I2C_SLAVE, 0x42, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);
+  // setup for Slave mode, address (= 66), pins 18/19, external pullups, 400kHz
+  Wire.begin(I2C_SLAVE, 0x42, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);
 
-    // data init
-    received = 0;
-    memset(databuf, 0, sizeof(databuf));
+  // data init
+  received = 0;
+  memset(databuf, 0, sizeof(databuf));
 
-    // register events
-    Wire.onReceive(receiveEvent);
-    Serial.begin(115200);
+  // register events
+  Wire.onReceive(receiveEvent);
+  Serial.begin(115200);
 
-    // Start MIDI
-    MIDI.begin();
+  // Start MIDI
+  MIDI.begin();
 
-    // debug
-    //Serial.println("started");
+  digitalWrite(led1,HIGH); delay(animationSpeed);
+  digitalWrite(led2,HIGH); delay(animationSpeed);
+  digitalWrite(led1,LOW); delay(animationSpeed);
+  digitalWrite(led2,LOW); delay(animationSpeed);
+  digitalWrite(led1,HIGH); delay(animationSpeed);
+  digitalWrite(led2,HIGH); delay(animationSpeed);
+  digitalWrite(led1,LOW); delay(animationSpeed);
+  digitalWrite(led2,LOW); delay(animationSpeed);
+  digitalWrite(led1,HIGH); delay(animationSpeed);
+  digitalWrite(led2,HIGH); delay(animationSpeed);
+  digitalWrite(led1,LOW); delay(animationSpeed);
+  digitalWrite(led2,LOW); delay(animationSpeed);
+  digitalWrite(led1,HIGH); delay(animationSpeed);
+  digitalWrite(led2,HIGH); delay(animationSpeed);
+  digitalWrite(led1,LOW); delay(animationSpeed);
+  digitalWrite(led2,LOW); delay(animationSpeed);
+
+  // debug
+  //Serial.println("started");
 }
 
 void loop()
 {
   // get current time
   unsigned long currentMillis = millis();
-
+  
   // if there hasn't been a note off yet, send note off after a certain time (noteDuration)
   for (int i = 0; i < 16; i++) {
     if (currentMillis - lastNoteMillis[i] >= noteDuration && noteOnQ[i] == true) {
       MIDI.sendNoteOff(lastNote[i], 0, i+1);
+      digitalWrite(led2,LOW);
       noteOnQ[i] = false;
     }
   }
@@ -59,8 +86,8 @@ void loop()
   // when I2C message are received
   if(received) {
 
-      // light up the onboard LED
-      digitalWrite(LED_BUILTIN,HIGH);
+      digitalWrite(led1,HIGH);
+      lastLEDMillis1 = millis();
 
       // debug
       //Serial.printf("Slave received: '%d'\n", databuf[0]);
@@ -104,8 +131,10 @@ void loop()
       //}
       
       received = 0;
-      digitalWrite(LED_BUILTIN,LOW);
+      
   }  
+
+  checkLEDs();  
 }
 
 // function for receiving I2C messages
@@ -123,14 +152,30 @@ void sendMidiNote(int note, int velocity, int channel){
   // if there hasn't been a note off yet, send note off now
   if (noteOnQ[channel] == true) {
     MIDI.sendNoteOff(lastNote[channel], 0, channel+1);  
+    digitalWrite(led2,LOW);
   }
   lastNoteMillis[channel] = millis();
   lastNote[channel] = note; 
   noteOnQ[channel] = true;
   MIDI.sendNoteOn(note, velocity, channel+1);
+  digitalWrite(led2,HIGH);
+  lastLEDMillis2 = millis();
 }
 
 // function for sending MIDI CCs
 void sendMidiCc(int controller, int value, int channel){
   MIDI.sendControlChange(controller, value, channel+1);
+  digitalWrite(led2,HIGH);
+  lastLEDMillis2 = millis();
+}
+
+void checkLEDs() {
+  unsigned long currentMillis = millis();
+  
+  if (currentMillis - lastLEDMillis1 >= 100) {
+    digitalWrite(led1,LOW);
+  }
+  if (currentMillis - lastLEDMillis2 >= 100) {
+    digitalWrite(led2,LOW);
+  }
 }
