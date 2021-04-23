@@ -43,8 +43,9 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
 
-![](../pictures/i2c2midi_v_2_0_build_8.jpg)
-![](../pictures/i2c2midi_v_2_0_build_9.jpg)
-
 **Disclaimer:** 
 After building the module, please test it very carefully in a separate case. This is a DIY module. I am not responsible for any damage to your gear.
+
+
+![](../pictures/i2c2midi_v_2_0_build_8.jpg)
+![](../pictures/i2c2midi_v_2_0_build_9.jpg)
