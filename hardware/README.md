@@ -7,23 +7,27 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 ![](../pictures/i2c2midi_v_2_0_build_1.jpg)
 
 ## II
-Solder the following parts:
+- Solder the following parts:
 
-- Resistors (R1, R2, R3, R4, R5)
+  - Resistors (R1, R2, R3, R4, R5)
+
 ![](../pictures/i2c2midi_v_2_0_build_2.jpg)
 
-- Voltage regulator: Bend the legs before soldering.
-- Power header: Please check the orientation – the opening of the header should be on the right, when -12V is on the bottom.
+  - Voltage regulator: Bend the legs before soldering.
+  - Power header: Please check the orientation – the opening of the header should be on the right, when -12V is on the bottom.
+
 ![](../pictures/i2c2midi_v_2_0_build_3.jpg)
 
-- Diodes: Orientation does not matter.
+  - Diodes: Orientation does not matter.
+
 ![](../pictures/i2c2midi_v_2_0_build_4.jpg)
 
-- I2C header
-- Teensy header: I prefer to solder a few pins with the Teensy board attached (to make sure it will fit later), then remove the Teensy and solder the rest of the pins.
+  - I2C header
+  - Teensy header: I prefer to solder a few pins with the Teensy board attached (to make sure it will fit later), then remove the Teensy and solder the rest of the pins.
+
 ![](../pictures/i2c2midi_v_2_0_build_5.jpg)
 
-Cut the legs of the parts.
+- Cut the legs of the parts.
 
 
 ## III
