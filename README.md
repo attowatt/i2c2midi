@@ -92,26 +92,30 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ## BOM
 
-Part | Value
+ | Part | Value
 --- | ---
-T32 | Teensy 3.2
-C1 | 0.33 uF capacitor
-C2 | 0.1 uF capacitor
-D1 | LED 3 mm
-D2 | LED 3 mm
-I2C | PIN HEADER
-IC1 | 7805 5V regulator
-R1 | 2.2k Ω resistor
-R2 | 2.2k Ω resistor
-R3 | 47 Ω resistor
-R4 | 47 Ω resistor
-R5 | 220 Ω resistor
-R6 | 220 Ω resistor
-POW | Power Header (2x5)
-U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
-S0 | 10 mm M3 Hex standoffs
-S1 | 10 mm M3 screw
-S2 | 10 mm M3 screw
+1 | T32 | Teensy 3.2
+2 | C1 | 0.33 uF capacitor
+3 | C2 | 0.1 uF capacitor
+4 | D1 | LED 3 mm
+5 | D2 | LED 3 mm
+6 | I2C | 3x2 pin header 
+7 | IC1 | 7805 5V regulator
+8 | R1 | 2.2k Ω resistor
+9 | R2 | 2.2k Ω resistor
+10 | R3 | 47 Ω resistor
+11 | R4 | 47 Ω resistor
+12 | R5 | 220 Ω resistor
+13 | R6 | 220 Ω resistor
+14 | POW | 2x5 power header
+15 | U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
+16 | | Nut for Thonkiconn
+17 | | 1x14 pin header for Teensy
+18 | | 1x14 pin header for Teensy
+19 |  | 10 mm M3 Hex standoffs
+20 |  | 10 mm M3 screw
+21 |  | 10 mm M3 screw
+
 
 ![](pictures/i2c2midi_v_2_0_kit.jpg)
 
