@@ -109,6 +109,7 @@ R5 | 220 Ω resistor
 R6 | 220 Ω resistor
 POW | Power Header (2x5)
 U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
+M3 | 10 mm M3 screw
 
 ![](pictures/i2c2midi_v_2_0_kit.jpg)
 
