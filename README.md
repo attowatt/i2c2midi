@@ -92,8 +92,8 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ## BOM
 
- | Part | Value
---- | ---
+# | Part | Value
+--- | --- | ---
 1 | T32 | Teensy 3.2
 2 | C1 | 0.33 uF capacitor
 3 | C2 | 0.1 uF capacitor
