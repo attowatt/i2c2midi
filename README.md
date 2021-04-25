@@ -29,7 +29,7 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 After connecting the module to Teletype via I2C, use the following commands in a Teletype script:
 
 ```
-EX  2                     // tells Teletype that following code is meant for i2c2midi
+EX 2                     // tells Teletype that following code is meant for i2c2midi
 EX.M.CH channel           // set the MIDI channel
 ```
 ```
