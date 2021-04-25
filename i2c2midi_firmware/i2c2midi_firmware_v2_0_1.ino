@@ -1,3 +1,7 @@
+// April 23, 2021 
+// v2_0_1
+// https://github.com/attowatt/i2c2midi
+
 #include <i2c_t3.h>
 #include <MIDI.h>
 
