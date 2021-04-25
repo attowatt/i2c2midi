@@ -118,6 +118,10 @@ Number | Part | Value
 
 ![](pictures/i2c2midi_v_2_0_kit.jpg)
 
+## Build Guide
+
+Please find a Build Guide [here](hardware/README.md).
+
 ## Changelog
 
 **Version 2.3.0**
