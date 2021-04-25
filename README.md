@@ -28,27 +28,22 @@ i2c2midi is a simple DIY 3 hp eurorack module that speaks I2C and MIDI. It's pri
 ## Usage
 After connecting the module to Teletype via I2C, use the following code in a Teletype script:
 
-**Send MIDI notes**
 ```
-EX 2
-EX.M.CH channel
-EX.M.N note velocity
-```
+EX  2                     // tells Teletype that following code is meant for i2c2midi
+EX.M.CH channel           // set the MIDI channel
 
-**Send MIDI CCs**
-```
-EX 2
-EX.M.CH channel
-EX.M.N controller value
-```
+EX.M.N note velocity      // send MIDI notes
+EX.M.CC controller value  // send MIDI CCs
 
+EX.P 1 value              // set note duration in milliseconds
+EX.P 2 value              // send MIDI Aftertouch value (0 - 127)
+
+EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
+```
 
 **Note off messages**
 
-The firmware takes care of Note off messages automatically, but is currently monophonic per channel. Note off messages are sent when a new Note on message arrives or after 500 ms. 
-
-*Todo: Make the note duration of 500 ms editable via I2C as well.*
-*Todo: Make it handle polyphony.*
+The firmware takes care of Note off messages automatically.
 
 **LEDs**
 
@@ -120,6 +115,13 @@ Number | Part | Value
 ![](pictures/i2c2midi_v_2_0_kit.jpg)
 
 ## Changelog
+
+**Version 2.3.0**
+- new firmware
+  - added 8-voice polyphony for 16 channels
+  - note duration can be set in ms via EX.P 1 value 
+  - added MIDI Pitch Bend, via EX.M.PB value (min: -8192, max: 8191)
+  - added MIDI Program Change, via EX.M.PRG program
 
 **Version 2.0**
 - Proper PCB
