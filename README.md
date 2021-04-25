@@ -13,6 +13,7 @@ It's primarily build to be used together with [monome Teletype](https://monome.o
 [About the firmware](#about-the-firmware)  
 [Schematic](#schematic)  
 [BOM](#BOM)  
+[Build Guide](#Build-Guide)  
 [Changelog](#Changelog)  
 [Thanks](#thanks)  
 
