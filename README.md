@@ -40,8 +40,6 @@ EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all no
 ```
 EX.P 1 value              // set note duration in milliseconds
 EX.P 2 value              // send MIDI Aftertouch value (0 - 127); affects all notes of last used channel
-
-
 ```
 
 **Note off messages**
