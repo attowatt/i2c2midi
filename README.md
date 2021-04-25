@@ -31,14 +31,17 @@ After connecting the module to Teletype via I2C, use the following code in a Tel
 ```
 EX  2                     // tells Teletype that following code is meant for i2c2midi
 EX.M.CH channel           // set the MIDI channel
-
+```
+```
 EX.M.N note velocity      // send MIDI notes
 EX.M.CC controller value  // send MIDI CCs
-
-EX.P 1 value              // set note duration in milliseconds
-EX.P 2 value              // send MIDI Aftertouch value (0 - 127)
-
 EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
+```
+```
+EX.P 1 value              // set note duration in milliseconds
+EX.P 2 value              // send MIDI Aftertouch value (0 - 127); affects all notes of last used channel
+
+
 ```
 
 **Note off messages**
