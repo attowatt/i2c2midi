@@ -40,6 +40,7 @@ EX.M.CH channel           // set the MIDI channel
 EX.M.N note velocity      // send MIDI notes
 EX.M.CC controller value  // send MIDI CCs
 EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
+EX.M.PRG number           // sent MIDI Program Change
 ```
 ```
 EX.P 1 value              // set note duration in milliseconds
