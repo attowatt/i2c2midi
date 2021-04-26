@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.025" unitdist="inch" unit="mm" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -2715,9 +2715,9 @@
 <wire x1="84.455" y1="1.905" x2="86.995" y2="1.905" width="0.1524" layer="22"/>
 <wire x1="85.09" y1="2.54" x2="84.455" y2="1.905" width="0.1524" layer="22"/>
 <wire x1="84.455" y1="1.905" x2="85.09" y2="1.27" width="0.1524" layer="22"/>
-<wire x1="83.185" y1="10.795" x2="82.55" y2="10.795" width="0.1524" layer="22"/>
-<wire x1="82.55" y1="10.795" x2="82.55" y2="8.255" width="0.1524" layer="22"/>
-<wire x1="82.55" y1="8.255" x2="83.185" y2="8.255" width="0.1524" layer="22"/>
+<wire x1="74.295" y1="10.795" x2="74.93" y2="10.795" width="0.1524" layer="22"/>
+<wire x1="74.93" y1="10.795" x2="74.93" y2="8.255" width="0.1524" layer="22"/>
+<wire x1="74.93" y1="8.255" x2="74.295" y2="8.255" width="0.1524" layer="22"/>
 </plain>
 <libraries>
 <library name="adafruit" urn="urn:adsk.eagle:library:420">
