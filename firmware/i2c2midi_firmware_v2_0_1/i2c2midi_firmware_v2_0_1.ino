@@ -23,7 +23,6 @@ boolean noteOnQ[16] = { false,false,false,false,
                         false,false,false,false,
                         false,false,false,false,
                         false,false,false,false };
-
 int led1 = 2;
 int led2 = 3;
 unsigned long lastLEDMillis1 = 0;
