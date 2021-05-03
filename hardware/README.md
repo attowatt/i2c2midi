@@ -36,6 +36,8 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 
 
 ## V
+Flash the firmware to the Teensy.
+
 **Via Teensyduino**
 - Connect the Teensy to your computer with a USB cable.
 - Download the firmware and open it with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
@@ -44,6 +46,7 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
 **Via Teensy Loader**
+- Connect the Teensy to your computer with a USB cable.
 - Download and open the [Teensy Loader App](https://www.pjrc.com/teensy/loader.html).
 - Select `File` → `Open HEX File` and load the [HEX file of the firmware](../firmware/i2c2midi_firmware_v2_3/i2c2midi_firmware_v2_3.ino.hex).
 - Select `Program`.
