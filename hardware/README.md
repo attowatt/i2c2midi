@@ -11,7 +11,7 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
   - Resistors (R1, R2, R3, R4, R5)
   - Voltage regulator: Bend the legs before soldering.
   - Power header: Please check the orientation – the opening of the header should be on the right, when -12V is on the bottom.
-  - Capacitors: Orientation does not matter.
+  - Capacitors: C1 (0.33 uF) negative side (white line, short leg) should be facing away from the power header. Orientation of C2 (0.1 uF) capacitor does not matter. 
   - I2C header
   - Teensy header: I prefer to solder a few pins with the Teensy board attached (to make sure it will fit later), then remove the Teensy and solder the rest of the pins.
 - Cut the legs of the parts.
