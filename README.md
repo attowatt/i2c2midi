@@ -30,7 +30,7 @@ It's primarily build to be used together with [monome Teletype](https://monome.o
  
 
 ## Usage
-After connecting the module to Teletype via I2C, use the following commands in a Teletype script:
+The following commands are currently available:
 
 ```
 EX 2                     // tells Teletype that following code is meant for i2c2midi
@@ -49,7 +49,7 @@ EX.P 2 value              // send MIDI Aftertouch value (0 - 127); affects all n
 
 **Note off messages**
 
-The firmware takes care of Note off messages automatically.
+The firmware takes care of Note off messages automatically, depending on the current note duration value (EX.P 1).
 
 **LEDs**
 
