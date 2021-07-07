@@ -164,3 +164,4 @@ Please find a Build Guide [here](hardware/README.md).
 - https://www.pjrc.com/teensy/external_power.html
 - https://www.pjrc.com/teensy/td_libs_MIDI.html
 - https://github.com/nox771/i2c_t3
+- https://github.com/TomWhitwell/MTM-Parts-Library
