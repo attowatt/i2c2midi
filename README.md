@@ -36,12 +36,13 @@ It's primarily build to be used together with [monome Teletype](https://monome.o
 The following commands are currently available:
 
 ```
-EX 2                     // tells Teletype that following code is meant for i2c2midi
+EX 2                      // tells Teletype that following code in the script is meant for i2c2midi
+EX2:                      // tells Teletype that following line is meant for i2c2midi 
 EX.M.CH channel           // set the MIDI channel
 ```
 ```
-EX.M.N note velocity      // send MIDI notes
-EX.M.CC controller value  // send MIDI CCs
+EX.M.N note velocity      // send MIDI Note
+EX.M.CC controller value  // send MIDI CC
 EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
 EX.M.PRG number           // sent MIDI Program Change
 ```
