@@ -47,8 +47,15 @@ EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all no
 EX.M.PRG number           // sent MIDI Program Change
 ```
 ```
+EX.M.CLK                  // send MIDI clock pulse
+EX.M.START                // start MIDI transport start
+EX.M.STOP                 // stop MIDI transport stop
+EX.M.CONT                 // continue MIDI transport
+```
+```
 EX.P 1 value              // set note duration in milliseconds
 EX.P 2 value              // send MIDI Aftertouch value (0 - 127); affects all notes of last used channel
+EX.P 99 value             // set I2C address of i2c2midi (65 for EX 1, 66 for EX 2, 67 for EX 3, 68 for EX 4)
 ```
 
 **Note off messages**
