@@ -116,21 +116,21 @@ void loop() {
 
       // CLOCK messages have the same status for all MIDI channels 1-16
       // EX.M.CLK
-      if (databuf[1] == 248 && databuf[2] == 248) {
+      if (databuf[2] == 248) {
         MIDI.sendRealTime(midi::Clock);   // !! not optimal, because this should be 24ppq
       }
       // EX.M.START
-      if (databuf[1] == 250 && databuf[2] == 250) {
+      if (databuf[2] == 250) {
         MIDI.sendRealTime(midi::Start);
         blinkLED(2);
       }
       // EX.M.CONT
-      if (databuf[1] == 251 && databuf[2] == 251) {
+      if (databuf[2] == 251) {
         MIDI.sendRealTime(midi::Continue);
         blinkLED(2);
       }
       // EX.M.STOP
-      if (databuf[1] == 252 && databuf[2] == 252) {
+      if (databuf[2] == 252) {
         MIDI.sendRealTime(midi::Stop);
         blinkLED(2);
       }
