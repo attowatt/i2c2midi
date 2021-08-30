@@ -72,7 +72,7 @@ The right LED lights up when MIDI messages are outgoing.
 
 ## About the firmware
 
-As of now, the firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
+The firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
 Based on that setup, there are a few things to note and hardcoded within the firmware:
 
 - The following addresses are specifically reserved for the disting EX within the Teletype firmware: `0x41`, `0x42`, `0x43`, `0x44` (65, 66, 67, 68). Since the module should act like a second disting EX, it is set up to listen to I2C messages on address `0x42` (66). This could be changed to act as the first (65), third (67) or fourth (68) disting EX instead.
@@ -91,7 +91,15 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 - There is also a general I2C message used to control parameters of a disting Ex algorithm. This message is hijacked for additional parameters of the i2c2midi module. E.g. parameter 1 is hardcoded for note duration, parameter 2 for Aftertouch, etc.
 
+**USB MIDI**
+
+If needed, USB MIDI can be activated in the firmware by uncommenting `#define USB_MIDI` in the source code. All MIDI messages will then be sent to the USB port of the Teensy, as well as the TRS output of the module. Please make sure to select `Tools` → `USB Type: Serial + MIDI` when uploading the firmware to the Teensy.
+
+**Libraries used**
+
 The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for reading I2C and [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/) for sending MIDI.
+
+
 
 
 ## Schematic
