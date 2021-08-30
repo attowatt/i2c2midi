@@ -8,6 +8,10 @@ It's primarily build to be used together with [monome Teletype](https://monome.o
 - 8 voice polyphony per MIDI channel
 - 16 MIDI channels simultaneously
 
+i2c2midi lines community thread: 
+https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
+
+
 ![](pictures/i2c2midi_diagram.png)
 
 ## Table of content
@@ -29,8 +33,9 @@ It's primarily build to be used together with [monome Teletype](https://monome.o
 - Outputs: MIDI TRS (Type A)
 - Based on Teensy 3.2
 
+
 ![](pictures/i2c2midi_v_2_0_side.jpg)
- 
+
 
 ## Usage
 The following commands are currently available:
