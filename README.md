@@ -93,7 +93,7 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 **USB MIDI**
 
-If needed, USB MIDI can be activated in the firmware by uncommenting `#define USB_MIDI` in the source code. All MIDI messages will then be sent to the USB port of the Teensy, as well as the TRS output of the module. Please make sure to select `Tools` → `USB Type: Serial + MIDI` when uploading the firmware to the Teensy.
+If you want to to modify the module and use Teensy’s USB port for MIDI out: USB MIDI can be activated in the firmware by uncommenting `#define USB_MIDI` in the source code. All MIDI messages will then be sent to the USB port of the Teensy, as well as the TRS output of the module. Please make sure to select `Tools` → `USB Type: Serial + MIDI` when uploading the firmware to the Teensy.
 
 **Libraries used**
 
