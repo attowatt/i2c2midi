@@ -145,6 +145,10 @@ Number | Part | Value
 20 |  | 10 mm M3 screw
 21 |  | 10 mm M3 screw
 
+Here are the [Gerber files](https://github.com/attowatt/i2c2midi/tree/main/hardware/gerber) for the PCB and panel.
+
+Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) about ordering the PCB and Pancel from a manufacturer.
+
 
 ![](pictures/i2c2midi_v_2_0_kit.jpg)
 
