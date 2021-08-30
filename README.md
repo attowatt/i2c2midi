@@ -141,8 +141,11 @@ Please find a Build Guide [here](hardware/README.md).
 
 ## Changelog
 
+**Version 2.5**
+- added optional USB MIDI support (for one's own modifications involving USB MIDI)
+
 **Version 2.4.4**
-- new firmware
+- updated firmware
   - added MIDI clock, via EX.M.CLK
   - added MIDI transport start, stop and continue, via EX.M.START, EX.M.STOP and EX.M.CONT
   - I2C address can be set via EX.P 99 
