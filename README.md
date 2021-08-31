@@ -126,7 +126,7 @@ Number | Part | Value
 1 | T32 | Teensy 3.2 (with pins)
 2 | C1 | 0.33 uF capacitor
 3 | C2 | 0.1 uF capacitor
-4 | D1 | LED 3 mm
+4 | D1 | LED 3 mm (e.g. L-424EDT)
 5 | D2 | LED 3 mm
 6 | I2C | 3x2 pin header 
 7 | IC1 | 7805 5V regulator
