@@ -123,7 +123,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 Number | Part | Value
 --- | --- | ---
-1 | T32 | Teensy 3.2
+1 | T32 | Teensy 3.2 (with pins)
 2 | C1 | 0.33 uF capacitor
 3 | C2 | 0.1 uF capacitor
 4 | D1 | LED 3 mm
