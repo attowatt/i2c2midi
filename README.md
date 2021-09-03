@@ -128,9 +128,9 @@ Number | Part | Value
 1 | T32 | Teensy 3.2 (with pins)
 2 | C1 | 0.33 uF capacitor
 3 | C2 | 0.1 uF capacitor
-4 | D1 | LED 3 mm (e.g. L-424EDT)
+4 | D1 | LED 3 mm
 5 | D2 | LED 3 mm
-6 | I2C | 3x2 pin header 
+6 | I2C | 3x2 pin header (male)
 7 | IC1 | 7805 5V regulator
 8 | R1 | 2.2k Ω resistor
 9 | R2 | 2.2k Ω resistor
@@ -138,11 +138,11 @@ Number | Part | Value
 11 | R4 | 47 Ω resistor
 12 | R5 | 220 Ω resistor
 13 | R6 | 220 Ω resistor
-14 | POW | 2x5 power header
+14 | POW | 2x5 power header (male)
 15 | U1 | Green Thonkiconn Stereo 3.5mm Audio Jack (PJ366ST)
 16 | | Nut for Thonkiconn
-17 | | 1x14 pin header for Teensy
-18 | | 1x14 pin header for Teensy
+17 | | 1x14 pin header for Teensy (female)
+18 | | 1x14 pin header for Teensy (female)
 19 |  | 10 mm M3 Hex standoffs
 20 |  | 10 mm M3 screw
 21 |  | 10 mm M3 screw
