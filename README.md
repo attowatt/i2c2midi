@@ -143,7 +143,7 @@ Number | Part | Value
 16 | | Nut for Thonkiconn
 17 | | 1x14 pin header for Teensy (female)
 18 | | 1x14 pin header for Teensy (female)
-19 |  | 10 mm M3 Hex standoffs
+19 |  | 10 mm M3 Hex standoff
 20 |  | 10 mm M3 screw
 21 |  | 10 mm M3 screw
 
