@@ -114,6 +114,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 ![](hardware/i2c2midi_schematic.png)
 
 **MIDI TRS Type A Wiring:**
+
 Teensy | TRS | MIDI
 --- | --- | ---
 Teensy Pin 1 | → Tip | → MIDI Pin 5
@@ -146,6 +147,10 @@ Number | Part | Value
 19 |  | 10 mm M3 Hex standoff
 20 |  | 10 mm M3 screw
 21 |  | 10 mm M3 screw
+
+Starting point for sourcing parts: 
+- https://octopart.com/bom-tool/pmHTMfR9
+- https://eu.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=09d13b7d7e
 
 Here are the [Gerber files](https://github.com/attowatt/i2c2midi/tree/main/hardware/gerber) for the PCB and panel.
 
