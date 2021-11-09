@@ -37,6 +37,11 @@ unsigned long lastLEDMillis1 = 0;
 unsigned long lastLEDMillis2 = 0;
 int animationSpeed = 100;
 
+unsigned long lastMicros = 0;
+unsigned long currentMicros = 0;
+
+bool clockOut = false;
+
 
 void setup() {
 
@@ -121,10 +126,11 @@ void loop() {
       // CLOCK messages have the same status for all MIDI channels 1-16
       // EX.M.CLK
       if (databuf[2] == 248) {
-        MIDI.sendRealTime(midi::Clock);   // !! not optimal, because this should be 24ppq
-        #ifdef USB_MIDI
-          usbMIDI.sendRealTime(usbMIDI.Clock);
-        #endif
+        deltaTime(lastMicros);
+//        MIDI.sendRealTime(midi::Clock);   // !! not optimal, because this should be 24ppq
+//        #ifdef USB_MIDI
+//          usbMIDI.sendRealTime(usbMIDI.Clock);
+//        #endif
       }
       // EX.M.START
       if (databuf[2] == 250) {
@@ -133,6 +139,7 @@ void loop() {
           usbMIDI.sendRealTime(usbMIDI.Start);
         #endif
         blinkLED(2);
+        clockOut = true;
       }
       // EX.M.CONT
       if (databuf[2] == 251) {
@@ -149,6 +156,7 @@ void loop() {
           usbMIDI.sendRealTime(usbMIDI.Stop);
         #endif
         blinkLED(2);
+        clockOut = false;
       }
 
     }
@@ -198,7 +206,17 @@ void loop() {
 
   checkNoteDurations();       // check if there are notes to turn off
   checkLEDs();                // check if the LEDs should be turned off
+  if (clockOut){
+    clockPulse();               // sends a clock out pulse 24 times between pulses
+  } 
+}
 
+void clockPulse(){
+        MIDI.sendRealTime(midi::Clock);
+        #ifdef USB_MIDI
+          usbMIDI.sendRealTime(usbMIDI.Clock);
+        #endif  
+        delayMicroseconds(deltaTime/24);
 }
 
 
@@ -347,4 +365,11 @@ void checkLEDs() {
   if (currentMillis - lastLEDMillis2 >= LEDBlinkLength) {
     digitalWrite(led2,LOW);
   }
+}
+
+//function for determining delta time
+void deltaTime(unsigned long lastMicros) {
+  unsigned long currentMicros = micros();
+  unsigned long deltaTime = currentMicros - lastMicros;
+  lastMicros = currentMicros;
 }
