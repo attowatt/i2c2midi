@@ -1,6 +1,6 @@
 # i2c2midi
 
-**i2c2midi is a DIY open source 2 hp eurorack module that speaks I2C and MIDI.**
+### i2c2midi is a DIY open source 2 hp eurorack module that speaks I2C and MIDI.
 
 i2c2midi is used together with [monome Teletype](https://monome.org/docs/teletype/) and external MIDI-enabled devices. 
 It receives I2C messages from Teletype and converts them to MIDI notes, MIDI CC messages and other MIDI messages to control external devices like synths and effects. 
@@ -18,7 +18,7 @@ i2c2midi lines community thread:
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 
-![](pictures/i2c2midi_diagram.png)
+![](pictures/i2c2midi_MK2_diagram.png)
 
 ## Table of content
 [Usage](#usage)  
@@ -37,53 +37,55 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ## Usage
 
-**Send MIDI messages**
+### Send MIDI messages
 
 ```
-EX 2                      // tells Teletype that following code in the script is meant for i2c2midi
-EX2:                      // tells Teletype that following line is meant for i2c2midi 
-EX.M.CH channel           // set the MIDI channel
+EX 2                       // tells Teletype that following code in the script is meant for i2c2midi
+EX2:                       // tells Teletype that following line is meant for i2c2midi 
+EX.M.CH channel            // set the MIDI channel
 ```
 ```
-EX.M.N note velocity      // send MIDI Note
-EX.M.CC controller value  // send MIDI CC
-EX.M.PB value             // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
-EX.M.PRG number           // sent MIDI Program Change
+EX.M.N note velocity       // send MIDI Note
+EX.M.CC controller value   // send MIDI CC
+EX.M.PB value              // sent MIDI Pitch Bend (-8192 - 8191); affects all notes per channel
+EX.M.PRG number            // sent MIDI Program Change
 ```
 ```
-EX.M.CLK                  // send MIDI clock pulse
-EX.M.START                // start MIDI transport start
-EX.M.STOP                 // stop MIDI transport stop
-EX.M.CONT                 // continue MIDI transport
+EX.M.CLK                   // send MIDI clock pulse
+EX.M.START                 // start MIDI transport start
+EX.M.STOP                  // stop MIDI transport stop
+EX.M.CONT                  // continue MIDI transport
 ```
 ```
-EX.P 1 value              // set note duration in milliseconds
-EX.P 2 value              // send MIDI Aftertouch value (0 - 127); affects all notes of last used channel
-EX.P 99 value             // set I2C address of i2c2midi (65 for EX 1, 66 for EX 2, 67 for EX 3, 68 for EX 4)
+EX.P 1 value               // set note duration in milliseconds
+EX.P 2 value               // send MIDI Aftertouch value (0 - 127); affects all notes of last used channel
+EX.P 99 value              // set I2C address of i2c2midi (65 for EX 1, 66 for EX 2, 67 for EX 3, 68 for EX 4)
 ```
 
-**Note off messages**
+### Note off messages
 
 The firmware takes care of Note off messages automatically, depending on the current note duration value (EX.P 1).
 
-**Receive MIDI messages**
+### Receive MIDI messages
 ```
-IAA 66             		  // set the I2C address (65, 66, 67, 68, depending on i2c2midi setting)
-X IIB1 channel controller // request currently stored value for controller and assign to X 
+IAA 66                     // set the I2C address (65, 66, 67, 68, depending on i2c2midi setting)
+X IIB1 channel controller  // request currently stored value for controller and assign to X 
 ```
 
 
-**LEDs**
+### LEDs
 
-The left LED lights up when I2C messages are incoming.
-The right LED lights up when MIDI messages are outgoing.
+The top LED lights up when MIDI messages are going out.
+The bottom LED lights up when MIDI messages are coming in.
+
 
 
 
 
 ## About the firmware
 
-**disting EX OPs**
+**disting EX OPs**  
+
 The firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
 Based on that setup, there are a few things to note and hardcoded within the firmware:
 
@@ -103,13 +105,16 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 - There is also a general I2C message used to control parameters of a disting Ex algorithm. This message is hijacked for additional parameters of the i2c2midi module. E.g. parameter 1 is hardcoded for note duration, parameter 2 for Aftertouch, etc.
 
-**Generic I2C OPs**
+**Generic I2C OPs**  
+
 For "MIDI in" functionality, the firmware uses the [generic I2C OPs](https://github.com/monome/teletype/blob/main/docs/ops/i2c.toml) of Teletype.
 
-**Connecting the Teensy to your computer**
+**Connecting the Teensy to your computer**  
+
 Caution: Do not connect power from the modular and the default USB port of the Teensy at the same time, unless you have separated the 5V pads on the Teensy!! Otherwise you will damage your Teensy. For more info, please follow [this link](https://www.pjrc.com/teensy/external_power.html).
    
-**Libraries used**
+**Libraries used**  
+
 - [i2c_t3](https://github.com/nox771/i2c_t3) for reading I2C
 - [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/) for sending MIDI
 - [USBHost_t36](https://github.com/PaulStoffregen/USBHost_t36) for USB host
@@ -163,8 +168,6 @@ Here are the [Gerber files](https://github.com/attowatt/i2c2midi/tree/main/hardw
 
 Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) about ordering the PCB and Pancel from a manufacturer.
 
-
-![](pictures/i2c2midi_v_2_0_kit.jpg)
 
 ## Build Guide
 
