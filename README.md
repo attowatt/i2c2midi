@@ -17,7 +17,7 @@ It receives MIDI CC and note message from external MIDI controllers and stores t
 i2c2midi lines community thread: 
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
-![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2.jpg)
+![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_shot.jpg)
 
 ![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_diagram.png)
 
