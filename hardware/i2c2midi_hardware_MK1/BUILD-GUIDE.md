@@ -2,7 +2,7 @@
 
 
 ## I 
-Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi/tree/main/hardware/i2c2midi_hardware_MK1/README.md#BOM).
+Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi/tree/main/hardware/i2c2midi_hardware_MK1#BOM).
 
 ![](pictures/i2c2midi_v_2_0_build_1.jpg)
 
