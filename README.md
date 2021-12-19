@@ -124,9 +124,9 @@ Caution: Do not connect power from the modular and the default USB port of the T
 
 ## Schematic
 
-![](hardware/i2c2midi_schematic.png)
+![](hardware/i2c2midi_hardware_MK2/i2c2midi_schematic.png)
 
-**MIDI TRS Type A Wiring:**
+**MIDI TRS Type A Wiring**
 
 Teensy | TRS | MIDI
 --- | --- | ---
@@ -164,7 +164,8 @@ Number | Part | Value
 23 | | 1x24 male pin header (if Teensy has no pins)
 24 | | 1x24 male pin header (if Teensy has no pins)
 
-Here are the [Gerber files](https://github.com/attowatt/i2c2midi/tree/main/hardware/gerber) for the PCB and panel.
+**PCB**
+Gerber files coming soon ...
 
 Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) about ordering the PCB and Pancel from a manufacturer.
 
