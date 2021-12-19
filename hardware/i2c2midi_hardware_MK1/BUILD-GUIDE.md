@@ -2,7 +2,7 @@
 
 
 ## I 
-Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
+Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi/tree/main/hardware/i2c2midi_hardware_MK1/README.md#BOM).
 
 ![](pictures/i2c2midi_v_2_0_build_1.jpg)
 
@@ -16,10 +16,10 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
   - Teensy header: I prefer to solder a few pins with the Teensy board attached (to make sure it will fit later), then remove the Teensy and solder the rest of the pins.
 - Cut the legs of the parts.
 
-![](../pictures/i2c2midi_v_2_0_build_2.jpg)
-![](../pictures/i2c2midi_v_2_0_build_3.jpg)
-![](../pictures/i2c2midi_v_2_0_build_4.jpg)
-![](../pictures/i2c2midi_v_2_0_build_5.jpg)
+![](pictures/i2c2midi_v_2_0_build_2.jpg)
+![](pictures/i2c2midi_v_2_0_build_3.jpg)
+![](pictures/i2c2midi_v_2_0_build_4.jpg)
+![](pictures/i2c2midi_v_2_0_build_5.jpg)
 
 
 ## III
@@ -31,8 +31,8 @@ Get the parts. Here's the [BOM](https://github.com/attowatt/i2c2midi#BOM).
 - Carefully place the LEDs into position, so they look nice on the panel. Then solder them.
 - Solder the stereo jack.
 
-![](../pictures/i2c2midi_v_2_0_build_6.jpg)
-![](../pictures/i2c2midi_v_2_0_build_7.jpg)
+![](pictures/i2c2midi_v_2_0_build_6.jpg)
+![](pictures/i2c2midi_v_2_0_build_7.jpg)
 
 
 ## V
@@ -58,5 +58,5 @@ Don't connect the module to Euro power and USB at the same time!
 After building the module, please test it very carefully in a separate case. This is a DIY module. I am not responsible for any damage to your gear.
 
 
-![](../pictures/i2c2midi_v_2_0_build_8.jpg)
-![](../pictures/i2c2midi_v_2_0_build_9.jpg)
+![](pictures/i2c2midi_v_2_0_build_8.jpg)
+![](pictures/i2c2midi_v_2_0_build_9.jpg)
