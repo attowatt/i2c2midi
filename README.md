@@ -81,8 +81,8 @@ X IIB1 channel controller  // request currently stored value for controller and 
 
 ### LEDs
 
-The top LED lights up when MIDI messages are going out.
-The bottom LED lights up when MIDI messages are coming in.
+- The top LED lights up when MIDI messages are going out.
+- The bottom LED lights up when MIDI messages are coming in.
 
 
 
@@ -123,7 +123,7 @@ Number | Part | Value
 14 | USB | USB Jack Type A vertical
 15 | POW | 2x5 male pin header angled
 16 | I2C | 2x3 male pin header angled
-17 | BRD | 1x10 male pin header angled
+17 |  | 1x10 male pin header angled
 18 |  | 10 mm M3 Hex standoff
 19 |  | 10 mm M3 screw
 20 |  | 10 mm M3 screw
