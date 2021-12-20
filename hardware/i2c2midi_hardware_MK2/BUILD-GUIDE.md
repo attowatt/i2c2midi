@@ -39,6 +39,7 @@ PCB a done. Let's continue with PCB b.
 
 ![](pictures/i2c2midi_MK2_build_09.JPG)
 ![](pictures/i2c2midi_MK2_build_10.JPG)
+![](pictures/i2c2midi_MK2_build_14.png)
 
 ## V
 
