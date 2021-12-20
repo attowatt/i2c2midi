@@ -34,7 +34,7 @@ PCB a done. Let's continue with PCB b.
 
 ## IV
 
-- Solder the 1x10 angled pin header to PCB b. 
+- Solder the 1x10 angled pin header to PCB b. Note the orientation: If the LEDs are on the bottom, the pins point  to the right.
 - Make sure it sits straight on the PCB. I prefer to secure the header in place with an excess spacer (1x1 or 1x2 with metal pins removed), then solder the two outer pins. I then remove the extra spacer and solder the remaining pins.
 
 ![](pictures/i2c2midi_MK2_build_09.JPG)
