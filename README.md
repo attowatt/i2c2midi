@@ -171,7 +171,7 @@ Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-tr
 
 ## Build Guide
 
-Here's the build guide: https://github.com/attowatt/i2c2midi/blob/main/hardware/i2c2midi_hardware_MK2/BUILD-GUIDE.md
+[Here's the build guide](hardware/i2c2midi_hardware_MK2/BUILD-GUIDE.md)
 
 
 ## Changelog
