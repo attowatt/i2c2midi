@@ -68,7 +68,7 @@ EX.P 2 value               // send MIDI Aftertouch value (0 - 127); affects all 
 EX.P 99 value              // set I2C address of i2c2midi (65 for EX 1, 66 for EX 2, 67 for EX 3, 68 for EX 4)
 ```
 
-### Note off messages
+**Note off messages**
 
 The firmware takes care of Note off messages automatically, depending on the current note duration value (EX.P 1).
 
