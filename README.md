@@ -41,6 +41,10 @@ The USB connection can be used for either MIDI *out* to connect one additional d
 
 If an external MIDI controller is connected via USB, all incoming MIDI CC messages (127 * 16 channels = 2032 values total) are stored internally in i2c2midi, and can be requested by Teletype at any time, using the generic I2C OPs (see below). 
 
+### Please note: Use external power or a powered USB hub!
+If you connect a MIDI device without own its power supply, use a powered USB hub with power supply in between i2c2midi and the MIDI device. This prevents too much current from being drawn from the Teensy. In case of OP-1, please turn off USB charging by pressing `shift` + `COM`, then `OPT` (T4), then turn the blue encoder to toggle USB charging off.
+  
+
 ![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_diagram.png)
 
 ### Send MIDI messages
