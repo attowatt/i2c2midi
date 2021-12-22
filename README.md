@@ -6,10 +6,9 @@ i2c2midi is used together with [monome Teletype](https://monome.org/docs/teletyp
 It receives I2C messages from Teletype and converts them to MIDI notes, MIDI CC messages and other MIDI messages to control external devices like synths and effects. 
 It receives MIDI CC and note message from external MIDI controllers and stores the values internally. These values can then be requested at any time by Teletype via I2C.
 
-- MIDI out via TRS (Type A) and USB
-- MIDI in via USB Host
-- handles MIDI note off messages automatically
-- settable note duration per note
+- MIDI *out* via TRS & USB
+- MIDI *in* via USB (i2c2midi acts as USB host)
+- handles MIDI note off messages automatically (settable note duration per note)
 - 8 voice polyphony per MIDI channel
 - 16 MIDI channels simultaneously
 - 2 HP, 42 mm depth
@@ -34,20 +33,31 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ## Usage
 
+### TRS
+
 i2c2midi can be used with up to 16 different external MIDI-enabled devices simultaneously, each device receiving MIDI messages on one of the 16 available MIDI channels. Just make sure, each device is set to a different MIDI channel. Use a TRS MIDI adapter (Type A) and a a MIDI splitter to connect all devices. 
 Please note: The TRS connection is MIDI *in* only!
 
-The USB connection can be used for either MIDI *out* to connect one additional device (e.g. Teenage Engineering OP-1), or MIDI *in* receiving MIDI CC messages from an external MIDI controller.
+### USB 
+
+The USB connection can be used for either MIDI *out* to connect one additional device (e.g. Teenage Engineering OP-1), or MIDI *in* to receive MIDI CC messages from an external MIDI controller.
+
+i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer.
 
 If an external MIDI controller is connected via USB, all incoming MIDI CC messages (127 * 16 channels = 2032 values total) are stored internally in i2c2midi, and can be requested by Teletype at any time, using the generic I2C OPs (see below). 
 
-### Please note: Use external power or a powered USB hub!
+
+
+**Please note: Use external power or a powered USB hub!**  
+
 If you connect a MIDI device without own its power supply, use a powered USB hub with power supply in between i2c2midi and the MIDI device. This prevents too much current from being drawn from the Teensy. In case of OP-1, please turn off USB charging by pressing `shift` + `COM`, then `OPT` (T4), then turn the blue encoder to toggle USB charging off.
   
 
 ![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_diagram.png)
 
 ### Send MIDI messages
+
+Use these commands in your Teletype script:
 
 ```
 EX 2                       // tells Teletype that following code in the script is meant for i2c2midi
@@ -72,15 +82,31 @@ EX.P 2 value               // send MIDI Aftertouch value (0 - 127); affects all 
 EX.P 99 value              // set I2C address of i2c2midi (65 for EX 1, 66 for EX 2, 67 for EX 3, 68 for EX 4)
 ```
 
-**Note off messages**
-
-The firmware takes care of Note off messages automatically, depending on the current note duration value (EX.P 1).
+The firmware takes care of note off messages automatically, depending on the current note duration value (EX.P 1).
 
 ### Receive MIDI messages
 ```
 IAA 66                     // set the I2C address (65, 66, 67, 68, depending on i2c2midi setting)
 X IIB1 channel controller  // request currently stored value for controller and assign to X 
 ```
+
+### Example Teletype script
+
+Send a random note with random velocity, and a random number for CC 1, on channel 1:
+```
+EX 2; EX.M.CH 1
+J + 60 RND 12
+K RRND 60 120
+EX.M.N J K
+EX.M.CC 1 RND 127
+```
+
+Request values for CC 1 - 4 (on channel 1) and store it in PRT 1 - 4:
+```
+IAA 66
+L 1 4: PRT I IIB1 1 I
+```
+
 
 
 ### LEDs
