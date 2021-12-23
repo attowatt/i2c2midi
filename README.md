@@ -20,6 +20,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ## Table of content
 [Usage](#usage)  
+[Tested USB Devices](#tested-usb-devices)  
 [Schematic](#schematic)  
 [BOM](#BOM)  
 [Build Guide](#Build-Guide)  
@@ -116,7 +117,23 @@ L 1 4: PRT I IIB1 1 I
 
 
 
+## Tested USB devices
 
+**USB MIDI out**
+- Teenage Engineering OP-1 (please turn off USB charging)
+- Elektron Analog Four
+- Moog Sub37
+- Nord Lead A1
+- *more to come ...*
+
+
+**USB MIDI in**
+- AKAI LPD8*
+- AKAI LPK25*
+- *more to come ...*
+
+  
+\* A powered USB hub in between i2c2midi and the device is recommended.
 
 
 
