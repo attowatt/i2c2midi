@@ -51,7 +51,7 @@ If an external MIDI controller is connected via USB, all incoming MIDI CC messag
 
 **Please note: Use external power or a powered USB hub!**  
 
-If you connect a MIDI device without own its power supply, use a powered USB hub with power supply in between i2c2midi and the MIDI device. This prevents too much current from being drawn from the Teensy. In case of OP-1, please turn off USB charging by pressing `shift` + `COM`, then `OPT` (T4), then turn the blue encoder to toggle USB charging off.
+If you connect a MIDI device without its own power supply, use a powered USB hub with power supply in between i2c2midi and the MIDI device. This prevents too much current from being drawn from the Teensy. In case of OP-1, please turn off USB charging by pressing `shift` + `COM`, then `OPT` (T4), then turn the blue encoder to toggle USB charging off.
   
 
 ![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_diagram.png)
