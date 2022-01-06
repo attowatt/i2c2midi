@@ -56,8 +56,8 @@ PCB a done. Let's continue with PCB b.
 - Then solder Thonkiconn and USB jack to the PCB. Make sure to use enough solder to secure the USB jack in place. 
 
 # VII
-- Place PCB a into the angled header of PCB b.
-- Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
+- Place PCB a into the angled header of PCB b. Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
+- Solder.
 - Finally, trim all the legs on PCB a as short as possible. I prefer to trim down all other legs, too (e.g. from power pins, I2C pins, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
 
 ![](pictures/i2c2midi_MK2_build_12.JPG)
