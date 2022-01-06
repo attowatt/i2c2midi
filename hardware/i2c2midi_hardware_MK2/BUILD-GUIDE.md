@@ -58,7 +58,7 @@ PCB a done. Let's continue with PCB b.
 # VII
 - Place PCB a into the angled header of PCB b.
 - Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
-- Finally, trim all the legs on PCB a as short as possible.
+- Finally, trim all the legs on PCB a as short as possible. I prefer to trim down all other legs, too (e.g. from power pins, I2C pins, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
 
 ![](pictures/i2c2midi_MK2_build_12.JPG)
 
