@@ -28,10 +28,10 @@ Let's start with PCB a.
 - I prefer to secure the Teensy with a rubber band to the PCB, then solder the four pins in each corner of the Teensy first.
 - Afterwards, I solder the remaining pins, on PCB and Teensy respectively. Please see the following graphic for which pins need to be soldered.
 
-PCB a done. Let's continue with PCB b.
-
 ![](pictures/i2c2midi_MK2_build_08.JPG)
 ![](pictures/i2c2midi_MK2_build_14.png)
+
+PCB a done. Let's continue with PCB b.
 
 ## IV
 
