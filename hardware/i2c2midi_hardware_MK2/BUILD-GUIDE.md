@@ -25,12 +25,13 @@ Let's start with PCB a.
 ## III
 - If your Teensy 3.6 comes without pins: Place the two 1x24 pin headers on the PCB, with the shorter legs facing up. Same with the 1x5 pin header for USB Host. Then place the Teensy on top. 
 - If your Teensy 3.6 comes with pins: Place the 1x5 pin header for USB Host on the PCB, with the shorter legs facing up. Then place the Teensy on top.
-- I prefer to secure the Teensy with a rubber band to the PCB, then solder the pins in each corner of the Teensy first.
-- Afterwards, I solder the remaining pins, on PCB and Teensy respectively. 
+- I prefer to secure the Teensy with a rubber band to the PCB, then solder the four pins in each corner of the Teensy first.
+- Afterwards, I solder the remaining pins, on PCB and Teensy respectively. Please see the following graphic for which pins need to be soldered.
 
 PCB a done. Let's continue with PCB b.
 
 ![](pictures/i2c2midi_MK2_build_08.JPG)
+![](pictures/i2c2midi_MK2_build_14.png)
 
 ## IV
 
@@ -39,7 +40,6 @@ PCB a done. Let's continue with PCB b.
 
 ![](pictures/i2c2midi_MK2_build_09.JPG)
 ![](pictures/i2c2midi_MK2_build_10.JPG)
-![](pictures/i2c2midi_MK2_build_14.png)
 
 ## V
 
