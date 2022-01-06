@@ -165,6 +165,9 @@ Please find a Build Guide [here](BUILD-GUIDE.md).
 
 ## Changelog
 
+**Version 2.6**
+- added MIDI clock implementation (not tested)
+
 **Version 2.5**
 - added optional USB MIDI support (for one's own modifications involving USB MIDI)
 
