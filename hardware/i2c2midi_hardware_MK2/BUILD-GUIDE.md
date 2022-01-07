@@ -18,6 +18,7 @@ Let's start with PCB a.
 
 ![](pictures/i2c2midi_MK2_build_02.JPG)
 ![](pictures/i2c2midi_MK2_build_03.JPG)
+![](pictures/i2c2midi_MK2_build_04.JPG)
 ![](pictures/i2c2midi_MK2_build_05.JPG)
 ![](pictures/i2c2midi_MK2_build_06.JPG)
 ![](pictures/i2c2midi_MK2_build_07.JPG)
@@ -29,17 +30,19 @@ Let's start with PCB a.
 - Afterwards, I solder the remaining pins, on PCB and Teensy respectively. Please see the following graphic for which pins need to be soldered.
 
 ![](pictures/i2c2midi_MK2_build_08.JPG)
-![](pictures/i2c2midi_MK2_build_14.png)
+![](pictures/i2c2midi_MK2_build_10.JPG)
+![](pictures/i2c2midi_MK2_build_outline.png)
 
 PCB a done. Let's continue with PCB b.
 
 ## IV
 
 - Solder the 1x10 angled pin header to PCB b. Note the orientation: If the LEDs are on the bottom, the pins point  to the right.
-- Make sure it sits straight on the PCB. I prefer to secure the header in place with an excess spacer (1x1 or 1x2 with metal pins removed), then solder the two outer pins. I then remove the extra spacer and solder the remaining pins.
+- Make sure it sits straight on the PCB. I prefer to secure the header in place with an excess spacer (1x1 or 1x2 with metal pins removed), and solder the two outer pins. I then remove the extra spacer and solder the remaining pins.
 
-![](pictures/i2c2midi_MK2_build_09.JPG)
-![](pictures/i2c2midi_MK2_build_10.JPG)
+![](pictures/i2c2midi_MK2_build_11.JPG)
+![](pictures/i2c2midi_MK2_build_12.JPG)
+![](pictures/i2c2midi_MK2_build_13.JPG)
 
 ## V
 
@@ -48,7 +51,8 @@ PCB a done. Let's continue with PCB b.
 - Grab the Panel and place the USB jack through the panel.
 - Place the panel on top of the stereo jack and spacer, and place the USB jack into the PCB. Secure the panel to the jack with the nut and to the spacer with the second M3 screw.
 
-![](pictures/i2c2midi_MK2_build_11.JPG)
+![](pictures/i2c2midi_MK2_build_14.JPG)
+![](pictures/i2c2midi_MK2_build_15.JPG)
 
 ## VI
 - Carefully place the LEDs into position, so they look nice on the panel. You can position them flush with the panel or let them stick out – your choice :) 
@@ -60,7 +64,8 @@ PCB a done. Let's continue with PCB b.
 - Solder.
 - Finally, trim all the legs on PCB a as short as possible. I prefer to trim down all other legs, too (e.g. from power pins, I2C pins, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
 
-![](pictures/i2c2midi_MK2_build_12.JPG)
+![](pictures/i2c2midi_MK2_build_16.JPG)
+![](pictures/i2c2midi_MK2_build_17.JPG)
 
 Congrats, you're done with soldering.
 
@@ -86,5 +91,5 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 ## Disclaimer:
 After building the module, please test it very carefully in a separate case. This is a DIY module. I am not responsible for any damage to your gear.
 
-![](pictures/i2c2midi_MK2_build_13.JPG)
+![](pictures/i2c2midi_MK2_build_18.JPG)
 
