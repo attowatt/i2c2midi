@@ -4,7 +4,7 @@
 
 i2c2midi is used together with [monome Teletype](https://monome.org/docs/teletype/) and external MIDI-enabled devices. 
 It receives I2C messages from Teletype and converts them to MIDI notes, MIDI CC messages and other MIDI messages to control external devices like synths and effects. 
-It receives MIDI CC and note message from external MIDI controllers and stores the values internally. These values can then be requested at any time by Teletype via I2C.
+It receives MIDI CC messages from external MIDI controllers and stores the values internally. These values can then be requested at any time by Teletype via I2C.
 
 - MIDI *out* via TRS & USB
 - MIDI *in* via USB (i2c2midi acts as USB host)
