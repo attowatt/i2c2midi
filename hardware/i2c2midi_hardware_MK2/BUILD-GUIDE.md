@@ -64,6 +64,7 @@ PCB a done. Let's continue with PCB b.
 - Solder.
 - Finally, trim all the legs on PCB a as short as possible. I prefer to trim down *all* legs (including power header, I2C header, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
 
+![](pictures/i2c2midi_MK2_build_15b.jpg)
 ![](pictures/i2c2midi_MK2_build_16.JPG)
 ![](pictures/i2c2midi_MK2_build_17.JPG)
 
