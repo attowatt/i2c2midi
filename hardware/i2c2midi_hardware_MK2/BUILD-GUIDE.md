@@ -24,10 +24,10 @@ Let's start with PCB a.
 ![](pictures/i2c2midi_MK2_build_07.JPG)
 
 ## III
-- If your Teensy 3.6 comes without pins: Place the two 1x24 pin headers on the PCB, with the shorter legs facing up. Same with the 1x5 pin header for USB Host. Then place the Teensy on top. 
 - If your Teensy 3.6 comes with pins: Place the 1x5 pin header for USB Host on the PCB, with the shorter legs facing up. Then place the Teensy on top.
+- If your Teensy 3.6 comes without pins: Place the two 1x24 pin headers on the PCB, with the shorter legs facing up. Same with the 1x5 pin header for USB Host. Then place the Teensy on top. You can also use shorter pin headers if you don't have 1x24s, since not all Teensy Pins are needed (as seen in the picture). Please refer to the following graphic for which pins need to be soldered.
 - I prefer to secure the Teensy with a rubber band to the PCB, then solder the four pins in each corner of the Teensy first.
-- Afterwards, I solder the remaining pins, on PCB and Teensy respectively. Please see the following graphic for which pins need to be soldered.
+- Afterwards, I solder the remaining pins, on PCB and Teensy respectively. 
 
 ![](pictures/i2c2midi_MK2_build_08.JPG)
 ![](pictures/i2c2midi_MK2_build_10.JPG)
@@ -62,7 +62,7 @@ PCB a done. Let's continue with PCB b.
 # VII
 - Place PCB a into the angled header of PCB b. Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
 - Solder.
-- Finally, trim all the legs on PCB a as short as possible. I prefer to trim down all other legs, too (e.g. from power pins, I2C pins, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
+- Finally, trim all the legs on PCB a as short as possible. I prefer to trim down *all* legs (including power header, I2C header, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
 
 ![](pictures/i2c2midi_MK2_build_16.JPG)
 ![](pictures/i2c2midi_MK2_build_17.JPG)
