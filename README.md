@@ -36,7 +36,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ### TRS
 
-i2c2midi can be used with up to 16 different external MIDI-enabled devices simultaneously, each device receiving MIDI messages on one of the 16 available MIDI channels. Just make sure, each device is set to a different MIDI channel. Use a TRS MIDI adapter (Type A) and a a MIDI splitter to connect all devices. 
+i2c2midi can be used with up to 16 different external MIDI-enabled devices simultaneously, each device receiving MIDI messages on one of the 16 available MIDI channels. Just make sure each device is set to a different MIDI channel. Use a TRS MIDI adapter (Type A) and a a MIDI splitter to connect all devices. 
 Please note: The TRS connection is MIDI *out* only!
 
 ### USB 
