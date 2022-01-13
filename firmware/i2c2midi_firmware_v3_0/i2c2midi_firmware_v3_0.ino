@@ -325,7 +325,7 @@ void midiNoteOn(int pitch, int noteDuration, int velocity, int channel) {
       #endif
       MIDI.sendNoteOff(notes[channel][i][0], 0, channel+1);
       #ifdef USB_MIDI 
-        usbMIDI.sendNoteOff(pitch, 0, channel+1);
+        usbMIDI.sendNoteOff(notes[channel][i][0], 0, channel+1);
         
       #endif
       digitalWrite(led2,LOW);
