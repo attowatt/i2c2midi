@@ -22,6 +22,7 @@
 uint8_t databuf[MEM_LEN];
 volatile uint8_t received;
 void receiveEvent(size_t count);
+void requestEvent(void);
 
 // MIDI Serial (Din Connector)
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);    
