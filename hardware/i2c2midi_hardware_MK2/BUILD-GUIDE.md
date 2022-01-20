@@ -24,6 +24,9 @@ Let's start with PCB a.
 ![](pictures/i2c2midi_MK2_build_07.JPG)
 
 ## III
+*A quick note before we continue with the Teensy: If you plan to use the Micro USB jack of the Teensy for sending MIDI device data to a host (e.g. a compouter) alongside the USB host connection on the i2c2midi front panel: Please cut the "5V pad" on the Teensy before soldering! More information please see: https://www.pjrc.com/teensy/external_power.html   
+Be aware, that if you cut the pads, powering i2c2midi will then only be possible via eurorack, so flashing the firmware has to be done while connected to your eurorack case.*
+
 - If your Teensy 3.6 comes with pins: Place the 1x5 pin header for USB Host on the PCB, with the shorter legs facing up. Then place the Teensy on top.
 - If your Teensy 3.6 comes without pins: Place the two 1x24 pin headers on the PCB, with the shorter legs facing up. Same with the 1x5 pin header for USB Host. Then place the Teensy on top. You can also use shorter pin headers if you don't have 1x24s, since not all Teensy Pins are needed (as seen in the picture). Please refer to the following graphic for which pins need to be soldered.
 - I prefer to secure the Teensy with a rubber band to the PCB, then solder the four pins in each corner of the Teensy first.
