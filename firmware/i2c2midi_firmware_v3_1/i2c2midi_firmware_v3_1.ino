@@ -27,8 +27,8 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 // The front panel USB jack ...
 // ... receives data from MIDI controllers
 // ... sends out MIDI data to devices (e.g. synths)
-USBHost myusb;                                        // MIDI host: MIDI in
-USBHub hub1(myusb);                                   // |     
+USBHost myusb;                                        
+USBHub hub1(myusb);                                   // MIDI host: MIDI in     
 MIDIDevice_BigBuffer midiDevice(myusb);               // MIDI host: MIDI out
 
 // values init
@@ -68,9 +68,7 @@ void setup() {
 
   // start MIDI
   MIDI.begin();
-  
-    midiDevice.begin();
-  
+  myusb.begin();
   
   // start up animation
   for (int i=0; i < 4; i++) {
