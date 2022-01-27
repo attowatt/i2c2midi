@@ -12,7 +12,7 @@ i2c2midi lines community thread:
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 
-![](pictures/i2c2midi_diagram.png)
+![](hardware/pictures/i2c2midi_diagram.png)
 
 ## Table of content
 [Details](#Details)  
