@@ -1,4 +1,4 @@
-# Build Guide
+# Build Guide MKII
 
 
 ## I 
@@ -94,7 +94,7 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 
 All done – Have fun!
 
-## Disclaimer:
+## Disclaimer
 After building the module, please test it very carefully in a separate case. This is a DIY module. I am not responsible for any damage to your gear.
 
 ![](pictures/i2c2midi_MK2_build_18.JPG)
