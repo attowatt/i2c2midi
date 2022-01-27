@@ -57,10 +57,11 @@ PCB a done. Let's continue with PCB b.
 ![](pictures/i2c2midi_MK2_build_14.JPG)
 ![](pictures/i2c2midi_MK2_build_15.JPG)
 
+
 ## VI
-- Carefully place the LEDs into position, so they look nice on the panel. You can position them flush with the panel or let them stick out – your choice :) 
-- If you double-checked the LEDs are in position, solder them.
-- Then solder Thonkiconn and USB jack to the PCB. Make sure to use enough solder to secure the USB jack in place. 
+- Solder Thonkiconn and USB jack to the PCB. Make sure to use enough solder to secure the USB jack in place. 
+- Carefully place the LEDs into position, so they look nice on the panel. You can position them flush with the panel or let them stick out – your choice :) If you double-checked the LEDs are in position, solder them.
+
 
 # VII
 - Place PCB a into the angled header of PCB b. Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
