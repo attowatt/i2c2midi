@@ -34,7 +34,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 - Based on Teensy 3.2
 
 
-![](pictures/i2c2midi_v_2_0_side.jpg)
+![](hardware/pictures/i2c2midi_v_2_0_side.jpg)
 
 
 ## Usage
@@ -152,16 +152,16 @@ Starting point for sourcing parts:
 - https://octopart.com/bom-tool/pmHTMfR9
 - https://eu.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=09d13b7d7e
 
-Here are the [Gerber files](https://github.com/attowatt/i2c2midi/tree/main/hardware/gerber) for the PCB and panel.
+Here are the [Gerber files](hardware/gerber/) for the PCB and panel.
 
 Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) about ordering the PCB and Pancel from a manufacturer.
 
 
-![](pictures/i2c2midi_v_2_0_kit.jpg)
+![](hardware/pictures/i2c2midi_v_2_0_kit.jpg)
 
 ## Build Guide
 
-Please find a Build Guide [here](BUILD-GUIDE.md).
+Please find a Build Guide [here](hardware/BUILD-GUIDE.md).
 
 ## Changelog
 
