@@ -72,7 +72,7 @@ PCB a done. Let's continue with PCB b.
 ![](pictures/i2c2midi_MK2_build_16.JPG)
 ![](pictures/i2c2midi_MK2_build_17.JPG)
 
-Congrats, you're done with soldering.
+Ok, done with soldering!
 
 ## VIII
 Flash the firmware to the Teensy.
@@ -81,7 +81,7 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 **Via Teensyduino**
 - Download the firmware and open it with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
 - Connect the Teensy to your computer with a USB cable.
-- Under `Tools`, set `Board` to `Teensy 3.6`, `USB Type` to `Serial`, and select the `Port` that shows the Teensy.
+- Under `Tools`, set `Board` to `Teensy 3.6`, `USB Type` to `Serial`, and select the `Port` that shows the Teensy. Set `CPU Speed` to `96 MHz`.
 - Upload the firmware to your Teensy via `Sketch` → `Upload`. 
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
@@ -92,6 +92,7 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 - Select `Program`.
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
+All done – Have fun!
 
 ## Disclaimer:
 After building the module, please test it very carefully in a separate case. This is a DIY module. I am not responsible for any damage to your gear.
