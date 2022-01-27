@@ -1,4 +1,4 @@
-// Jan 20, 2021 
+// Jan 27, 2021 
 // v3_1
 // https://github.com/attowatt/i2c2midi
 
@@ -7,10 +7,11 @@
 #include <USBHost_t36.h>
 
 
-// DEBUG
-// Uncomment this to see i2c messages etc. in the serial monitor:
+
+// Uncomment this to see debug messages in the serial monitor:
 //#define DEBUG      
-// Uncomment to automatically send MIDI data
+
+// Uncomment this to send out a test MIDI Note On message in 1s intervals:
 //#define MOCK
  
 // I2C
@@ -24,12 +25,19 @@ void requestEvent(void);
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);    
 
 // USB Host
-// The front panel USB jack ...
-// ... receives data from MIDI controllers
-// ... sends out MIDI data to devices (e.g. synths)
+//    The front panel USB jack ...
+//    ... receives data from MIDI controllers
+//    ... sends out MIDI data to devices (e.g. synths)
 USBHost myusb;                                        
 USBHub hub1(myusb);                                   // MIDI host: MIDI in     
 MIDIDevice_BigBuffer midiDevice(myusb);               // MIDI host: MIDI out
+
+// USB Device
+//   i2c2midi can also act as a USB device and send MIDI data over the Teensy Micro USB jack to a host (e.g. a computer).
+//   Please note: Do not connect Teensy USB and Euro Power at the same time! Please cut the 5V pads on the Teensy!
+//   Select Tools -> USB Type "MIDI" in Teensyduino, and uncomment the next line to turn the MIDI device feature on:
+//#define USB_DEVICE
+      
 
 // values init
 unsigned long notes[16][8][4];    // array to store the note information: pitch, start time, duration, currently on/off
@@ -137,23 +145,35 @@ void loop() {
       if (databuf[2] == 248) {
         MIDI.sendRealTime(midi::Clock);   // !! not optimal, because this should be 24ppq
         midiDevice.sendRealTime(midiDevice.Clock);
+        #ifdef USB_DEVICE
+          usbMIDI.sendRealTime(midiDevice.Clock);
+        #endif
       }
       // EX.M.START
       if (databuf[2] == 250) {
         MIDI.sendRealTime(midi::Start);
         midiDevice.sendRealTime(midiDevice.Start);
+        #ifdef USB_DEVICE
+          usbMIDI.sendRealTime(midiDevice.Start);
+        #endif
         blinkLED(1);
       }
       // EX.M.CONT
       if (databuf[2] == 251) {
         MIDI.sendRealTime(midi::Continue);
         midiDevice.sendRealTime(midiDevice.Continue);
+        #ifdef USB_DEVICE
+          usbMIDI.sendRealTime(midiDevice.Continue);
+        #endif
         blinkLED(1);
       }
       // EX.M.STOP
       if (databuf[2] == 252) {
         MIDI.sendRealTime(midi::Stop);
         midiDevice.sendRealTime(midiDevice.Stop);
+        #ifdef USB_DEVICE
+          usbMIDI.sendRealTime(midiDevice.Stop);
+        #endif
         blinkLED(1);
       }
 
@@ -175,6 +195,9 @@ void loop() {
       if (databuf[1] == 2) {                                
         MIDI.sendAfterTouch(constrain(value, 0, 127), lastChannel+1);   
         midiDevice.sendAfterTouch(constrain(value, 0, 127), lastChannel+1);
+        #ifdef USB_DEVICE
+          usbMIDI.sendAfterTouch(constrain(value, 0, 127), lastChannel+1);
+        #endif
         blinkLED(1);                          
       }
 
@@ -303,7 +326,9 @@ void midiNoteOn(int pitch, int noteDuration, int velocity, int channel) {
       #endif
       MIDI.sendNoteOff(notes[channel][i][0], 0, channel+1);
       midiDevice.sendNoteOff(notes[channel][i][0], 0, channel+1);
-      
+      #ifdef USB_DEVICE
+        usbMIDI.sendNoteOff(notes[channel][i][0], 0, channel+1);
+      #endif
       digitalWrite(led2,LOW);
       notes[channel][i][3] = 0;
     }
@@ -332,6 +357,9 @@ void midiNoteOn(int pitch, int noteDuration, int velocity, int channel) {
 
   MIDI.sendNoteOn(pitch, velocity, channel+1);
   midiDevice.sendNoteOn(pitch, velocity, channel+1);
+  #ifdef USB_DEVICE
+    usbMIDI.sendNoteOn(pitch, velocity, channel+1);
+  #endif
   
   blinkLED(1);
 
@@ -348,6 +376,9 @@ void midiNoteOn(int pitch, int noteDuration, int velocity, int channel) {
 void midiNoteOff(int pitch, int channel) {
     MIDI.sendNoteOff(pitch, 0, channel+1);
     midiDevice.sendNoteOff(pitch, 0, channel+1);
+    #ifdef USB_DEVICE
+      usbMIDI.sendNoteOff(pitch, 0, channel+1);
+    #endif
     blinkLED(1);
     #ifdef DEBUG  
     Serial.print("Sending MIDI Note Off: ");
@@ -377,6 +408,9 @@ void checkNoteDurations() {
 void sendMidiCc(int controller, int value, int channel){
   MIDI.sendControlChange(controller, value, channel+1);
   midiDevice.sendControlChange(controller, value, channel+1);
+  #ifdef USB_DEVICE
+    usbMIDI.sendControlChange(controller, value, channel+1);
+  #endif
   #ifdef DEBUG  
     Serial.print("Sending MIDI CC: ");
     Serial.print(controller); Serial.print(", ");
@@ -391,6 +425,9 @@ void sendMidiCc(int controller, int value, int channel){
 void sendMidiProgramChange(int programNumber, int channel){
   MIDI.sendProgramChange(programNumber, channel+1);
   midiDevice.sendProgramChange(programNumber, channel+1);
+  #ifdef USB_DEVICE
+    usbMIDI.sendProgramChange(programNumber, channel+1);
+  #endif
   blinkLED(1);
 }
 
@@ -401,6 +438,9 @@ void sendMidiPitchBend(int MSB, int LSB, int channel){
   //int value2 = (8191./127.)*value;
   MIDI.sendPitchBend(value, channel+1);
   midiDevice.sendPitchBend(value, channel+1);
+  #ifdef USB_DEVICE
+    usbMIDI.sendPitchBend(value, channel+1);
+  #endif
   blinkLED(1);
 }
 
@@ -438,9 +478,9 @@ void checkLEDs() {
   void sendTestMidiData() {
     unsigned long currentMillis2 = millis();
     if (currentMillis2 - lastFakeMIDI >= automationLength) {
-      midiNoteOn(60 + (random(10)), 100, 120, 144-144);
+      midiNoteOn(60 + (random(10)), 100, 120, 0);
       blinkLED(1);
-      lastChannel = 144-144;
+      lastChannel = 0;
       lastFakeMIDI = millis();
     }
   }
