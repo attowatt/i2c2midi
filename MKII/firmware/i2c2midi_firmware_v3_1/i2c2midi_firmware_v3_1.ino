@@ -8,10 +8,10 @@
 
 
 
-// Uncomment this to see debug messages in the serial monitor:
+// Uncomment to see debug messages in the serial monitor:
 //#define DEBUG      
 
-// Uncomment this to send out a test MIDI Note On message in 1s intervals:
+// Uncomment to send out a test MIDI Note On message in 1s intervals:
 //#define MOCK
  
 // I2C
