@@ -231,6 +231,9 @@ Caution: Do not connect power from the modular and the default USB port of the T
 
 ## Changelog
 
+**Version 3.1**
+- Added feature flag to use i2c2midi as USB device, using the Teensy Micro USB jack.
+
 **Version 3.0 (MKII)**
 - Firmware for i2c2midi hardware MKII, adding USB Host functionality.
 
