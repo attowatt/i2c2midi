@@ -40,7 +40,7 @@ PCB a done. Let's continue with PCB b.
 
 ## IV
 
-- Solder the 1x10 angled pin header to PCB b. Note the orientation: If the LEDs are on the bottom, the pins point  to the right.
+- Solder the 1x10 angled pin header to PCB b. Note the orientation: If the LEDs are on the bottom, the pins point to the right.
 - Make sure it sits straight on the PCB. I prefer to secure the header in place with an excess spacer (1x1 or 1x2 with metal pins removed), and solder the two outer pins. I then remove the extra spacer and solder the remaining pins.
 
 ![](pictures/i2c2midi_MK2_build_11.JPG)
@@ -50,7 +50,7 @@ PCB a done. Let's continue with PCB b.
 ## V
 
 - Mount the spacer to PCB b with one of the two M3 screws.
-- Place the Thonkiconn stereo jack and LEDs into their positions, but don't solder them yet.
+- Place the Thonkiconn stereo jack and LEDs into their positions, but don't solder them yet. Mind the orientation of the LEDs: The longer leg is `+`.
 - Grab the Panel and place the USB jack through the panel.
 - Place the panel on top of the stereo jack and spacer, and place the USB jack into the PCB. Secure the panel to the jack with the nut and to the spacer with the second M3 screw.
 
