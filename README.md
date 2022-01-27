@@ -16,7 +16,7 @@ It receives MIDI CC messages from external MIDI controllers and stores the value
 i2c2midi lines community thread: 
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
-![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_shot.jpg)
+![](MKII/hardware/pictures/i2c2midi_MK2_shot.jpg)
 
 ## Table of content
 [Usage](#usage)  
@@ -54,7 +54,7 @@ If an external MIDI controller is connected via USB, all incoming MIDI CC messag
 If you connect a MIDI device without its own power supply, use a powered USB hub with power supply in between i2c2midi and the MIDI device. This prevents too much current from being drawn from the Teensy. In case of OP-1, please turn off USB charging by pressing `shift` + `COM`, then `OPT` (T4), then turn the blue encoder to toggle USB charging off.
   
 
-![](hardware/i2c2midi_hardware_MK2/pictures/i2c2midi_MK2_diagram.png)
+![](MKII/hardware/pictures/i2c2midi_MK2_diagram.png)
 
 ### Send MIDI messages
 
@@ -139,7 +139,7 @@ L 1 4: PRT I IIB1 1 I
 
 ## Schematic
 
-![](hardware/i2c2midi_hardware_MK2/i2c2midi_schematic.png)
+![](MKII/hardware/i2c2midi_schematic.png)
 
 **MIDI TRS Type A Wiring**
 
@@ -187,7 +187,7 @@ Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-tr
 
 ## Build Guide
 
-[Here's the build guide](hardware/i2c2midi_hardware_MK2/BUILD-GUIDE.md)
+[Here's the build guide](MKII/hardware//BUILD-GUIDE.md)
 
 
 ## About the firmware
