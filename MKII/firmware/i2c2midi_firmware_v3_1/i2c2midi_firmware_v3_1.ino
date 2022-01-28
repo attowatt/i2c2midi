@@ -300,13 +300,21 @@ void receiveEvent(size_t count) {
 void requestEvent()
 {
   #ifdef DEBUG
-    Serial.print("DATABUF 0: "); Serial.println(databuf[0]);
-    Serial.print("DATABUF 1: "); Serial.println(databuf[1]);
-    Serial.print("DATABUF 2: "); Serial.println(databuf[2]);
-    Serial.print("DATABUF 3: "); Serial.println(databuf[3]);
+    Serial.print("DATABUF_Q 0: "); Serial.println(databuf[0]);
+    Serial.print("DATABUF_Q 1: "); Serial.println(databuf[1]);
+    Serial.print("DATABUF_Q 2: "); Serial.println(databuf[2]);
+    Serial.print("DATABUF_Q 3: "); Serial.println(databuf[3]);
   #endif
+  
   int channel = databuf[0];
+  if (channel < 1 || channel > 16) return;
+
   int CCnumber = (int16_t)(databuf[1] << 8 | databuf[2]);  
+  if (CCnumber < 0 || CCnumber > 127) return;
+  
+  int value = usbMidiCCs[channel-1][CCnumber];
+  if (value < 0 || value > 127) return;
+
   #ifdef DEBUG
     Serial.print("CC Nb: "); Serial.println(CCnumber);
   #endif
