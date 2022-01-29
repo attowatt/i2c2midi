@@ -87,7 +87,7 @@ The firmware takes care of note off messages automatically, depending on the cur
 
 ### Receive MIDI messages
 ```
-IAA 66                     // set the I2C address (65, 66, 67, 68, depending on i2c2midi setting)
+IIA 66                     // set the I2C address (65, 66, 67, 68, depending on i2c2midi setting)
 X IIB1 channel controller  // request currently stored value for controller and assign to X 
 ```
 
@@ -104,7 +104,7 @@ EX.M.CC 1 RND 127
 
 Request values for CC 1 - 4 (on channel 1) and store it in PRT 1 - 4:
 ```
-IAA 66
+IIA 66
 L 1 4: PRT I IIB1 1 I
 ```
 
@@ -233,6 +233,7 @@ Caution: Do not connect power from the modular and the default USB port of the T
 
 **Version 3.1**
 - Added feature flag to use i2c2midi as USB device, using the Teensy Micro USB jack.
+- Fixed a bug where unknown I2C request messages would freeze the I2C bus.
 
 **Version 3.0 (MKII)**
 - Firmware for i2c2midi hardware MKII, adding USB Host functionality.
