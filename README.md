@@ -102,10 +102,10 @@ EX.M.N J K
 EX.M.CC 1 RND 127
 ```
 
-Request values for CC 1 - 4 (on channel 1) and store it in PRT 1 - 4:
+Request values for CC 1 - 4 on channel 1 and store it in pattern 0, step 0-3:
 ```
 IIA 66
-L 1 4: PRT I IIB1 1 I
+L 0 3: PN 0 I IIB1 + I 1
 ```
 
 
@@ -130,6 +130,7 @@ L 1 4: PRT I IIB1 1 I
 **USB MIDI in**
 - AKAI LPD8*
 - AKAI LPK25*
+- Faderfox EC4
 - *more to come ...*
 
   
