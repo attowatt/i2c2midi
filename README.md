@@ -130,7 +130,7 @@ L 0 3: PN 0 I IIB1 + I 1
 **USB MIDI in**
 - AKAI LPD8*
 - AKAI LPK25*
-- Faderfox EC4
+- Faderfox EC4*
 - *more to come ...*
 
   
