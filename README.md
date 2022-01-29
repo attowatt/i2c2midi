@@ -193,7 +193,7 @@ Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-tr
 
 ## About the firmware
 
-**disting EX OPs**  
+### disting EX OPs
 
 The firmware is written specifically for I2C messages sent from [monome Teletype](https://monome.org/docs/teletype/) using the [disting Ex MIDI OPs](https://github.com/scanner-darkly/teletype/wiki/DISTING-EX-INTEGRATION) by [scanner-darkly](https://github.com/scanner-darkly). The i2c2midi module “poses” as a second disting.
 Based on that setup, there are a few things to note and hardcoded within the firmware:
@@ -214,20 +214,25 @@ Based on that setup, there are a few things to note and hardcoded within the fir
 
 - There is also a general I2C message used to control parameters of a disting Ex algorithm. This message is hijacked for additional parameters of the i2c2midi module. E.g. parameter 1 is hardcoded for note duration, parameter 2 for Aftertouch, etc.
 
-**Generic I2C OPs**  
+### Generic I2C OPs 
 
 For "MIDI in" functionality, the firmware uses the [generic I2C OPs](https://github.com/monome/teletype/blob/main/docs/ops/i2c.toml) of Teletype.
 
-**Connecting the Teensy to your computer**  
+### Connecting the Teensy to your computer
 
 Caution: Do not connect power from the modular and the default USB port of the Teensy at the same time, unless you have separated the 5V pads on the Teensy!! Otherwise you will damage your Teensy. For more info, please follow [this link](https://www.pjrc.com/teensy/external_power.html).
    
-**Libraries used**  
+### Libraries used
 
-- [i2c_t3](https://github.com/nox771/i2c_t3) for reading I2C
-- [Arduino MIDI library](https://github.com/FortySevenEffects/arduino_midi_library/) for sending MIDI
-- [USBHost_t36](https://github.com/PaulStoffregen/USBHost_t36) for USB host
-
+- Arduino MIDI Library  
+  MIT License – Copyright (c) 2016 Francois Best  
+  https://github.com/FortySevenEffects/arduino_midi_library
+- I2C_t3  
+  MIT License – Copyright (c) 2013-2018, Brian (nox771 at gmail.com)  
+  https://github.com/nox771/i2c_t3
+- USBHost_t36  
+  MIT License – Copyright 2017 Paul Stoffregen (paul@pjrc.com)  
+  https://github.com/PaulStoffregen/USBHost_t36
 
 
 ## Changelog
