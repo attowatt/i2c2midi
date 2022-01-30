@@ -41,13 +41,13 @@ Please note: The TRS connection is MIDI *out* only!
 
 ### USB 
 
-The USB connection can be used for either MIDI *out* to connect one additional device (e.g. Teenage Engineering OP-1), or MIDI *in* to receive MIDI CC messages from an external MIDI controller.
-
-i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer.
+The USB connection can be used for either MIDI *out* to connect additional devices (e.g. Teenage Engineering OP-1), or MIDI *in* to receive MIDI CC messages from an external MIDI controller.
 
 If an external MIDI controller is connected via USB, all incoming MIDI CC messages (127 * 16 channels = 2032 values total) are stored internally in i2c2midi, and can be requested by Teletype at any time, using the generic I2C OPs (see below). 
 
+Several devices can be connected using a USB hub.
 
+i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer. However, this also means that a computer (which acts as a host itself) can not be connected. If you want to connect a USB host, you can use the Micro USB jack on the Teensy (on the back of the module) and take a look at line 39 in the firmware. 
 
 **Please note: Use external power or a powered USB hub!**  
 
