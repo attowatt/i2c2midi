@@ -1,13 +1,21 @@
+
+
 // January 30, 2022 
 // v2_7
 // https://github.com/attowatt/i2c2midi
 
-
-// Midi Clock implemented using https://github.com/DieterVDW/arduino-midi-clock
-
-#include <TimerOne.h>
 #include <i2c_t3.h>
 #include <MIDI.h>
+
+// using https://github.com/rlogiacco/CircularBuffer
+#include <CircularBuffer.h>
+
+// using https://github.com/midilab/uClock
+#include <uClock.h>
+
+#define MIDI_CLOCK 0xF8
+#define MIDI_START 0xFA
+#define MIDI_STOP  0xFC
 
 // DEBUG
 // Uncomment this to see i2c messages etc. in the serial monitor:
@@ -41,32 +49,15 @@ unsigned long lastLEDMillis1 = 0;
 unsigned long lastLEDMillis2 = 0;
 int animationSpeed = 100;
 
-// int lastMicros = 0;
-// int currentMicros = 0;
-// int deltaTime = 1000;
-// int clockPulsePerBeat = 24;
-// float clockDiv = 1/4; // change this to change the ratio of teletype M to clock pulse ie. M 1000 @ 1/4 = 60 BPM
+#define NUMBER_OF_TAPS 3
 
-#define CLOCKS_PER_BEAT 24
-#define MINIMUM_BPM 400 // Used for debouncing
-#define MAXIMUM_BPM 3000 // Used for debouncing
+CircularBuffer<float, NUMBER_OF_TAPS> tapBuffer;
 
-long intervalMicroSeconds;
-int bpm;  // BPM in tenths of a BPM!!
-
-bool initialized = false;
-long minimumTapInterval = 60L * 1000 * 1000 * 10 / MAXIMUM_BPM;
-long maximumTapInterval = 60L * 1000 * 1000 * 10 / MINIMUM_BPM;
-
-volatile long firstTapTime = 0;
-volatile long lastTapTime = 0;
-volatile long timesTapped = 0;
-
-#define MINIMUM_TAPS 3
-#define EXIT_MARGIN 150 // If no tap after 150% of last tap interval -> measure and set
-
-volatile int blinkCount = 0;
-
+float sum = 0;
+float avg = 0;
+int lastTap = 0;
+int currentTap = millis();
+float tempo = 120.0;
 
 void setup() {
 
@@ -97,17 +88,23 @@ void setup() {
   
   Serial.println("started");
 
-  Timer1.initialize(intervalMicroSeconds);
-  Timer1.setPeriod(calculateIntervalMicroSecs(bpm));
-  Timer1.attachInterrupt(sendClockPulse);
-  
-}
+  // Inits the clock
+  uClock.init();
+  // Set the callback function for the clock output to send MIDI Sync message.
+  uClock.setClock96PPQNOutput(ClockOut96PPQN);
+  // Set the callback function for MIDI Start and Stop messages.
+  uClock.setOnClockStartOutput(onClockStart);  
+  uClock.setOnClockStopOutput(onClockStop);
+  // Set the clock BPM to 120 BPM
+  uClock.setTempo(tempo);
 
+  // Starts the clock, tick-tac-tick-tac...
+  uClock.start();
+ 
+}
 
 void loop() {
   
-  long now = micros();
-
   if(received) {
 
     blinkLED(1);
@@ -157,7 +154,8 @@ void loop() {
       // CLOCK messages have the same status for all MIDI channels 1-16
       // EX.M.CLK
       if (databuf[2] == 248) {
-        tapInput();
+
+        tap();
       }
 
       // EX.M.START
@@ -225,30 +223,61 @@ void loop() {
         blinkLED(2);                          
       }
     }
-  
-    received = 0;
+
+   received = false;
   
   }
 
   checkNoteDurations();       // check if there are notes to turn off
   checkLEDs();                // check if the LEDs should be turned off
-//  clockPulse();               // sends a clock out pulse 24 times between pulses
+
 }
 
-void tapInput() {
-  long now = micros();
-  if (now - lastTapTime < minimumTapInterval) {
-    return; // Debounce
+void tap(){
+  
+  currentTap = millis() - lastTap;
+  lastTap = millis();
+
+  sum += currentTap;
+
+  if (tapBuffer.isFull())
+  {
+    sum = sum - tapBuffer.first();
+    tapBuffer.shift();  
   }
 
-  if (timesTapped == 0) {
-    firstTapTime = now;
-  }
+  tapBuffer.push(currentTap);
+  avg = sum / NUMBER_OF_TAPS;
 
-  timesTapped++;
-  lastTapTime = now;
-  Serial.println("Tap!");
+  tempo = 60000.0 / avg; // * 2 for M as 1/2 note, / 2 for M as 1/8 note
+
+  Serial.println("Current Tap: ");
+  Serial.println(currentTap);
+
+  Serial.println("Average Tap: ");
+  Serial.println(avg);
+
+  Serial.println("Tempo: ");
+  Serial.println(tempo);
+
+  uClock.setTempo(tempo);
 }
+
+
+void ClockOut96PPQN(uint32_t * tick) {
+  // Send MIDI_CLOCK to external gears
+  sendClockPulse();
+}
+
+void onClockStart() {
+  Serial.write(MIDI_START);
+}
+
+// The callback function wich will be called when clock stops by using Clock.stop() method.
+void onClockStop() {
+  Serial.write(MIDI_STOP);
+}
+
 
 //function for sending clock pulses
 void sendClockPulse(){
@@ -256,44 +285,6 @@ void sendClockPulse(){
         #ifdef USB_MIDI
           usbMIDI.sendRealTime(usbMIDI.Clock);
         #endif
-        //delay(deltaTime/24);   
-
-}
-
-void updateBpm(long now) {
-  // Update the timer
-  long interval = calculateIntervalMicroSecs(bpm);
-  Timer1.setPeriod(interval);
-
-  Serial.print("Set BPM to: ");
-  Serial.print(bpm / 10);
-  Serial.print('.');
-  Serial.println(bpm % 10);
-}
-
-long calculateIntervalMicroSecs(int bpm) {
-  // Take care about overflows!
-  return 60L * 1000 * 1000 * 10 / bpm / CLOCKS_PER_BEAT;
-}
-
-void deltaTimeCalc() {
-  long now = micros();
-  if (timesTapped > 0 && timesTapped < MINIMUM_TAPS && (now - lastTapTime) > maximumTapInterval) {
-    // Single taps, not enough to calculate a BPM -> ignore!
-    //    Serial.println("Ignoring lone taps!");
-    timesTapped = 0;
-  } else if (timesTapped >= MINIMUM_TAPS) {
-    long avgTapInterval = (lastTapTime - firstTapTime) / (timesTapped - 1);
-    if ((now - lastTapTime) > (avgTapInterval * EXIT_MARGIN / 100)) {
-      bpm = 60L * 1000 * 1000 * 10 / avgTapInterval;
-      updateBpm(now);
-  
-      // Update blinkCount to make sure LED blink matches tapped beat
-      blinkCount = ((now - lastTapTime) * 24 / avgTapInterval) % CLOCKS_PER_BEAT;
-
-      timesTapped = 0;
-    }
-  }
 }
 
 // function for receiving I2C messages
