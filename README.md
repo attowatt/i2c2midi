@@ -369,6 +369,12 @@ Number | Part | Value
 
 ## Firmware
 
+### MKI vs. MKII
+
+The new firmware (v4.0+) does work for both MKI and MKII modules. 
+
+However, the MKI hardware does not support MIDI in. If you use firmware v4.0 or higher for MKI, please comment out `#define MK2` in the main `i2c2midi_firmware_v4_0.ino` file (line 35).
+
 ### Libraries used
 
 - Arduino MIDI Library  
