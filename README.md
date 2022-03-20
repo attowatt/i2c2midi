@@ -39,6 +39,10 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/22
 
 ## Connections
 
+### I2C
+
+i2c2midi acts as an I2C follower device and listens to address `0x3F` (63) on the bus.
+
 ### TRS
 
 Use a TRS MIDI adapter (Type A) to connect a standard MIDI DIN cable to the TRS output of i2c2midi.
