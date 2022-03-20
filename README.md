@@ -15,9 +15,11 @@ It receives MIDI messages from external MIDI controllers and stores the values i
 - 2 HP, 42 mm depth
 
 
-i2c2midi lines community thread: 
+i2c2midi lines community thread:   
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
+Please get the Teletype Beta firmware here:  
+https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/229
 
 ![](https://github.com/attowatt/i2c2midi/blob/main/MKII/hardware/pictures/i2c2midi_MK2_shot.jpg)
 
