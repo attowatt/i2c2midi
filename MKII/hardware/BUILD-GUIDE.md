@@ -89,7 +89,7 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 - Download and open the [Teensy Loader App](https://www.pjrc.com/teensy/loader.html).
 - Connect the Teensy to your computer with a USB cable.
 - Select `File` → `Open HEX File` and load the HEX file of the firmware.
-- Select `Program`.
+- Select `Program` (you might need to press the button on the Teensy first)
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
 All done – Have fun!
