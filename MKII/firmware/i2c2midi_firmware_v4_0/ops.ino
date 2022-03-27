@@ -368,21 +368,23 @@ void op_I2M_C_L_set(int8_t data[]) {
   int8_t value = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
   if (value < 1 || value > 8) return;
-  // user defined chord length must not be longer than notes in the chord
-  if (value > chordNoteCount[chordNumber]) value = chordNoteCount[chordNumber]; 
-  
   if (chordNumber > 0) {
+    // user defined chord length must not be longer than notes in the chord
+    if (value > chordNoteCount[chordNumber-1]) {
+      value = chordNoteCount[chordNumber-1];
+    }
     chordLength[chordNumber - 1] = value;
   } 
   else if (chordNumber == 0) {
     for (int i = 0; i < maxChords; i++) {
-      chordLength[i] = value;
+      if (value < chordNoteCount[i]) {
+        chordLength[i] = value;
+      }
     }
   }   
-  
   #ifdef DEBUG
     Serial.println("op_I2M_C_L_set");
-    Serial.print(" chord length: "); Serial.println(chordLength[chordNumber]);
+    Serial.print(" chord lengthh: "); Serial.println(chordLength[chordNumber-1]);
   #endif
 }
 
