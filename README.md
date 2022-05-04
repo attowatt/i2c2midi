@@ -362,6 +362,7 @@ Number | Part | Value
 23 | | 1x24 male pin header (if Teensy has no pins)
 24 | | 1x24 male pin header (if Teensy has no pins)
 
+
 ### PCB and Panel
 - [Here are the gerber files](MKII/hardware/gerber/)
 
@@ -400,6 +401,9 @@ However, the MKI hardware does not support MIDI in. If you use firmware v4.0 or 
 
 ### Changelog
 
+- Version 4.1
+  - Experimental support for Teensy 4.1
+  - Fixing some things related to compile warning messages
 - Version 4.0
   - Completely rewritten firmware with support for i2c2midi's dedicated Teletype OPs (`I2M`).
   - Updated README.
