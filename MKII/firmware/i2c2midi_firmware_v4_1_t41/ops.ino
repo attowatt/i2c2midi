@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------------------------------
 
 
- void opFunctions(bool isRequest, int8_t data[]) {
+ void opFunctions(bool isRequest, uint8_t data[]) {
   uint8_t op = data[0];
   switch (op) {
 
@@ -98,7 +98,7 @@
 // MIDI out: Settings
 
 
-void op_I2M_TIME_get(int8_t data[]) {
+void op_I2M_TIME_get(uint8_t data[]) {
   const uint8_t response_MSB = currentNoteDuration >> 8;
   const uint8_t response_LSB = currentNoteDuration & 0xff;
   Wire.write(response_MSB);
@@ -110,7 +110,7 @@ void op_I2M_TIME_get(int8_t data[]) {
 }
 
 
-void op_I2M_TIME_set(int8_t data[]) { 
+void op_I2M_TIME_set(uint8_t data[]) { 
   const uint8_t value_MSB = data[1];
   const uint8_t value_LSB = data[2];
   int16_t value = (value_MSB << 8 ) | value_LSB;
@@ -123,7 +123,7 @@ void op_I2M_TIME_set(int8_t data[]) {
 }
 
 
-void op_I2M_SHIFT_get(int8_t data[]) {
+void op_I2M_SHIFT_get(uint8_t data[]) {
   if (currentNoteShift < -127 || currentNoteShift > 127) {
     Wire.write(0);  
   } else {
@@ -136,7 +136,7 @@ void op_I2M_SHIFT_get(int8_t data[]) {
 }
 
 
-void op_I2M_SHIFT_set(int8_t data[]) {
+void op_I2M_SHIFT_set(uint8_t data[]) {
   int8_t value = data[1];
   if (value < -127) value = -127;
   else if (value > 127) value = 127;
@@ -148,7 +148,7 @@ void op_I2M_SHIFT_set(int8_t data[]) {
 }
 
 
-void op_I2M_REP_get(int8_t data[]) {
+void op_I2M_REP_get(uint8_t data[]) {
   const byte response = currentRepetition - 1; // -1 because internally 1 means "play note once" 
   if (response < 0 || response > 127) {
     Wire.write(255);
@@ -164,7 +164,7 @@ void op_I2M_REP_get(int8_t data[]) {
 }
 
 
-void op_I2M_REP_set(int8_t data[]) {
+void op_I2M_REP_set(uint8_t data[]) {
   const uint8_t value_MSB = data[1];
   const uint8_t value_LSB = data[2];
   int16_t value = (value_MSB << 8 ) | value_LSB;
@@ -178,7 +178,7 @@ void op_I2M_REP_set(int8_t data[]) {
 }
 
 
-void op_I2M_RAT_get(int8_t data[]) {
+void op_I2M_RAT_get(uint8_t data[]) {
   const byte response = currentRatcheting - 1; // -1 because internally 1 means "play note once" 
   if (response < 0 || response > 127) {
     Wire.write(255);
@@ -194,7 +194,7 @@ void op_I2M_RAT_get(int8_t data[]) {
 }
 
 
-void op_I2M_RAT_set(int8_t data[]) {
+void op_I2M_RAT_set(uint8_t data[]) {
   const uint8_t value_MSB = data[1];
   const uint8_t value_LSB = data[2];
   int16_t value = (value_MSB << 8 ) | value_LSB;
@@ -208,12 +208,12 @@ void op_I2M_RAT_set(int8_t data[]) {
 }
 
 
-void op_I2M_MIN_get(int8_t data[]) {
+void op_I2M_MIN_get(uint8_t data[]) {
   Wire.write(noteLowerLimit); 
 }
 
 
-void op_I2M_MIN_set(int8_t data[]) {
+void op_I2M_MIN_set(uint8_t data[]) {
   int8_t value = data[1];
   if (value < 0) value = 0;
   else if (value > 127) value = 127;
@@ -221,12 +221,12 @@ void op_I2M_MIN_set(int8_t data[]) {
 }
 
 
-void op_I2M_MAX_get(int8_t data[]) {
+void op_I2M_MAX_get(uint8_t data[]) {
   Wire.write(noteUpperLimit); 
 }
 
 
-void op_I2M_MAX_set(int8_t data[]) {
+void op_I2M_MAX_set(uint8_t data[]) {
   int8_t value = data[1];
   if (value < 0) value = 0;
   else if (value > 127) value = 127;
@@ -238,12 +238,12 @@ void op_I2M_MAX_set(int8_t data[]) {
 // MIDI out: Notes
 
 
-void op_I2M_PANIC(int8_t data[]) {
+void op_I2M_PANIC(uint8_t data[]) {
   panic();
 }
 
 
-void op_I2M_NOTE(int8_t data[]) {
+void op_I2M_NOTE(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t noteNumber = data[2];
   const int8_t velocity = data[3];
@@ -257,7 +257,7 @@ void op_I2M_NOTE(int8_t data[]) {
 }
 
 
-void op_I2M_NOTE_O(int8_t data[]) {
+void op_I2M_NOTE_O(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t noteNumber = data[2];
   #ifdef DEBUG
@@ -273,7 +273,7 @@ void op_I2M_NOTE_O(int8_t data[]) {
 // MIDI out: Chord
 
 
-void op_I2M_C(int8_t data[]) {
+void op_I2M_C(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t chordNumber = data[2] - 1;
   const int8_t noteNumber = data[3];
@@ -289,7 +289,7 @@ void op_I2M_C(int8_t data[]) {
 }
 
 
-void op_I2M_C_ADD(int8_t data[]) {
+void op_I2M_C_ADD(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t noteNumber = data[2]; 
   #ifdef DEBUG
@@ -308,7 +308,7 @@ void op_I2M_C_ADD(int8_t data[]) {
 }
 
 
-void op_I2M_C_RM(int8_t data[]) {
+void op_I2M_C_RM(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t noteNumber = data[2];
   #ifdef DEBUG
@@ -329,7 +329,7 @@ void op_I2M_C_RM(int8_t data[]) {
 }
 
 
-void op_I2M_C_CLR(int8_t data[]) {
+void op_I2M_C_CLR(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   #ifdef DEBUG
     Serial.println("op_I2M_C_CLR");
@@ -348,7 +348,7 @@ void op_I2M_C_CLR(int8_t data[]) {
 }
 
 
-void op_I2M_C_L_get(int8_t data[]) {
+void op_I2M_C_L_get(uint8_t data[]) {
   const int8_t chordNumber = data[1] - 1;
   const byte response = chordLength[chordNumber];
   if (chordNumber < 0 || chordNumber >= maxChords || response < 1 || response > 8) {
@@ -363,7 +363,7 @@ void op_I2M_C_L_get(int8_t data[]) {
 }
 
 
-void op_I2M_C_L_set(int8_t data[]) {
+void op_I2M_C_L_set(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   int8_t value = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
@@ -389,7 +389,7 @@ void op_I2M_C_L_set(int8_t data[]) {
 }
 
 
-void op_I2M_C_INV_get(int8_t data[]) {
+void op_I2M_C_INV_get(uint8_t data[]) {
   const int8_t chordNumber = data[1] - 1;
   const int response = chordInversion[chordNumber];
   if (chordNumber < 0 || chordNumber >= maxChords || response < -32 || response > 32) {
@@ -405,7 +405,7 @@ void op_I2M_C_INV_get(int8_t data[]) {
 }
 
 
-void op_I2M_C_INV_set(int8_t data[]) {
+void op_I2M_C_INV_set(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   int8_t value = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
@@ -428,7 +428,7 @@ void op_I2M_C_INV_set(int8_t data[]) {
 }
 
 
-void op_I2M_C_REV_get(int8_t data[]) {
+void op_I2M_C_REV_get(uint8_t data[]) {
   const int8_t chordNumber = data[1] - 1;
   const int response = chordReverse[chordNumber];
   if (chordNumber < 0 || chordNumber >= maxChords) {
@@ -442,7 +442,7 @@ void op_I2M_C_REV_get(int8_t data[]) {
     Serial.print(" chord reverse: "); Serial.println(response);
   #endif
 }
-void op_I2M_C_REV_set(int8_t data[]) {
+void op_I2M_C_REV_set(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   int8_t value = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
@@ -465,7 +465,7 @@ void op_I2M_C_REV_set(int8_t data[]) {
 }
 
 
-void op_I2M_C_ROT_get(int8_t data[]) {
+void op_I2M_C_ROT_get(uint8_t data[]) {
   const int8_t chordNumber = data[1] - 1;
   const int response = chordRotate[chordNumber];
   if (chordNumber < 0 || chordNumber >= maxChords) {
@@ -479,7 +479,7 @@ void op_I2M_C_ROT_get(int8_t data[]) {
     Serial.print(" chord rotation: "); Serial.println(response);
   #endif
 }
-void op_I2M_C_ROT_set(int8_t data[]) {
+void op_I2M_C_ROT_set(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   int8_t value = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
@@ -502,7 +502,7 @@ void op_I2M_C_ROT_set(int8_t data[]) {
 }
 
 
-void op_I2M_C_STR_get(int8_t data[]) {
+void op_I2M_C_STR_get(uint8_t data[]) {
   const int8_t chordNumber = data[1] - 1;
   if (chordNumber < 0 || chordNumber >= maxChords) {
     Wire.write(-1);
@@ -521,7 +521,7 @@ void op_I2M_C_STR_get(int8_t data[]) {
 }
 
 
-void op_I2M_C_STR_set(int8_t data[]) { 
+void op_I2M_C_STR_set(uint8_t data[]) { 
   const int8_t chordNumber = data[1];
   const uint8_t value_MSB = data[2];
   const uint8_t value_LSB = data[3];
@@ -546,7 +546,7 @@ void op_I2M_C_STR_set(int8_t data[]) {
 }
 
 
-void op_I2M_C_INS(int8_t data[]) {
+void op_I2M_C_INS(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t index = chordNoteCount[chordNumber] - data[2];
   const int8_t noteNumber = data[3];
@@ -569,7 +569,7 @@ void op_I2M_C_INS(int8_t data[]) {
 }
 
 
-void op_I2M_C_DEL(int8_t data[]) {
+void op_I2M_C_DEL(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t index = chordNoteCount[chordNumber] - 1 - data[2];
   #ifdef DEBUG
@@ -590,7 +590,7 @@ void op_I2M_C_DEL(int8_t data[]) {
 }
 
 
-void op_I2M_C_SET(int8_t data[]) {
+void op_I2M_C_SET(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t index = chordNoteCount[chordNumber] - 1 - data[2];
   const int8_t noteNumber = data[3];
@@ -617,7 +617,7 @@ void op_I2M_C_SET(int8_t data[]) {
 // MIDI out: CC
 
 
-void op_I2M_CC(int8_t data[]) {
+void op_I2M_CC(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller = data[2];
   const uint8_t value_MSB = data[3];
@@ -636,7 +636,7 @@ void op_I2M_CC(int8_t data[]) {
 }
 
 
-void op_I2M_CC_OFF_get(int8_t data[]) {
+void op_I2M_CC_OFF_get(uint8_t data[]) {
   int8_t channel = data[1];
   int8_t controller = data[2];
   if (channel < 0 || channel >= channelsOut) channel = 0;
@@ -653,7 +653,7 @@ void op_I2M_CC_OFF_get(int8_t data[]) {
 }
 
 
-void op_I2M_CC_OFF_set(int8_t data[]) {
+void op_I2M_CC_OFF_set(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t controller = data[2];
   const uint8_t value_MSB = data[3];
@@ -675,7 +675,7 @@ void op_I2M_CC_OFF_set(int8_t data[]) {
 }
 
 
-void op_I2M_CC_SLEW_get(int8_t data[]) {
+void op_I2M_CC_SLEW_get(uint8_t data[]) {
   int8_t channel = data[1];
   int8_t controller = data[2];
   if (channel < 0 || channel >= channelsOut) channel = 0;
@@ -694,7 +694,7 @@ void op_I2M_CC_SLEW_get(int8_t data[]) {
 }
 
 
-void op_I2M_CC_SLEW_set(int8_t data[]) {
+void op_I2M_CC_SLEW_set(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t controller = data[2];
   const uint8_t value_MSB = data[3];
@@ -713,7 +713,7 @@ void op_I2M_CC_SLEW_set(int8_t data[]) {
 }
 
 
-void op_I2M_CC_SET(int8_t data[]) {
+void op_I2M_CC_SET(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t controller = data[2];
   const uint8_t value_MSB = data[3];
@@ -737,7 +737,7 @@ void op_I2M_CC_SET(int8_t data[]) {
 // MIDI out: NRPN
 
 
-void op_I2M_NRPN(int8_t data[]) {
+void op_I2M_NRPN(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller_MSB = data[2];
   const uint8_t controller_LSB = data[3];
@@ -759,7 +759,7 @@ void op_I2M_NRPN(int8_t data[]) {
 }
 
 
-void op_I2M_NRPN_OFF_get(int8_t data[]) {
+void op_I2M_NRPN_OFF_get(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller_MSB = data[2];
   const uint8_t controller_LSB = data[3];
@@ -781,7 +781,7 @@ void op_I2M_NRPN_OFF_get(int8_t data[]) {
 }
 
 
-void op_I2M_NRPN_OFF_set(int8_t data[]) {
+void op_I2M_NRPN_OFF_set(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller_MSB = data[2];
   const uint8_t controller_LSB = data[3];
@@ -812,7 +812,7 @@ void op_I2M_NRPN_OFF_set(int8_t data[]) {
 }
 
 
-void op_I2M_NRPN_SLEW_get(int8_t data[]) {
+void op_I2M_NRPN_SLEW_get(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller_MSB = data[2];
   const uint8_t controller_LSB = data[3];
@@ -836,7 +836,7 @@ void op_I2M_NRPN_SLEW_get(int8_t data[]) {
 }
 
 
-void op_I2M_NRPN_SLEW_set(int8_t data[]) {
+void op_I2M_NRPN_SLEW_set(uint8_t data[]) {
   const int8_t channel = data[1];
   if (channel < 0 || channel >= channelsOut) return;
   const uint8_t controller_MSB = data[2];
@@ -864,7 +864,7 @@ void op_I2M_NRPN_SLEW_set(int8_t data[]) {
 }
 
 
-void op_I2M_NRPN_SET(int8_t data[]) {
+void op_I2M_NRPN_SET(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t controller_MSB = data[2];
   const uint8_t controller_LSB = data[3];
@@ -890,7 +890,7 @@ void op_I2M_NRPN_SET(int8_t data[]) {
 // MIDI out: Misc
 
 
-void op_I2M_PRG(int8_t data[]) {
+void op_I2M_PRG(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t program = data[2];
   #ifdef DEBUG
@@ -902,7 +902,7 @@ void op_I2M_PRG(int8_t data[]) {
 }
 
 
-void op_I2M_PB(int8_t data[]) {
+void op_I2M_PB(uint8_t data[]) {
   const int8_t channel = data[1];
   const uint8_t value_MSB = data[2];
   const uint8_t value_LSB = data[3];
@@ -915,7 +915,7 @@ void op_I2M_PB(int8_t data[]) {
 }
 
 
-void op_I2M_AT(int8_t data[]) {
+void op_I2M_AT(uint8_t data[]) {
   const int8_t channel = data[1];
   const int8_t value = data[2];
   #ifdef DEBUG
@@ -927,7 +927,7 @@ void op_I2M_AT(int8_t data[]) {
 }
 
 
-void op_I2M_CLK(int8_t data[]) {
+void op_I2M_CLK(uint8_t data[]) {
   sendMidiClock();
   #ifdef DEBUG
     Serial.println("op_I2M_CLK");
@@ -935,7 +935,7 @@ void op_I2M_CLK(int8_t data[]) {
 }
 
 
-void op_I2M_START(int8_t data[]) {
+void op_I2M_START(uint8_t data[]) {
   sendMidiClockStart();
   #ifdef DEBUG
     Serial.println("op_I2M_START");
@@ -943,7 +943,7 @@ void op_I2M_START(int8_t data[]) {
 }
 
 
-void op_I2M_STOP(int8_t data[]) {
+void op_I2M_STOP(uint8_t data[]) {
   sendMidiClockStop();
   #ifdef DEBUG
     Serial.println("op_I2M_STOP");
@@ -951,7 +951,7 @@ void op_I2M_STOP(int8_t data[]) {
 }
 
 
-void op_I2M_CONT(int8_t data[]) {
+void op_I2M_CONT(uint8_t data[]) {
   sendMidiClockContinue(); 
   #ifdef DEBUG
     Serial.println("op_I2M_CONT");
@@ -963,7 +963,7 @@ void op_I2M_CONT(int8_t data[]) {
 // MIDI in: Settings
 
 
-void op_I2M_Q_LATCH(int8_t data[]) {
+void op_I2M_Q_LATCH(uint8_t data[]) {
   const int8_t value = data[1];
   setLatch(value);
 }
@@ -973,7 +973,7 @@ void op_I2M_Q_LATCH(int8_t data[]) {
 // MIDI in: Notes
 
 
-void op_I2M_Q_NOTE(int8_t data[]) {
+void op_I2M_Q_NOTE(uint8_t data[]) {
   int8_t channel = data[1];
   int8_t n = data[2] % noteHistoryInLength;
   const int8_t noteNumber = noteHistoryIn[channel][n][0];        // array index 0 = note number
@@ -991,7 +991,7 @@ void op_I2M_Q_NOTE(int8_t data[]) {
 }
 
 
-void op_I2M_Q_VEL(int8_t data[]) {
+void op_I2M_Q_VEL(uint8_t data[]) {
   int8_t channel = data[1];
   int8_t n = data[2] % noteHistoryInLength;
   const int8_t velocity = noteHistoryIn[channel][n][1];          // array index 0 = note number
@@ -1013,7 +1013,7 @@ void op_I2M_Q_VEL(int8_t data[]) {
 // MIDI in: CCs
 
 
-void op_I2M_Q_CC(int8_t data[]) {
+void op_I2M_Q_CC(uint8_t data[]) {
   int8_t channel = data[1];
   const int8_t controller = data[2];
   const int8_t value = CCsIn[channel][controller];
@@ -1035,7 +1035,7 @@ void op_I2M_Q_CC(int8_t data[]) {
 // MIDI in: Get latest ...
 
 
-void op_I2M_Q_LCH(int8_t data[]) {
+void op_I2M_Q_LCH(uint8_t data[]) {
   const int8_t response = lastChannelIn;
   if (response < 0 || response > 15) {
     Wire.write(-1);
@@ -1049,7 +1049,7 @@ void op_I2M_Q_LCH(int8_t data[]) {
 }
 
 
-void op_I2M_Q_LN(int8_t data[]) {
+void op_I2M_Q_LN(uint8_t data[]) {
   const int8_t response = lastNoteIn;
   if (response < 0 || response > 127) {
     Wire.write(-1);
@@ -1063,7 +1063,7 @@ void op_I2M_Q_LN(int8_t data[]) {
 }
 
 
-void op_I2M_Q_LV(int8_t data[]) {
+void op_I2M_Q_LV(uint8_t data[]) {
   const int8_t response = lastVelocityIn;
   if (response < 0 || response > 127) {
     Wire.write(-1);
@@ -1077,7 +1077,7 @@ void op_I2M_Q_LV(int8_t data[]) {
 }
 
 
-void op_I2M_Q_LO(int8_t data[]) {
+void op_I2M_Q_LO(uint8_t data[]) {
   const int8_t response = lastNoteOffIn;
   if (response < 0 || response > 127) {
     Wire.write(-1);
@@ -1091,7 +1091,7 @@ void op_I2M_Q_LO(int8_t data[]) {
 }
 
 
-void op_I2M_Q_LC(int8_t data[]) {
+void op_I2M_Q_LC(uint8_t data[]) {
   const int8_t response = lastCIn;
   if (response < 0 || response > 127) {
     Wire.write(-1);
@@ -1105,7 +1105,7 @@ void op_I2M_Q_LC(int8_t data[]) {
 }
 
 
-void op_I2M_Q_LCC(int8_t data[]) {
+void op_I2M_Q_LCC(uint8_t data[]) {
   const int8_t response = lastCCIn;
   if (response < 0 || response > 127) {
     Wire.write(-1);

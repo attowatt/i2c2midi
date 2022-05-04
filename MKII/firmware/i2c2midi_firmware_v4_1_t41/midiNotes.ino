@@ -5,7 +5,7 @@
 
 // function for getting output type (TRS or USB) for channel number
 bool isTRS(int channel) {
-    if (channel < 0 || channel >= channelsOut) return;
+    if (channel < 0 || channel >= channelsOut) return 1;
     return channel >= 0 && channel < 16;         // if channel is  0..15 -> true -> TRS
 }  
 

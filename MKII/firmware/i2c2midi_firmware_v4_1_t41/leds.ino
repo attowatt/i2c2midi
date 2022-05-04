@@ -19,7 +19,7 @@ void blinkLED(int led) {
 // function for turning off the LEDs
 void checkLEDs() {
   unsigned long currentMillis = millis();
-  int LEDBlinkLength = 10;
+  uint8_t LEDBlinkLength = 10;
   if (currentMillis - lastLEDMillis1 >= LEDBlinkLength) {
     digitalWrite(led1, LOW);
   }
