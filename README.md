@@ -593,10 +593,10 @@ Ground | → Sleeve | → MIDI Pin 2
   - _BREAKING_: Removed `I2M.NC`, `I2M.NOC`, `I2M.CCC`, `I2M.CCVC`; replaced by channel-specific OP variants
 - Version 4.1
   - Experimental support for Teensy 4.1
-- Version 4.0 (+ Teletype Firmware `I2M BETA 1`)
+- Version 4.0 (+ Teletype Firmware `I2M BETA 1`) ([more info](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/229))
   - Completely rewritten firmware with support for i2c2midi's dedicated Teletype OPs (`I2M`).
   - Updated README.
-- Version 3.1
+- Version 3.1 
   - Added feature flag to use i2c2midi as USB device, using the Teensy Micro USB jack.
   - Fixed a bug where unknown I2C request messages would freeze the I2C bus.
 - Version 3.0 (MKII)
