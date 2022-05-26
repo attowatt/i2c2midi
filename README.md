@@ -275,32 +275,32 @@ Set scale for chord `x` (0..8) based on chord `y` (0..8). Setting a scale for a 
 - `I2M.C.REV x y`  
 Set reversal of notes in chord `x` (0..8) to `y`. `y = 0` or an even number means not reversed, `y = 1` or an uneven number  means reversed. E.g. `y = 1` for chord `0,3,7` will lead to `7,3,0`. Default is `y = 0`. Use `x = 0` to set reversal all chords. 
 
-  https://user-images.githubusercontent.com/76960718/168484164-80572ba1-a059-4330-b6f3-e7c95dceb2a0.mp4
+  https://user-images.githubusercontent.com/76960718/170448152-c708c42d-ed18-4411-b0e5-6085a569185b.mp4
 
 - `I2M.C.ROT x y`  
 Set rotation of notes in chord `x` (0..8) to `y` steps (-127..127). E.g. `y = 1` of chord `0,3,7` will lead to `3,7,0`, `y = 2` will lead to `7,0,3`, `y = -1` will lead to `7,0,3`. Default is `y = 0`. Use `x = 0` to set rotation for all chords.  
 
-  https://user-images.githubusercontent.com/76960718/168484172-803e0631-8677-431d-9af8-1ea3ce523f18.mp4
+  https://user-images.githubusercontent.com/76960718/170448234-86cafa1e-8ecd-4612-9a84-febde5bead3d.mp4
 
 - `I2M.C.TRP x y`  
 Set transposition of chord `x` (0..8) to `y` (-127..127). Transposition adds `y` to the note number of each note in the chord. Default is `y = 0`. Use `x = 0` to set transposition for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
-  https://user-images.githubusercontent.com/76960718/168484198-43ef7352-0032-414a-91ea-788e52fcb7f0.mp4
+  https://user-images.githubusercontent.com/76960718/170448291-4766446c-830e-4b92-a609-74fe5c757047.mp4
 
 - `I2M.C.DIS x y z`  
 Set distortion of chord `x` (0..8) to width `y` (-127..127) with anchor point `z` (0..16). Distortion adds `y+n` to the note number of each note in the chord. The anchor point influences the direction and amount (`n`) of the transformation. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
-  https://user-images.githubusercontent.com/76960718/168484209-71bee632-073f-4b67-8ac6-c9f101d31294.mp4
+  https://user-images.githubusercontent.com/76960718/170448371-81ccf95f-519c-4406-b026-88f71d51efe6.mp4
 
 - `I2M.C.REF x y z`  
 Set reflection of chord `x` (0..8) to `y` (-127..127) with anchor point `z` (0..16). The anchor point defines at which axis the chord gets reflected. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
-  https://user-images.githubusercontent.com/76960718/168484229-e9e5c608-d386-4db2-b28e-3355af58a65c.mp4
+  https://user-images.githubusercontent.com/76960718/170448450-b01a0faa-ed1b-4541-b9ee-6c55721735cb.mp4
 
 - `I2M.C.INV x y`  
 Set inversion of chord `x` (0..8) to `y` (-32..32). Default is `y = 0`. Use `x = 0` to set inversion for all chords.  
 
-  https://user-images.githubusercontent.com/76960718/168484245-5b241552-4509-4044-95af-5c1254065b82.mp4
+  https://user-images.githubusercontent.com/76960718/170448519-62731788-977d-4e5f-a442-cc999a97c141.mp4
 
 - `I2M.C.STR x y`  
 Set strumming of chord `x` (0..8) to `x` ms (0..32767). Strumming plays the notes of a chord arpeggiated, with an interval of `y` ms in between notes. Default is `y = 0`. Use `x = 0` to set strumming for all chords.  
