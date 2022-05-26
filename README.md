@@ -290,7 +290,7 @@ Set transposition of chord `x` (0..8) to `y` (-127..127). Transposition adds `y`
 - `I2M.C.DIS x y z`  
 Set distortion of chord `x` (0..8) to width `y` (-127..127) with anchor point `z` (0..16). Distortion adds `y+n` to the note number of each note in the chord. The anchor point influences the direction and amount (`n`) of the transformation. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
-  https://user-images.githubusercontent.com/76960718/170448371-81ccf95f-519c-4406-b026-88f71d51efe6.mp4
+  https://user-images.githubusercontent.com/76960718/170519200-57bbb0fd-a168-498a-873c-f39924235f2d.mp4
 
 - `I2M.C.REF x y z`  
 Set reflection of chord `x` (0..8) to `y` (-127..127) with anchor point `z` (0..16). The anchor point defines at which axis the chord gets reflected. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
