@@ -106,13 +106,12 @@
 uint8_t i2cData[MEM_LEN];           // save I2C data in variable "i2cData"
 volatile uint8_t received;          // variable to store if there are received I2C messages
 void i2cReceiveEvent(size_t count); // function for receiving I2C messages, count = number of bites
-void i2cRequestEvent(void);            // function for receiving I2C messages, count = number of bites
+void i2cRequestEvent(void);         // function for receiving I2C messages, count = number of bites
 
 // I2C Address
 //   i2c2midi acts as a I2C follower and listens to messages on address 0x3F (63).
 //   To use Teletype's distingEX OPs, change the address back to 0x42. 
-const uint8_t i2cAddress = 0x3F;             // official I2C address for Teletype I2M OPs
-//byte i2cAddress = 0x42;           // legacy I2C address for Teletype distingEX OPs (EX1: 0x41, EX2: 0x42, EX3: 0x43, EX4: 0x44)
+const uint8_t i2cAddress = 0x3F;    // official I2C address for Teletype I2M OPs
 
 // MIDI TRS
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);  
@@ -142,30 +141,15 @@ unsigned long notes[channelsOut][maxNotes][7];
 // 4 : velocity
 // 5 : ratchet count
 // 6 : repeat count
-
 int noteCount[channelsOut];              // total note count, per channel
 int currentNote[channelsOut];            // current note number between 0 and maxNotes, per channel
-
-//int currentNoteDuration = 100;           // setting for note duration per channel
 int currentNoteDuration[channelsOut];    // setting for note duration per channel
-
-//int8_t currentNoteShift = 0;           
 int8_t currentNoteShift[channelsOut];    // setting for note shift per channel
-
-//byte currentRepetition = 1;                
 byte currentRepetition[channelsOut];     // setting for note repetition per channel
-
-//byte currentRatcheting = 1;                
 byte currentRatcheting[channelsOut];     // setting for note ratcheting per channel
 const int ratchetingLength = 75;         // in percent: 75 means 75% of original note length for racheted notes
-
-//byte noteUpperLimit = 127;             
 byte noteUpperLimit[channelsOut];        // setting for highest allowed midi note per channel
-
-//byte noteLowerLimit = 0;               
 byte noteLowerLimit[channelsOut];        // setting for lowest allowed midi note per channel
-
-//byte noteLimitMode = 0;
 byte noteLimitMode[channelsOut];        // setting for limit mode per channel
 
 // CCs
@@ -355,7 +339,7 @@ void loop() {
       uint8_t channel =    midiDevice.getChannel();
       uint8_t data1 =      midiDevice.getData1();
       uint8_t data2 =      midiDevice.getData2();
-      //const uint8_t *sys = midiDevice.getSysExArray();            // not used at the moment
+      //const uint8_t *sys = midiDevice.getSysExArray();  // not used at the moment
 
       #ifdef DEBUG
         Serial.print("USB received");
