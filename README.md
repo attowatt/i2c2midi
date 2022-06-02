@@ -184,32 +184,40 @@ Description
 ### MIDI out: Settings
 *Settings for outoing MIDI messages*  
 
-- `I2M.CH`  
+
+#### I2M.CH
+`I2M.CH`  
 `I2M.CH x`  
 `I2M.#`  
 Get currently set MIDI channel / Set MIDI channel `x` (1..16 for TRS, 17..32 for USB) for MIDI out. Use MIDI channels 1-16 for TRS output, 17-32 for USB output. Default is `x = 1`.  
 
-- `I2M.TIME`  
+#### I2M.TIME
+`I2M.TIME`  
 `I2M.TIME x`  
 `I2M.T`  
 Get current note duration / Set note duration for MIDI notes to `x` ms (0..32767). Based on note duration, i2c2midi will send a MIDI Note Off message automatically. Set `x = 0` to deactivate automatic Note Off messages. Default is `x = 100`. Use `I2M.T#` to add channel parameter [(see below)](#channel-specific-op-variants).
 
-- `I2M.SHIFT`  
+#### I2M.SHIFT
+`I2M.SHIFT`  
 `I2M.SHIFT x`  
 `I2M.S`  
 Get current transposition / Set transposition of MIDI notes to `x` semitones (-127..127). Default is `x = 0`. Use `I2M.S#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.MIN x y`  
+#### I2M.MIN
+`I2M.MIN x y`  
 Set minimum note number for MIDI notes to `x` (0..127), using mode `y` (0..3). Default is `x = 0` and `y = 0`. The following modes are available for notes lower than the minimum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `I2M.MIN#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.MAX x y`  
+#### I2M.MAX
+`I2M.MAX x y`  
 Set maximum note number for MIDI notes to `x` (0..127), using mode `y` (0..3). Default is `x = 0` and `y = 0`. The following modes are available for notes higher than the maximum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `I2M.MAX#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.REP`  
+#### I2M.REP
+`I2M.REP`  
 `I2M.REP x`  
 Get current repetition / Set repetition of MIDI notes to `x` repetitions (1..127). Set `x = 1` for no repetitions. Default is `x = 1`. Use `I2M.REP#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.RAT`  
+#### I2M.RAT
+`I2M.RAT`  
 `I2M.RAT x`  
 Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127). Set `x = 1` for no ratcheting. Default is `x = 1`. Use `I2M.RAT#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
@@ -220,15 +228,18 @@ Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127). 
 *Send MIDI notes*  
 
 
-- `I2M.NOTE x y`  
+#### I2M.NOTE
+`I2M.NOTE x y`  
 `I2M.N`  
 Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127). A velocity of `0` will be treated as a MIDI Note Off message. Use `I2M.N#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.NOTE.O x`  
+#### I2M.NOTE.O
+`I2M.NOTE.O x`  
 `I2M.NO`  
 Send a manual MIDI Note Off message for note number `x` (0..127). This can be used either before i2c2midi sends the automatic Note Off message (to stop the note from playing before its originally planned ending), or in combination with `I2M.TIME` set to `0` (in which case i2c2midi does not send automatic Note Off messages). Use `I2M.NO#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.NT x y z`  
+#### I2M.NT
+`I2M.NT x y z`  
 Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) and note duration `z` ms (0..32767). Use `I2M.NT#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
 
@@ -238,78 +249,97 @@ Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127
 *Send a chord, consisting of multiple MIDI notes*
 
 
-- `I2M.CHORD x y z`  
+#### I2M.CHORD
+`I2M.CHORD x y z`  
 `I2M.C`  
 Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127). A chord consists of up to eight notes defined relative to the root note via `I2M.C.ADD`, `I2M.C.RM`, `I2M.C.INS`, `I2M.C.DEL` or `I2M.C.SET`, which are sent out as MIDI Note On messages in the order they are defined in the chord. If no note has been defined in the chord yet, no note will be played. 8 chords can be defined using their respective index 1..8. Use `I2M.C#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.C.ADD x y`  
+#### I2M.C.ADD
+`I2M.C.ADD x y`  
 `I2M.C+`  
 Add note `y` (-127..127) to chord `x` (0..8), with `y` relative to the root note specified when playing a chord. E.g. add `0`, `4` and `7` to define a major triad. Or go more experimental, e.g. `-2`, `13`, `2`, `13`. Up to eight chords can be defined, with eight notes each. Use `x = 0` to add the note to all chords.  
 
-- `I2M.C.RM x y`  
+#### I2M.C.RM
+`I2M.C.RM x y`  
 `I2M.C-`  
 Remove note `y` (-127..127) from chord `x` (0..8). If the chord contains note `y` multiple times, the latest instance is removed. If the chord does not contain the note the message is simply ignored. Use `x = 0` to remove the note from all chords.  
 
-- `I2M.C.INS x y z`  
+#### I2M.C.INS
+`I2M.C.INS x y z`  
 Add note `z` (-127..127) to chord `x` (0..8) at index `y` (0..7), with `z` relative to the root note. Already defined notes at index `y` and higher are pushed to the right. Use `x = 0` to insert the note to all chords.  
 
-- `I2M.C.DEL x y`  
+#### I2M.C.DEL
+`I2M.C.DEL x y`  
 Delete note at index `y` (0..7) from chord `x` (0..8). Notes at index `y + 1` and higher are pushed to the left. If `y` is higher than the length of the chord, the message is ignored. Use `x = 0` to delete the note from all chords.  
 
-- `I2M.C.SET x y z`  
+#### I2M.C.SET
+`I2M.C.SET x y z`  
 Set note at index `y` (0..7) in chord `x` (0..8) to note `z` (-127..127), replacing what was defined earlier at this index. If `y` is higher than the length of the chord, the message is ignored. Use `x = 0` to set the note in all chords.  
 
-- `I2M.C.B x y`  
+#### I2M.C.B
+`I2M.C.B x y`  
 Clear and define chord `x` (0..8) using reverse binary notation (`R...`). Use `1` or `0` in order to include or exclude notes from the chord. E.g. use `x = R10001001` for `0,4,7` (major triad) or `x = R1000000100000001` for `0,7,15`. `y` can be a maximum of 16 digit long. Use `x = 0` to clear and define all chords.  
 
-- `I2M.C.CLR x`  
+#### I2M.C.CLR
+`I2M.C.CLR x`  
 Clear chord `x` (0..8). Use `x = 0` to clear all chords.  
 
-- `I2M.C.L x`  
+#### I2M.C.L
+`I2M.C.L x`  
 `I2M.C.L x y`  
 Get current length / Set length of chord `x` (0..8) to `y` (1..8). The length of a chord changes automatically each time a note is added or removed. Values of `x` higher than number of actual defined notes are ignored. Already defined notes are not affected by setting the chord length, but won't be played if their index is outside of the set chord length. Use `x = 0` to set the length of all chords.  
 
-- `I2M.C.SC x y`  
+#### I2M.C.SC
+`I2M.C.SC x y`  
 Set scale for chord `x` (0..8) based on chord `y` (0..8). Setting a scale for a chord comes in handy when using chord transformations that introduce new notes, like `I2M.C.TRP`, `I2M.C.DIS` or `I2M.C.REF`. Use `y = 0` to remove the scale. Use `x = 0` to set scale for all chords.    
 
-- `I2M.C.REV x y`  
+#### I2M.C.REV
+`I2M.C.REV x y`  
 Set reversal of notes in chord `x` (0..8) to `y`. `y = 0` or an even number means not reversed, `y = 1` or an uneven number  means reversed. E.g. `y = 1` for chord `0,3,7` will lead to `7,3,0`. Default is `y = 0`. Use `x = 0` to set reversal all chords. 
 
   https://user-images.githubusercontent.com/76960718/170448152-c708c42d-ed18-4411-b0e5-6085a569185b.mp4
 
-- `I2M.C.ROT x y`  
+#### I2M.C.ROT
+`I2M.C.ROT x y`  
 Set rotation of notes in chord `x` (0..8) to `y` steps (-127..127). E.g. `y = 1` of chord `0,3,7` will lead to `3,7,0`, `y = 2` will lead to `7,0,3`, `y = -1` will lead to `7,0,3`. Default is `y = 0`. Use `x = 0` to set rotation for all chords.  
 
   https://user-images.githubusercontent.com/76960718/170448234-86cafa1e-8ecd-4612-9a84-febde5bead3d.mp4
 
-- `I2M.C.TRP x y`  
+#### I2M.C.TRP
+`I2M.C.TRP x y`  
 Set transposition of chord `x` (0..8) to `y` (-127..127). Transposition adds `y` to the note number of each note in the chord. Default is `y = 0`. Use `x = 0` to set transposition for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
   https://user-images.githubusercontent.com/76960718/170448291-4766446c-830e-4b92-a609-74fe5c757047.mp4
 
-- `I2M.C.DIS x y z`  
+#### I2M.C.DIS
+`I2M.C.DIS x y z`  
 Set distortion of chord `x` (0..8) to width `y` (-127..127) with anchor point `z` (0..16). Distortion adds `y+n` to the note number of each note in the chord. The anchor point influences the direction and amount (`n`) of the transformation. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
   https://user-images.githubusercontent.com/76960718/170519200-57bbb0fd-a168-498a-873c-f39924235f2d.mp4
 
-- `I2M.C.REF x y z`  
+#### I2M.C.REF
+`I2M.C.REF x y z`  
 Set reflection of chord `x` (0..8) to `y` (-127..127) with anchor point `z` (0..16). The anchor point defines at which axis the chord gets reflected. Default is `y = 0`. Use `x = 0` to set distortion for all chords. This transformation introduces new notes to the chord – try it in combination with setting a scale.  
 
   https://user-images.githubusercontent.com/76960718/170448450-b01a0faa-ed1b-4541-b9ee-6c55721735cb.mp4
 
-- `I2M.C.INV x y`  
+#### I2M.C.INV
+`I2M.C.INV x y`  
 Set inversion of chord `x` (0..8) to `y` (-32..32). Default is `y = 0`. Use `x = 0` to set inversion for all chords.  
 
   https://user-images.githubusercontent.com/76960718/170448519-62731788-977d-4e5f-a442-cc999a97c141.mp4
 
-- `I2M.C.STR x y`  
+#### I2M.C.STR
+`I2M.C.STR x y`  
 Set strumming of chord `x` (0..8) to `x` ms (0..32767). Strumming plays the notes of a chord arpeggiated, with an interval of `y` ms in between notes. Default is `y = 0`. Use `x = 0` to set strumming for all chords.  
 
-- `I2M.C.VCUR w x y z`  
+#### I2M.C.VCUR
+`I2M.C.VCUR w x y z`  
 `I2M.C.V~`  
 Set velocity curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the velocity of the notes in the order they are defined in the chord. Start and end percentages refer to the velocity with which the chord is played via `I2M.C`. Use `x = 0` to turn velocity curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set velocity curve for all chords. Try a random curve with subtle values for a humanizing effect.  
 
-- `I2M.C.TCUR w x y z`  
+#### I2M.C.TCUR
+`I2M.C.TCUR w x y z`  
 `I2M.C.T~`  
 Set time curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the time interval between the notes in the order they are defined in the chord. Start and end percentages refer to the current strumming setting of the chord, set via `I2M.C.STR`. Use `x = 0` to turn time curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set time curve for all chords. Try a square curve with similar values to create swing. Try a random curve with subtle values for a humanizing effect.  
 
@@ -319,22 +349,26 @@ Set time curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`%
 ### MIDI out: CCs
 *Send MIDI CCs*
 
-
-- `I2M.CC x y`  
+#### I2M.CC
+`I2M.CC x y`  
 Send MIDI CC message for controller `x` (0..127) with value `y` (0..127). Use `I2M.CC#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.CCV x y`  
+#### I2M.CCV
+`I2M.CCV x y`  
 Send MIDI CC message for controller `x` (0..127) with volt value `y` (0..16383, 0..+10V). Use `I2M.CCV#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.CC.OFF x`  
+#### I2M.CC.OFF
+`I2M.CC.OFF x`  
 `I2M.CC.OFF x y`  
 Get current offset / Set offset of values of controller `x` (0..127) to `y` (-127..127). Default is `y = 0`. Use `I2M.CC.OFF#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.CC.SLEW x`  
+#### I2M.CC.SLEW
+`I2M.CC.SLEW x`  
 `I2M.CC.SLEW x y`  
 Get current slew time for controller `x` / Set slew time for controller `x` (0..127) to `y` ms (0..32767). i2c2midi will ramp from the controller's last value to a new value within the given time `x`, sending MIDI CCs at a maximum rate of 30 ms. If the slewing is still ongoing when a new value is set, the slewing uses its current position as the last value. Is 8 CC controller values can be slewed simoultaneously before the oldest currently slewing value is overwritten by the newest. Default is `y = 0`. Use `I2M.CC.SLEW#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.CC.SET x y`  
+#### I2M.CC.SET
+`I2M.CC.SET x y`  
 Send MIDI CC message for controller `x` (0..127) with value `y` (0..127), bypassing any slew settings. Use `I2M.CC.SET#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
 
@@ -344,18 +378,22 @@ Send MIDI CC message for controller `x` (0..127) with value `y` (0..127), bypass
 *Send MIDI NRPN messages*
 
 
-- `I2M.NRPN x y z`  
+#### I2M.NRPN
+`I2M.NRPN x y z`  
 Send MIDI NRPN message (high-res CC) for parameter MSB `x` and LSB `y` with value `y` (0..16383). Use `I2M.NRPN#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.NRPN.OFF x y`  
+#### I2M.NRPN.OFF
+`I2M.NRPN.OFF x y`  
 `I2M.NRPN.OFF x y z`  
 Get current offset / Set offset of values of NRPN messages to `z` (-16384..16383). Default is z = 0. Use `I2M.NRPN.OFF#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.NRPN.SLEW x y`  
+#### I2M.NRPN.SLEW
+`I2M.NRPN.SLEW x y`  
 `I2M.NRPN.SLEW x y z`  
 Get current slew time / Set slew time for NRPN messages to `z` ms (0..32767). Default is z = 0. Use `I2M.NRPN.SLEW#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
-- `I2M.NRPN.SET x y z`  
+#### I2M.NRPN.SET
+`I2M.NRPN.SET x y z`  
 Send MIDI NRPN message for parameter MSB `x` and LSB `y` with value `y` (0..16383), bypassing any slew settings. Use `I2M.NRPN.SET#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
 
@@ -365,28 +403,36 @@ Send MIDI NRPN message for parameter MSB `x` and LSB `y` with value `y` (0..1638
 *Send other MIDI messages like Program Change, Pitch Bend and Clock*
 
 
-- `I2M.PRG x`  
+#### I2M.PRG
+`I2M.PRG x`  
 Send MIDI Program Change message for program `x` (0..127)  
 
-- `I2M.PB x`  
+#### I2M.PB
+`I2M.PB x`  
 Send MIDI Pitch Bend message with value `x` (-8192..8191)  
 
-- `I2M.AT x`  
+#### I2M.AT
+`I2M.AT x`  
 Send MIDI After Touch message with value `x` (0..127)  
 
-- `I2M.CLK`  
+#### I2M.CLK
+`I2M.CLK`  
 Send MIDI Clock message, for now: interpreted as quarter note  
 
-- `I2M.START`  
+#### I2M.START
+`I2M.START`  
 Send MIDI Clock Start message  
 
-- `I2M.STOP`  
+#### I2M.STOP
+`I2M.STOP`  
 Send MIDI Clock Stop message  
 
-- `I2M.CONT`  
+#### I2M.CONT
+`I2M.CONT`  
 Send MIDI Clock Continue message  
 
-- `I2M.PANIC`  
+#### I2M.PANIC
+`I2M.PANIC`  
 Send MIDI Note Off messages for all notes on all channels, and reset note duration, shift, repetition, ratcheting, min/max  
 
 
@@ -396,12 +442,14 @@ Send MIDI Note Off messages for all notes on all channels, and reset note durati
 *Settings for incoming MIDI messages*
 
 
-- `I2M.Q.CH`  
+#### I2M.Q.CH
+`I2M.Q.CH`  
 `I2M.Q.CH x`  
 `I2M.Q.# x`  
 Get currently set MIDI channel / Set MIDI channel `x` (1..16) for MIDI in. Default is `x = 1`.  
 
-- `I2M.Q.LATCH x`  
+#### I2M.Q.LATCH
+`I2M.Q.LATCH x`  
 Turn on or off latching for MIDI notes received via MIDI in. `x = 0` means Note Off messages are recorded in the note history, so only notes with keys currently held down on the MIDI controller are stored. `x = 1` means Note Off messages are not recorded in the note history, so notes are still stored after releasing the respective key on the MIDI controller. Default is `x = 1`.  
 
 
@@ -411,11 +459,13 @@ Turn on or off latching for MIDI notes received via MIDI in. `x = 0` means Note 
 *Access the note history – the eight last received note numbers and velocities*
 
 
-- `I2M.Q.NOTE x`  
+#### I2M.Q.NOTE
+`I2M.Q.NOTE x`  
 `I2M.Q.N`  
 Get `x` (0..7) last note number (0..127) received via MIDI in  
 
-- `I2M.Q.VEL x`  
+#### I2M.Q.VEL
+`I2M.Q.VEL x`  
 `I2M.Q.V`  
 Get `x` (0..7) last note velocity (1..127) received via MIDI in  
 
@@ -426,7 +476,8 @@ Get `x` (0..7) last note velocity (1..127) received via MIDI in
 *Access the stored data of CC values received via MIDI in*
 
 
-- `I2M.Q.CC x`  
+#### I2M.Q.CC
+`I2M.Q.CC x`  
 Get current value (0..127) of controller `x` (0..127) received via MIDI in  
 
 
@@ -436,22 +487,28 @@ Get current value (0..127) of controller `x` (0..127) received via MIDI in
 *Get the respective latest value reveived via MIDI in*
 
 
-- `I2M.Q.LCH`  
+#### I2M.Q.LCH
+`I2M.Q.LCH`  
 Get the latest channel (1..16) received via MIDI in  
 
-- `I2M.Q.LN`  
+#### I2M.Q.LN
+`I2M.Q.LN`  
 Get the note number (0..127) of the latest Note On received via MIDI in  
 
-- `I2M.Q.LV`  
+#### I2M.Q.LV
+`I2M.Q.LV`  
 Get the velocity (1..127) of the latest Note On received via MIDI in  
 
-- `I2M.Q.LO`  
+#### I2M.Q.LO
+`I2M.Q.LO`  
 Get the note number (0..127) of the latest Note Off received via MIDI in  
 
-- `I2M.Q.LC`  
+#### I2M.Q.LC
+`I2M.Q.LC`  
 Get the latest controller number (0..127) received via MIDI in  
 
-- `I2M.Q.LCC`  
+#### I2M.Q.LCC
+`I2M.Q.LCC`  
 Get the latest controller value (0..127) received via MIDI in  
 
 ---
