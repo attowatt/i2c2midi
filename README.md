@@ -232,7 +232,7 @@ Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127). 
 ---
 
 ### MIDI out: Notes
-*Send MIDI notes*  
+*Send an individual MIDI note. Each note consists of a note number (pitch), velocity and duration. i2c2midi will take care of Note Off messages send an automatic Note Off message based on the set note duration. The note duration can be set globally via `I2M.TIME` or individually via `I2M.NT`.*  
 
 
 #### I2M.NOTE
@@ -256,14 +256,13 @@ Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127
 ---
 
 ### MIDI out: Chords
-*Send a chord, consisting of multiple MIDI notes*
-
+*Play a chord, consisting of multiple MIDI notes. Chords are basically groups of relative note numbers or pitches. One chord consists of up to eight notes defined via `I2M.C.ADD`, `I2M.C.RM`, `I2M.C.INS`, `I2M.C.DEL` or `I2M.C.SET`. The notes are defined relative to the root note which is specified when playing a chord via `I2M.C`. When a chord is played, the notes are sent out as individual MIDI notes in the order they are defined in the chord. If no note has been defined in the chord yet, no note will be played. 8 chords can be defined using their respective index 1..8.*
 
 #### I2M.CHORD
 `I2M.CHORD x y z`  
 `I2M.C`  
 
-Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127). A chord consists of up to eight notes defined relative to the root note via `I2M.C.ADD`, `I2M.C.RM`, `I2M.C.INS`, `I2M.C.DEL` or `I2M.C.SET`, which are sent out as MIDI Note On messages in the order they are defined in the chord. If no note has been defined in the chord yet, no note will be played. 8 chords can be defined using their respective index 1..8. Use `I2M.C#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127). Use `I2M.C#` to add channel parameter [(see below)](#channel-specific-op-variants).  
 
 #### I2M.C.ADD
 `I2M.C.ADD x y`  
