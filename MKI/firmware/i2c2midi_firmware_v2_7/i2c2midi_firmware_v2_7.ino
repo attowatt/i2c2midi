@@ -1,8 +1,12 @@
-
-
 // January 30, 2022 
 // v2_7
 // https://github.com/attowatt/i2c2midi
+
+// -----------------------------------------------------------------
+// clock implementation via https://github.com/taubaland
+// -----------------------------------------------------------------
+
+
 
 #include <i2c_t3.h>
 #include <MIDI.h>
