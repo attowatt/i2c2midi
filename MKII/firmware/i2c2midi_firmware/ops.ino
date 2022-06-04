@@ -391,7 +391,7 @@ void op_I2M_C_SC(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t scaleChordNumber = data[2];
   if (chordNumber < 0 || chordNumber > maxChords) return;
-  if (scaleChordNumber < 0 || scaleChordNumber >= maxChords) return;
+  if (scaleChordNumber < 0 || scaleChordNumber > maxChords) return;
   
   const int start = chordNumber ? chordNumber - 1 : 0;
   const int end   = chordNumber ? chordNumber : maxChords;
