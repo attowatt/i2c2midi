@@ -612,6 +612,20 @@ I2M.CC# 3 1 RND 60 120
 
 ## Build the module
 
+i2c2midi comes in two hardware versions: 
+
+- MKI
+  - First iteration
+  - 4 HP
+  - TRS, no USB
+  - Works with current firmware
+- MKII
+  - Second and current iteration
+  - 2 HP
+  - TRS and USB Host
+  - Works with current firmware
+ 
+
 ### Build Guide
 
 - [Here's the build guide for i2c2midi MKII](MKII/hardware//BUILD-GUIDE.md)
