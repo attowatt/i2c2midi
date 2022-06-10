@@ -63,7 +63,7 @@ PCB a done. Let's continue with PCB b.
 - Carefully place the LEDs into position, so they look nice on the panel. You can position them flush with the panel or let them stick out – your choice :) If you double-checked the LEDs are in position, solder them.
 
 
-# VII
+## VII
 - Place PCB a into the angled header of PCB b. Make sure everything is aligned nicely and PCB a is perpendicular to PCB b. It should work by just placing both PCBs flat on the table.
 - Solder.
 - Finally, trim all the legs on PCB a as short as possible. I prefer to trim down *all* legs (including power header, I2C header, 1x10 angled pin header) – making sure, that the width of the module is as less as possible.
