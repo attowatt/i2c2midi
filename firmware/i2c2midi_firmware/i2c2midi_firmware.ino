@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v4_2
+  – Firmware v4_2_1
 
   https://github.com/attowatt/i2c2midi
 
@@ -32,7 +32,7 @@
   -------------------------------------------------------------------------------------------
 */ 
 
-// Turn on MK2 features
+// Turn on/off MK2 features
 #define MK2
 
 // USB Device
@@ -45,7 +45,7 @@
 //#define DEBUG      
 
 // Turn on testing mode
-//   Sending Channel 1, note 60, velocity 127
+// Sending Channel 1, note 60, velocity 127
 //#define TEST
 
 // Set Teensy model (Teensy 3.x vs. Teensy 4.1)
