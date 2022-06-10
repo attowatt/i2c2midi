@@ -12,7 +12,7 @@ i2c2midi lines community thread:
 https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 
-![](hardware/pictures/i2c2midi_diagram.png)
+![](/pictures/i2c2midi_diagram.png)
 
 ## Table of content
 [Details](#Details)  
@@ -34,7 +34,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 - Based on Teensy 3.2
 
 
-![](hardware/pictures/i2c2midi_v_2_0_side.jpg)
+![](pictures/i2c2midi_v_2_0_side.jpg)
 
 
 ## Usage
@@ -111,7 +111,7 @@ The firmware uses the [i2c_t3 Library](https://github.com/nox771/i2c_t3) for rea
 
 ## Schematic
 
-![](hardware/i2c2midi_schematic.png)
+![](i2c2midi_schematic.png)
 
 **MIDI TRS Type A Wiring:**
 
@@ -152,16 +152,16 @@ Starting point for sourcing parts:
 - https://octopart.com/bom-tool/pmHTMfR9
 - https://eu.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=09d13b7d7e
 
-Here are the [Gerber files](hardware/gerber/) for the PCB and panel.
+Here are the [Gerber files](/gerber/) for the PCB and panel.
 
 Here are some [more details](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) about ordering the PCB and Pancel from a manufacturer.
 
 
-![](hardware/pictures/i2c2midi_v_2_0_kit.jpg)
+![](/pictures/i2c2midi_v_2_0_kit.jpg)
 
 ## Build Guide
 
-Please find a Build Guide [here](hardware/BUILD-GUIDE.md).
+Please find a Build Guide [here](/BUILD-GUIDE.md).
 
 ## Changelog
 
