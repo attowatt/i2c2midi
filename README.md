@@ -20,7 +20,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 <br/>
 
-![](/hardware-MK2/pictures/i2c2midi_MK2_shot.jpg)
+![](/hardware/hardware-MK2/pictures/i2c2midi_MK2_shot.jpg)
 
 
 <br/><br/>
@@ -89,7 +89,7 @@ Caution: Do not connect power from the modular and the default USB port of the T
 
 <br/>
 
-![](/hardware-MK2/pictures/i2c2midi_MK2_diagram.png)
+![](/hardware/hardware-MK2/pictures/i2c2midi_MK2_diagram.png)
 
 <br/><br/>
 
@@ -667,7 +667,7 @@ Number | Part | Value
 
 ### Schematic
 
-![](/hardware-MK2/i2c2midi_schematic.png)
+![](/hardware/hardware-MK2/i2c2midi_schematic.png)
 
 ### MIDI TRS Type A Wiring
 
