@@ -628,8 +628,8 @@ i2c2midi comes in two hardware versions:
 
 ### Build Guide
 
-- [Here's the build guide for i2c2midi MKII](MKII/hardware//BUILD-GUIDE.md)
-- Looking for i2c2midi MKI? [Here's all info about MKI](MKI/README.md)
+- [Here's the build guide for i2c2midi MKII](/hardware/hardware-MK2/BUILD-GUIDE.md)
+- Looking for i2c2midi MKI? [Here's all info about MKI](/hardware/hardware-MK1/README.md)
 
 
 ### BOM
@@ -662,7 +662,7 @@ Number | Part | Value
 24 | | 1x24 male pin header (if Teensy has no pins)
 
 ### PCB and Panel
-- [Here are the gerber files](MKII/hardware/gerber/)
+- [Here are the gerber files](/hardware/hardware-MK2/gerber/)
 - [Here are some more details about ordering the PCB and Panel from a manufacturer](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/56) 
 
 ### Schematic
