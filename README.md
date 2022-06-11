@@ -683,7 +683,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ## Firmware
 
-### How to update
+### Firmware Update
 
 - Download the latest release [here](https://github.com/attowatt/i2c2midi/releases).
 - Unzip the files and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
