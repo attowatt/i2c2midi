@@ -75,14 +75,19 @@ PCB a done. Let's continue with PCB b.
 Ok, done with soldering!
 
 ## VIII
-Flash the firmware to the Teensy.
+Flash the firmware to the Teensy.  
 Caution: Don't connect the module to Euro power and USB at the same time! 
 
 **Via Teensyduino**
-- Download the firmware and open it with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
-- Connect the Teensy to your computer with a USB cable.
-- Under `Tools`, set `Board` to `Teensy 3.6`, `USB Type` to `Serial`, and select the `Port` that shows the Teensy. Set `CPU Speed` to `96 MHz`.
-- Upload the firmware to your Teensy via `Sketch` → `Upload`. 
+- Download the latest release [here](https://github.com/attowatt/i2c2midi/releases).
+- Unzip the file and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
+- Make sure to install all necessary libraries (see list of libraries below). [More info on how to install libraries](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries).
+- Connect the Teensy to your computer with a USB cable. Caution: Don't connect the module to Euro power and USB at the same time!
+- Under `Tools` ...
+  - set `Board` to `Teensy 3.6`, `Teensy 4.1` or `Teensy 3.2` (depending on your hardware)
+  - set `USB Type` to `Serial`
+  - select the Port that shows the Teensy
+- Upload the firmware to your Teensy via `Sketch` → `Upload`.
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
 
 **Via Teensy Loader** (not tested)
