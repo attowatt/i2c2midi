@@ -54,7 +54,7 @@ The USB connection can be used for either [MIDI *out*](#usb-midi-out-host) to co
 
 Several devices can be connected using a USB hub.
 
-i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer. However, this also means that a computer (which acts as a host itself) can not be connected via the USB A jack on the front panel. However, it is possible to connect a USB host via the Micro USB jack of the Teensy. [More info about that here](#https://github.com/attowatt/i2c2midi#usb-midi-out-device-to-host).
+i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer. However, this also means that a computer (which acts as a host itself) can not be connected via the USB A jack on the front panel. However, it is possible to connect a USB host via the Micro USB jack of the Teensy. [More info about that here](#usb-midi-out-device-to-host).
 
 #### USB MIDI out (Host)
 
