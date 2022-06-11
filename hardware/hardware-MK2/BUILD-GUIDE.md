@@ -80,7 +80,7 @@ Caution: Don't connect the module to Euro power and USB at the same time!
 
 **Via Teensyduino**
 - Download the latest release [here](https://github.com/attowatt/i2c2midi/releases).
-- Unzip the file and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
+- Unzip the files and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
 - Make sure to install all necessary libraries (see list of libraries below). [More info on how to install libraries](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries).
 - Connect the Teensy to your computer with a USB cable. Caution: Don't connect the module to Euro power and USB at the same time!
 - Under `Tools` ...
