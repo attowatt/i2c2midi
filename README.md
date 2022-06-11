@@ -750,9 +750,9 @@ Ground | → Sleeve | → MIDI Pin 2
 - USBHost_t36  
   MIT License – Copyright 2017 Paul Stoffregen (paul@pjrc.com)  
   https://github.com/PaulStoffregen/USBHost_t36
-- teensy4_i2c
-  MIT License – Copyright © 2019-2020 Richard Gemmell
-  https://github.com/Richard-Gemmell/teensy4_i2c
+- teensy4_i2c  
+  MIT License – Copyright © 2019-2020 Richard Gemmell  
+  https://github.com/Richard-Gemmell/teensy4_i2c  
 - Ramp  
   GPL-3.0 License – Sylvain GARNAVAULT - 2016/08/07  
   https://github.com/siteswapjuggler/RAMP
