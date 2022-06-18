@@ -50,15 +50,15 @@ Please note: The TRS connection is MIDI *out* only!
 
 ### USB 
 
-The USB connection can be used for either [MIDI *out*](#usb-midi-out-host) to connect additional devices (e.g. Teenage Engineering OP-1), or [MIDI *in*](#usb-midi-in-host) to receive MIDI Note or CC messages from an external MIDI controller.
+The USB connection can be used for either [MIDI *out*](#usb-midi-out-host) to connect an additional device (e.g. Teenage Engineering OP-1), or [MIDI *in*](#usb-midi-in-host) to receive MIDI Note or CC messages from an external MIDI controller.
 
-Several devices can be connected using a USB hub.
+Several MIDI controllers can be connected using a USB hub for MIDI *in*.
 
 i2c2midi acts as a USB host, which makes it possible to connect external USB devices without the need of a computer. However, this also means that a computer (which acts as a host itself) can not be connected via the USB A jack on the front panel. However, it is possible to connect a USB host via the Micro USB jack of the Teensy. [More info about that here](#usb-midi-out-device-to-host).
 
 #### USB MIDI out (Host)
 
-The USB MIDI out connection works like the TRS output, but the 16 available MIDI channels can be addressed separately from TRS. Set the MIDI channel with `I2M.CH` to 17..32 for MIDI channels 1..16 on the USB connection.
+The USB MIDI out connection works like the TRS output, but the 16 available MIDI channels can be addressed separately from TRS. Set the MIDI channel with `I2M.CH` to 17..32 for MIDI channels 1..16 on the USB connection. Please note: Only one USB device can be connected at a time.
 
 #### USB MIDI in (Host)
 
