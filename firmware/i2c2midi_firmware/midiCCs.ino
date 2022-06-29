@@ -133,7 +133,12 @@ void sendMidiCC(int channel, int controller, int value) {
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendControlChange(controller, value, channel+1-16);
+      //midiDevice.sendControlChange(controller, value, channel+1-16);
+      for (int i = 0; i < 2; i++) {
+        if (* midiDeviceList[i] && channel == i+16) {
+          midiDeviceList[i]->sendControlChange(controller, value, i+1);  
+        }
+      }
     #endif
   }
   blinkLED(1); 

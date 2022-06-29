@@ -301,7 +301,12 @@ void sendMidiNoteOn(int channel, int noteNumber, int velocity) {
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendNoteOn(noteNumber, velocity, channel+1-16);
+      //midiDevice.sendNoteOn(noteNumber, velocity, channel+1-16);
+      for (int i = 0; i < 2; i++) {
+        if (* midiDeviceList[i] && channel == i+16) {
+          midiDeviceList[i]->sendNoteOn(noteNumber, velocity, i+1);  
+        }
+      }
     #endif
   }
   blinkLED(1);
@@ -328,7 +333,12 @@ void sendMidiNoteOff(int channel, int noteNumber) {
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendNoteOff(noteNumber, 0, channel+1-16);
+      //midiDevice.sendNoteOff(noteNumber, 0, channel+1-16);
+      for (int i = 0; i < 2; i++) {
+        if (* midiDeviceList[i] && channel == i+16) {
+          midiDeviceList[i]->sendNoteOff(noteNumber, 0, i+1);  
+        }
+      }
     #endif
   }
   blinkLED(1);

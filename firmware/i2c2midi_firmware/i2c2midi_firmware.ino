@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v4_2_1
+  – Firmware v4_2_2 (experimental multiple usb-out)
 
   https://github.com/attowatt/i2c2midi
 
@@ -97,8 +97,11 @@
 //   ... sends out MIDI data to devices (MIDI out)
 #ifdef MK2
   USBHost myusb;                                        
-  USBHub hub1(myusb);                                   // USB host: MIDI in     
-  MIDIDevice_BigBuffer midiDevice(myusb);               // USB host: MIDI out
+  USBHub hub1(myusb);
+  USBHub hub2(myusb);
+  MIDIDevice_BigBuffer midiDevice(myusb);               
+  MIDIDevice_BigBuffer midiDevice2(myusb);     
+  MIDIDevice_BigBuffer* midiDeviceList[2] = { 0 };
 #endif
 
 // I2C
@@ -262,6 +265,8 @@ void setup() {
   // MIDI & USB MIDI
   MIDI.begin();
   #ifdef MK2
+    midiDeviceList[0] = &midiDevice;
+    midiDeviceList[1] = &midiDevice2;
     myusb.begin();
   #endif
 
