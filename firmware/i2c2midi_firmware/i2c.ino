@@ -28,7 +28,6 @@
 
   // handler for receiving I2C messages
   void i2cReceiveEvent(int count) {
-    Serial.println(count);
     for(int i=0; i < count; i++) {
       i2cData[i] = Wire.read();  
     }

@@ -14,7 +14,7 @@ bool isTRS(int channel) {
 
 
 // function for handling MIDI Note Ons
-void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration) {
+void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration, bool toBuffer, int chordNumber, int noteIndex) {
   
   // keep values in range
   if (channel < 0 || channel >= channelsOut) return;
@@ -22,7 +22,7 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration) {
   byte noteNumber = getLimitedNote(channel, noteNumberUnlimited);
   
   if (noteNumber < 0 || noteNumber > 127) return; 
-  if (noteDuration < 0) return;
+  if (noteDuration < 1) return;
   if (velocity < 1) {
     sendMidiNoteOff(channel, noteNumber);         // velocity = 0 is treated as Note Off
     return;
@@ -56,7 +56,6 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration) {
   int newNoteDuration = noteDuration;
 
   if (currentRepetition[channel] > 1 || currentRatcheting[channel] > 1) {
-    
     newNoteDuration = noteDuration / currentRatcheting[channel] * ratchetingLength / 100;
     if (newNoteDuration <= 0) return; 
     notes[channel][currentNote[channel]][5] = currentRepetition[channel] * currentRatcheting[channel];  
@@ -70,6 +69,16 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration) {
   notes[channel][currentNote[channel]][4] = velocity;             // note is on
   
   sendMidiNoteOn(channel, noteNumber, velocity);  
+
+  // record outoing notes to MIDI buffer:
+  // only "inital" notes are recorded to the buffer;
+  // notes that are triggered from the buffer itself are not recorded to the buffer
+  if (toBuffer) {     
+    // notes are only recorded, if recording is on
+    if (bufferRecord) {
+      recordToBuffer(channel, noteNumber - currentNoteShift[channel], velocity, millis(), newNoteDuration, chordNumber, noteIndex);
+    }
+  }
 
 }
 
@@ -146,13 +155,13 @@ void removeFromNoteHistoryIn(int channel, int noteNumber) {
   if (noteNumber < 0 || noteNumber > 127) return; 
   int position = -1;
   for(int j = 0; j < noteHistoryInLength; j++){                       
-     if(noteHistoryIn[channel][j][0] == noteNumber){                  // find the position of the note
-         position = j;                                                // store the position
-         break;                                                       // stop the for loop
+     if(noteHistoryIn[channel][j][0] == noteNumber){            // find the position of the note
+         position = j;                                          // store the position
+         break;                                                 // stop the for loop
      }
   }
   if (position >= 0) {  
-    for (int i = position; i < noteHistoryInLength; i++) {            // go through all elements right to the found position
+    for (int i = position; i < noteHistoryInLength; i++) {      // go through all elements right to the found position
       if (i == 7) {                                                     
         noteHistoryIn[channel][i][0] = 0;                               
         noteHistoryIn[channel][i][1] = 0;
@@ -182,6 +191,7 @@ void setLatch(int value) {
   }
 }
 
+
 // -------------------------------------------------------------------------------------------
 
 
@@ -200,12 +210,14 @@ void setLatch(int value) {
 // Schedule Notes
 
 
-void scheduleNote(int channel, int noteNumber, int velocity, int noteDuration, int delay) {
+void scheduleNote(int channel, int noteNumber, int velocity, int noteDuration, int delay, int chordNumber, int noteIndex) {
   scheduledNotes[scheduledNoteCount][0] = noteNumber;
   scheduledNotes[scheduledNoteCount][1] = millis() + delay;
   scheduledNotes[scheduledNoteCount][2] = noteDuration;
   scheduledNotes[scheduledNoteCount][3] = velocity;
   scheduledNotes[scheduledNoteCount][4] = channel;
+  scheduledNotes[scheduledNoteCount][5] = chordNumber;
+  scheduledNotes[scheduledNoteCount][6] = noteIndex;
   scheduledNoteCount = (scheduledNoteCount + 1) % maxNotesScheduled;
 }
 
@@ -218,7 +230,7 @@ void checkScheduledNotes() {
   for (int i = 0; i < maxNotesScheduled; i++) {           // go through all scheduled notes
     if (scheduledNotes[i][1]) {                           // check if the entry is not empty
       if (currentTime > scheduledNotes[i][1]) {           // check if the scheduled time has been reached
-        midiNoteOn(scheduledNotes[i][4], scheduledNotes[i][0], scheduledNotes[i][3], scheduledNotes[i][2]);
+        midiNoteOn(scheduledNotes[i][4], scheduledNotes[i][0], scheduledNotes[i][3], scheduledNotes[i][2], 1, scheduledNotes[i][5], scheduledNotes[i][6]);
         for (int j = 0; j < 5; j++) {
           scheduledNotes[i][j] = 0;
         }
@@ -235,9 +247,9 @@ void checkScheduledNotes() {
 // function for different ways of handling min max note limit
 byte getLimitedNote(int channel, int noteNumber) {
    
-  byte lowerLimit = noteLowerLimit[channel]; // todo: add channel here
-  byte upperLimit = noteUpperLimit[channel]; // todo: add channel here
-  byte mode = noteLimitMode[channel];        // todo: add channel here
+  byte lowerLimit = noteLowerLimit[channel];
+  byte upperLimit = noteUpperLimit[channel];
+  byte mode = noteLimitMode[channel];       
 
   // mode 0: ignore notes
   if (mode == 0) {

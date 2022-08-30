@@ -6,9 +6,9 @@
 // REVERSE > ROTATE > TRANSPOSE > DISTORT > REFLECT > INVERT > STRUMMING
 
 
-// function for playing chord
-void playChord(int channel, int noteNumber, int velocity, int noteDuration, int chordNumber) {
-  
+// function for playing chord or getting chord note/velocity
+int playChord(int channel, int noteNumber, int velocity, int noteDuration, int chordNumber, bool getNote, bool getVelocity, byte index) {
+
   // keep values in range
   if (channel < 0 || channel >= channelsOut) return;
   if (noteNumber < 0 || noteNumber > 127) return;
@@ -20,38 +20,63 @@ void playChord(int channel, int noteNumber, int velocity, int noteDuration, int 
   
   // if no notes are defined for the chord, don't do anything
   if (currentChordLength == 0) return;
-
+  
   // create a scaled chord (chordScaled) based on original chord and currentScale
   createChordScaled(chordNumber);
   
   // apply chord transformations to scaledChord
   applyTransformations(chordNumber);
   
+  // calculate new chord length based on play direction
+  int currentChordLength2 = calculateChordLengthByDirection(chordNumber);
+  
+  // randomize the note order if direction is random (4)
+  if (chordDirection[chordNumber] == 4) {
+    randomizeChordIndices(chordNumber, currentChordLength2);
+  }
+
   int delay = 0;
-  // calculate final note
-  for (int i = 0; i < currentChordLength; i++) {
+  
+  // if the chord should be played, go through all the chord notes
+  int j_start = 0;
+  int j_max = currentChordLength2;
+  // if note or velocity is requested, calculate note and velocity only for given index
+  if (getNote || getVelocity) { 
+    j_start = mod(index, currentChordLength2);
+    j_max = index + 1;
+  }
+
+  // go through the chord notes
+  for (int j = j_start; j < j_max; j++) {
     
+    // get next note based on play direction
+    int i = getNextChordNoteIndex(chordNumber, currentChordLength, currentChordLength2, j);
+
     const int chordNote = noteNumber + getNoteFromIndex(chordNumber, i);
     
     // Transformation: VELOCITY CURVE
-    const int velocityCurved = getCurveValue(curveVelocity[chordNumber][0], i, currentChordLength, velocity, curveVelocity[chordNumber][1], curveVelocity[chordNumber][2]);
+    const int velocityCurved = getCurveValue(curveVelocity[chordNumber][0], j, currentChordLength2, velocity, curveVelocity[chordNumber][1], curveVelocity[chordNumber][2]);
+    
+    // if note or velocity is requested, return the values and stop the function
+    if (getNote) return chordNote;
+    if (getVelocity) return velocityCurved;
 
-    if (i == 0) {   
-      midiNoteOn(channel, chordNote, velocityCurved, noteDuration);
+    if (j == 0) {   
+      midiNoteOn(channel, chordNote, velocityCurved, noteDuration, 1, chordNumber, chordScaled[0][i]);
     }
     else {
-        // Transformation: STRUMMING
-        int currentStrumming = chordStrumming[chordNumber];
+      // Transformation: STRUMMING
+      int currentStrumming = chordStrumming[chordNumber];
 
-        // Transformation: TIME CURVE
-        const int timeCurved = getCurveValue(curveTime[chordNumber][0], i, currentChordLength, currentStrumming, curveTime[chordNumber][1], curveTime[chordNumber][2]) - currentStrumming;
-        delay += currentStrumming + timeCurved;
-        
-        if (currentStrumming == 0) {
-          midiNoteOn(channel, chordNote, velocityCurved, noteDuration);
-        } else {
-          scheduleNote(channel, chordNote, velocityCurved, noteDuration, delay);
-        }
+      // Transformation: TIME CURVE
+      const int timeCurved = getCurveValue(curveTime[chordNumber][0], j, currentChordLength2, currentStrumming, curveTime[chordNumber][1], curveTime[chordNumber][2]) - currentStrumming;
+      delay += currentStrumming + timeCurved;
+      
+      if (currentStrumming == 0) {
+        midiNoteOn(channel, chordNote, velocityCurved, noteDuration, 1, chordNumber, chordScaled[0][i]);
+      } else {
+        scheduleNote(channel, chordNote, velocityCurved, noteDuration, delay, chordNumber, chordScaled[0][i]);
+      }
     }
   }
 }
@@ -287,16 +312,16 @@ void setCurrentScale(int chordNumber) {
     currentChordNoteCount = chordNoteCount[scaleChordNumber];
     currentScaleLength[chordNumber] = chordNoteCount[scaleChordNumber];
     
-    // 1: add notes in chord to chordScaled
+    // 1: add notes in chord to chordScaled (notes as indexes; deltas are all zero)
     for (int i = 0; i < currentChordNoteCount; i++) {
-      chordScaled[0][i] = chord[scaleChordNumber][currentScaleLength[chordNumber] - 1 - i];
-      chordScaled[1][i] = 0;
+      chordScaled[0][i] = chord[scaleChordNumber][currentScaleLength[chordNumber] - 1 - i]; // indexes
+      chordScaled[1][i] = 0;                                                                // deltas
     }
     
     // 2: apply transformations to chordScaled
     applyTransformations(scaleChordNumber);
 
-    // 3: calculate notes from chordScaled and add them to currentScale
+    // 3: calculate notes from indexes in chordScaled and add them to currentScale
     for (int i = 0; i < currentScaleLength[chordNumber]; i++) {
       const int scaleLengthChromatic = 12;
       const int noteIndex = chordScaled[0][i];
@@ -368,6 +393,23 @@ int getNoteFromIndex(int chordNumber, int noteIndex_) {
   return finalNote;
 }
 
+// function to calculate the final note from the current scaled chord and an index
+int getNoteFromIndexBuffer(int chordNumber, int noteIndex) {
+  //const int noteIndex = chordScaled[0][noteIndex_];
+  //const int delta = chordScaled[1][noteIndex_];
+  const int noteScaled = currentScale[chordNumber][mod(noteIndex, currentScaleLength[chordNumber])];    // get the note in scale from shifted index
+  int octave = 0;
+  if (noteIndex >= 0) {
+    octave = (noteIndex / currentScaleLength[chordNumber]) * 12;            // calc octave from shifted index
+  } else {
+    octave = (((noteIndex+1) / currentScaleLength[chordNumber]) * 12) - 12;            // calc octave from shifted index
+  }
+  //const int finalNote = noteScaled + octave + delta;              // final note incl octave and delta
+  const int finalNote = noteScaled + octave;              // final note incl octave and delta
+  
+  return finalNote;
+}
+
 
 // -------------------------------------------------------------------------------------------
 
@@ -398,7 +440,6 @@ void applyTransformations(int chordNumber) {
     if (currentRotate > 0) rotateChordRight(currentRotate);
     else if (currentRotate < 0) rotateChordLeft(abs(currentRotate)); 
   }
-
 
   // Transformation: STRETCH (distort)
   int stretchValue = chordStretch[chordNumber][0];
@@ -503,4 +544,112 @@ int getCurveValue(byte curveType, int step, int numberOfSteps, int originalValue
   
   return originalValue;
   
+}
+
+
+// -------------------------------------------------------------------------------------------
+
+
+byte calculateChordLengthByDirection(int chordNumber) {
+  // calculate chord length based on play direction
+  int currentChordLength2 = currentChordLength;  // forward, backward, inside out, outside in, random
+  if (chordDirection[chordNumber] == 7) currentChordLength2 = (currentChordLength * 2) - 1;    // pingpong
+  else if (chordDirection[chordNumber] == 8) currentChordLength2 = (currentChordLength * 2);   // ping & pong
+  else if (chordDirection[chordNumber] == 5 || chordDirection[chordNumber] == 6) currentChordLength2 = currentChordLength + (currentChordLength - 2);   // bottom repeat or top repeat
+  return currentChordLength2;
+}
+
+
+// -------------------------------------------------------------------------------------------
+
+
+byte getNextChordNoteIndex(int chordNumber, int chordLength, int chordLength2, int index) {
+  int i = 0;  
+  int j = index;
+
+  // forward 
+  if (chordDirection[chordNumber] == 0) i = j;
+  
+  // backward
+  else if (chordDirection[chordNumber] == 1) i = (chordLength - 1) - j;
+  
+  // inside out
+  else if (chordDirection[chordNumber] == 2) { 
+    int start = (chordLength - 1) / 2;
+    if (chordLength % 2) {  // odd chord length
+      i = start;
+      for (int k = 0; k <= j; k++) {
+        if (k % 2) i -= k;
+        else i += k; 
+      }
+    }
+    else {  // even chord length
+      i = start;
+      for (int k = 0; k <= j; k++) {
+        if (k % 2) i += k;
+        else i -= k; 
+      }
+    }
+  }
+
+  // outside in
+  else if (chordDirection[chordNumber] == 3) { 
+    i = 0;
+    if (j != 0) {
+      for (int k = 1; k <= j; k++) {
+        if (k % 2) i = i + chordLength - k;
+        else i = i - chordLength + k;
+      }
+    }  
+  }
+
+  // random
+  else if (chordDirection[chordNumber] == 4) { 
+    i = chordRandomIndices[chordNumber][j];
+  }
+
+  // bottom repeat
+  else if (chordDirection[chordNumber] == 5) { 
+    if (j % 2) i = j / 2 + 1;
+    else i = 0;
+  } 
+  
+  // top repeat
+  else if (chordDirection[chordNumber] == 6) { 
+    if (j % 2) i = chordLength - 1;
+    else i = j - (j / 2);
+  }
+
+  // pingpong
+  else if (chordDirection[chordNumber] == 7) {
+    i = (chordLength - 1) - abs(j - (chordLength - 1));
+  }
+  // ping & pong
+  else if (chordDirection[chordNumber] == 8) {
+    if (j < chordLength2 / 2) i = j;
+    else i = (chordLength2 - 1) - j;
+  }
+  
+  return i;
+}
+
+
+// -------------------------------------------------------------------------------------------
+
+
+void randomizeChordIndices(int chordNumber, int chordLength) {
+
+  // fill it with 0,1,2,...
+  for(int i = 0; i < chordLength; i++) {
+    chordRandomIndices[chordNumber][i] = i;
+  }
+  
+  // shuffle it
+  for(int i = 0; i < chordLength; i++) {
+    int j = random(i, chordLength);
+    int t = chordRandomIndices[chordNumber][i];
+    chordRandomIndices[chordNumber][i] = chordRandomIndices[chordNumber][j];
+    chordRandomIndices[chordNumber][j] = t;
+  }
+
 }

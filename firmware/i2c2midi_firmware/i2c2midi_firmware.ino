@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v4_2_1
+  – Firmware v4_3
 
   https://github.com/attowatt/i2c2midi
 
@@ -32,7 +32,7 @@
   -------------------------------------------------------------------------------------------
 */ 
 
-// Turn on/off MK2 features
+// Turn on MK2 features
 #define MK2
 
 // USB Device
@@ -45,7 +45,7 @@
 //#define DEBUG      
 
 // Turn on testing mode
-// Sending Channel 1, note 60, velocity 127
+//   Sending Channel 1, note 60, velocity 127
 //#define TEST
 
 // Set Teensy model (Teensy 3.x vs. Teensy 4.1)
@@ -175,7 +175,7 @@ const byte chordMaxLength = 8;           // maximum allowed length of chords
 int chord[maxChords][chordMaxLength];    // array to store chords
 byte chordNoteCount[maxChords];          // number of added notes per chord
 byte chordLength[maxChords];             // size of chord that should be played
-int chordScaled[2][chordMaxLength];      // store current chord w transformations; 1 scaled notes, 2 deltas
+int chordScaled[2][chordMaxLength];      // store current chord w transformations; 0 scaled notes, 1 deltas
 byte currentChordLength;                 // length of current chord
 byte currentChordNoteCount;              // number of added notes in current chord
 int chordReverse[maxChords];             // reverse transformation setting per chord
@@ -184,26 +184,67 @@ int chordRotate[maxChords];              // rotate transformation setting per ch
 int chordInversion[maxChords];           // inversion transformation setting per chord
 int chordStrumming[maxChords];           // strumming transformation setting per chord
 int chordShift[maxChords];               // shift transformation setting per chord
-int chordStretch[maxChords][2];          // stretch transformation setting per chord; 1 value, 2 anchor point
-int chordReflection[maxChords][2];       // reflection setting per chord; 1 refl value, 2 refl point
-int currentScaleChord[maxChords];
-int currentScale[maxChords][12];
-int currentScaleLength[maxChords];
+int chordStretch[maxChords][2];          // stretch transformation setting per chord; 0 value, 1 anchor point
+int chordReflection[maxChords][2];       // reflection setting per chord; 0 refl value, 1 refl point
+int currentScaleChord[maxChords];        // storing the chord number which is set as the scale for each chord
+int currentScale[maxChords][12];         // storing the current scale for each chord
+int currentScaleLength[maxChords];       // storing the length of the current scale for each chord
 int curveVelocity[maxChords][3];         // type of curve, start percent, end percent
 int curveTime[maxChords][3];             // type of curve, start percent, end percent 
+byte chordDirection[maxChords];          // play direction for chord
+int chordNotePlayCount[maxChords];       // count how often a note of a chord has been played 
+int chordRandomIndices[maxChords][chordMaxLength*2];
 
 // Scheduled notes
 const byte maxNotesScheduled = 42;                 // maximum allowed notes for scheduling
-unsigned long scheduledNotes[maxNotesScheduled][5];
+unsigned long scheduledNotes[maxNotesScheduled][7];
 // array to store scheduled notes: 
 // 0 : note number
 // 1 : start time scheduled
 // 2 : duration
 // 3 : velocity
 // 4 : channel
+// 5 : chord number
+// 6 : note index
 byte scheduledNoteCount = 0;                       // total count of scheduled notes
 
-// Slew (Ramps)
+// MIDI buffer
+const uint8_t maxBuffer = 64;
+unsigned long buffer[maxBuffer][10];
+// 0 : channel
+// 1 : note number
+// 2 : velocity
+// 3 : start time
+// 4 : duration
+// 5 : buffer round
+// 6 : original velocity
+// 7 : chord number
+// 8 : note index
+// 9 : note index original
+// internal values
+uint8_t bufferCount = 0;                          // the current splot position in the buffer array
+uint8_t bufferRoundCount = 0;                     // keeping track of rounds
+int bufferOffset = 0;                             // time when play direction was changed
+bool bufferReverse = 0;                           // play direction
+unsigned long bufferFrame = 0;
+elapsedMicros bufferElapsedMicros;
+// parameters set by OPs
+byte bufferRecord = 0;                            // if notes should be recorded to buffer or not
+int bufferLength = 1000;                          // length of the buffer in ms
+int bufferStartOffset = 0;                        // offset added to the start in ms
+int bufferEndOffset = 0;                          // negative offset added to the end in ms
+byte bufferDirection = 0;                         // direction of buffer, 0 = forward, 1 = backward, 2 = ping pong
+int bufferSpeed = 100;                            // buffer speed, 100 = normal speed, 50 = double speed, 200 = half speed
+byte bufferFeedback = 8;                          // how many rounds the note should survive (affects note velocity)
+int bufferPitchShift = 0;                         // pitch added to note with each round
+int bufferDurationShift = 0;                      // duration added to note with each round
+int bufferVelocityShift = 0;
+int bufferNoteOffset = 0;                         // pitch offset added to all notes, fixed for all rounds
+int bufferVelocityOffset = 0;                     // velocity offset added to all notes, fixed for all rounds
+int bufferDurationOffset = 0;                     // duration offset added to all notes, fixed for all rounds
+byte bufferMode = 0;                              // buffer mode, 0 = "digital", 1 = "tape" (pitch/duration fixed to speed)
+
+// Ramp (slew)
 const byte maxRamps = 8;                           // maximum allowed ramps
 rampInt* myRamps = new rampInt[maxRamps];          // intialize 8 ramps 
 int lastRampValues[maxRamps];                      // store the latest ramp values (used for comparison with new values)
@@ -278,7 +319,6 @@ void setup() {
       currentScale[i][j] = j;
     }
   }
-
   // setup default note duration & note shift
   for (int i = 0; i < channelsOut; i++) {
     currentNoteDuration[i] = 100;
@@ -290,6 +330,7 @@ void setup() {
     noteLowerLimit[i] = 0;
     noteLimitMode[i] = 0;
   }
+
 
   //start up animation
   for (int i = 0; i < 4; i++) {
@@ -314,8 +355,7 @@ void setup() {
 
 void loop() {
 
-  // I2C 
-  
+  // I2C   
   if(received) {
     #ifdef DEBUG
       Serial.print(received); 
@@ -339,6 +379,7 @@ void loop() {
       uint8_t channel =    midiDevice.getChannel();
       uint8_t data1 =      midiDevice.getData1();
       uint8_t data2 =      midiDevice.getData2();
+
       //const uint8_t *sys = midiDevice.getSysExArray();  // not used at the moment
 
       #ifdef DEBUG
@@ -398,6 +439,7 @@ void loop() {
 
   checkNoteDurations();             // check if there are notes to turn off
   checkScheduledNotes();            // check scheduled notes
+  checkBuffer();
   updateRamps();                    // update all ramps for MIDI CC 
   checkLEDs();                      // check if the LEDs should be turned off
   

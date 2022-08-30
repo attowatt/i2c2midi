@@ -66,7 +66,7 @@ int8_t getNextFreeNRPN(int channel, int controller) {
   // check if controller is already stored in a slot
   for (int i=0; i < maxNRPNs; i++) {                        
     if (NRPNs[i][0] == channel && NRPNs[i][1] == controller) {
-        Serial.println("already stored in NRPN array");
+        //Serial.println("already stored in NRPN array");
         return i;
     }
   }

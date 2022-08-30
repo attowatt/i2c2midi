@@ -167,7 +167,25 @@ void sendMidiClockContinue() {
 // MIDI panic
 void panic() {
   
-  // reset module 
+  sendMidiClockStop();
+
+  // send note offs and reset ratchets and repeats
+  for (int j=0; j < 16; j++) {                           
+    for (int i=0; i <= 127; i++) {                            
+      midiNoteOff(j, i);
+    }
+  }
+
+  setDefaults();
+
+}
+
+
+// -------------------------------------------------------------------------------------------
+
+
+void setDefaults() {
+
   for (int i = 0; i < channelsOut; i++) {
     currentNoteDuration[i] = 100;
     currentNoteShift[i] = 0;
@@ -175,20 +193,28 @@ void panic() {
     currentRatcheting[i] = 1;
     noteUpperLimit[i] = 127;
     noteLowerLimit[i] = 0;
-  } 
-
-  // send note offs and reset ratchets and repeats
-  for (int j=0; j < 16; j++) {                           
-    for (int i=0; i <= 127; i++) {                            
-      midiNoteOff(j, i);
+    noteLimitMode[i] = 0;
+    for (int j = 0; j < 127; j++) { 
+      CCs[i][j][0] = 0;
+      CCs[i][j][1] = 0;                    
+      CCs[i][j][2] = 0;
     }
-  } 
+  }
+
+  // reset NRPNs
+  for (int j = 0; j < maxNRPNs; j++) { 
+    NRPNs[j][2] = 0;
+    NRPNs[j][3] = 0;
+  }
+  
+  // reset ratchets and repeats 
   for (int j=0; j < channelsOut; j++) {                           
     for (int i=0; i < maxNotes; i++) {                            
       notes[j][i][5] = 0;   // reset ratchet count
       notes[j][i][6] = 0;   // reset repeat count
     }
-  } 
+  }
+
   // reset scheduled notes
   for (int i = 0; i < maxNotesScheduled; i++) {
     for (int j = 0; j < 5; j++) {
@@ -197,7 +223,59 @@ void panic() {
     scheduledNoteCount -= 1;
   }
 
-  #ifdef DEBUG
-    Serial.println("OMG!!!!1");
-  #endif
+  // reset chords
+  for (int i = 0; i < maxChords; i++) {
+    clearChord(i);
+    chordReverse[i] = 0;
+    chordRotate[i] = 0;       
+    chordInversion[i] = 0;    
+    chordStrumming[i] = 0;    
+    chordShift[i] = 0;        
+    chordStretch[i][0] = 0;   
+    chordStretch[i][1] = 0;   
+    chordReflection[i][0] = 0;
+    chordReflection[i][1] = 0;
+    currentScaleChord[i] = 0;
+    currentScaleLength[i] = 12;
+    for (int j = 0; j < 12; j++) {
+      currentScale[i][j] = j;
+    }
+    curveVelocity[i][0] = 0;
+    curveVelocity[i][1] = 100;
+    curveVelocity[i][2] = 100;
+    curveTime[i][0] = 0;
+    curveTime[i][1] = 100;
+    curveTime[i][2] = 100;
+    chordDirection[i] = 0;
+    
+  }
+
+  // reset USB MIDI in
+  latch = true;
+  lastChannelIn = 1;
+  lastNoteIn = 0;
+  lastVelocityIn = 0;
+  lastNoteOffIn = 0;
+  lastCIn = 0;
+  lastCCIn = 0;
+
+  // reset buffer
+  bufferRecord = 0;
+  bufferLength = 10;
+  bufferStartOffset = 0;
+  bufferEndOffset = 0;
+  bufferDirection = 0;
+  bufferSpeed = 100;
+  bufferFeedback = 8;
+  bufferPitchShift = 0;
+  bufferDurationShift = 0;
+  bufferVelocityShift = 0;
+  bufferNoteOffset = 0;
+  bufferVelocityOffset = 0;
+  bufferDurationOffset = 0;
+  bufferMode = 0;
+  bufferReverse = 0;
+
+  
+
 }

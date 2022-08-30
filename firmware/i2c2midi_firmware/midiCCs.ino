@@ -74,7 +74,6 @@ void updateRamps() {
         int controller = rampsAssignedCCs[i][1];                        // get the controller of the ramp
         int type = rampsAssignedCCs[i][2];                              // get the type: 0 = CC, 1 = NRPN
         if (type == 1) {
-          //Serial.print("CURRENT VALUE"); Serial.println(currentValue);
           sendNRPN(channel, controller, currentValue);                  // send NRPN
         } else {
           sendMidiCC(channel, controller, scaleDown(currentValue));     // send MIDI CC with new ramp value
