@@ -30,6 +30,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 ## Table of contents
 [Connections](#connections)  
 [Teletype OPs](#teletype-ops)   
+[Example Scripts](#example-scripts)   
 [Build the module](#build-the-module)  
 [Firmware](#firmware)  
 [Thanks](#thanks)  
@@ -710,6 +711,70 @@ I2M.CC# 3 1 RND 60 120
 
 
 
+
+---
+
+### Example Scripts
+
+#### Play a random note
+```
+#1 
+I2M.CH 1                // set channel to 1
+I2M.N + 60 RND 24 127   // play note between 60 and 84
+```
+
+#### Query CC 1-4 and store values in Pattern 0
+```
+#1 
+L 0 3: PN 0 I I2M.Q.CC + I 1
+```
+
+#### Define and play a chord
+```
+#1
+I2M.C.CLR 1             // clear chord 1
+I2M.C.ADD 1 0           // add relative note 0
+I2M.C.ADD 1 3           // add relative note 3
+I2M.C.ADD 1 7           // add relative note 7
+
+#2
+I2M.C.STR 1 100         // set strumming to 100
+I2M.C.DIR 1 7           // set play direction to 7: Pingpong
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
+```
+
+#### Define a chord using reverse binary
+```
+#1
+I2M.C.B 1 R10010001     // define chord: 1 means add, 0 means don't add = 0,3,7
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
+```
+
+#### Play chords stored in pattern 0
+```
+#1 
+I2M.C.B 1 PN.NEXT 0     // define chord with next value in pattern 0
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
+
+#Pattern 0
+137                     // = R10010001    = 0,3,7
+265                     // = R100100001   = 0,3,8
+1064                    // = R00010100001 = 3,5,10
+1060                    // = R00100100001 = 2,5,10
+```
+
+#### Use chord 2 as scale for a chord 1
+```
+#1
+I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8
+I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
+I2M.C.SC 1 2            // set chord 2 as scale for chord 1
+
+#2
+J WRP + J 1 0 7         // increment J and warp around 0 and 7
+I2M.C.TRP 1 J           // transpose chord 1 by J
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
+```
 
 ---
 
