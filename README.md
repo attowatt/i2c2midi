@@ -857,6 +857,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Firmware Update
 
+- Caution: Don't connect the module to Euro power and USB at the same time! 
 - Download the latest release [here](https://github.com/attowatt/i2c2midi/releases).
 - Unzip the files and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
 - Depending on your hardware, change the following settings:
@@ -877,6 +878,7 @@ Ground | → Sleeve | → MIDI Pin 2
 - Under `Tools`:
   - set `Board` to `Teensy 3.2`, `Teensy 3.6` or `Teensy 4.1`
   - set `USB Type` to `Serial`
+  - set `CPU Speed` to `96 MHz` for Teensy 3.6 and `150 MHz` for Teensy 4.1
   - select the Port that shows the Teensy
 - Upload the firmware to your Teensy via `Sketch` → `Upload`.
 - If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
