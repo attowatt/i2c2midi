@@ -11,7 +11,7 @@ Let's start with PCB a.
 ## II
 - Solder the following parts to PCB a, in this order:
   - Voltage regulator (IC1)
-  - Resistors (R1, R2, R3, R4, R5, R6)
+  - Resistors: 47 Ω (R1, R2), 2.2k Ω (R3, R4), 220 Ω (R5, R6)
   - 2x5 angled pin header (Power connection) & 2x3 angled pin header (I2C connection)
   - Capacitors (C1, C2)
 - Cut the legs of the parts as short as possible.
