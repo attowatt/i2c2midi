@@ -376,7 +376,7 @@ Set inversion of chord `x` (0..8) to `y` (-32..32). Default is `y = 0`. Use `x =
 #### I2M.C.STR
 `I2M.C.STR x y`  
 
-Set strumming of chord `x` (0..8) to `x` ms (0..32767). Strumming plays the notes of a chord arpeggiated, with an interval of `y` ms in between notes. Default is `y = 0`. Use `x = 0` to set strumming for all chords.  
+Set strumming of chord `x` (0..8) to `y` ms (0..32767). Strumming plays the notes of a chord arpeggiated, with an interval of `y` ms in between notes. Default is `y = 0`. Use `x = 0` to set strumming for all chords.  
 
 #### I2M.C.VCUR
 `I2M.C.VCUR w x y z`  
