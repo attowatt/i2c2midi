@@ -890,6 +890,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 <br/><br/>
 
+## Firmware
 
 ### Firmware Update Teletype
 
