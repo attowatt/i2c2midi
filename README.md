@@ -891,9 +891,14 @@ Ground | → Sleeve | → MIDI Pin 2
 <br/><br/>
 
 
-## Firmware
+### Firmware Update Teletype
 
-### Firmware Update
+- [Backup your scenes from Teletype](https://monome.org/docs/teletype/manual/#usb-backup)! Your scenes will be gone after the firmware update. 
+- Then follow the instructions [detailed over at monome](https://monome.org/docs/modular/update/). 
+- When the firmware has been flashed successfully, a message appears on Teletype's screen: `Scenes will be overwritten! Press to confirm; Do not press otherwise!` Please make sure to press the button, before the message disappears (ca. 2-3 seconds). Otherwise the update might not work. This is a special quirk of installing a BETA firmware on Teletype.
+
+
+### Firmware Update i2c2midi
 
 - Caution: Don't connect the module to Euro power and USB at the same time! 
 - Download the latest release [here](https://github.com/attowatt/i2c2midi/releases).
@@ -919,10 +924,13 @@ Ground | → Sleeve | → MIDI Pin 2
   - set `CPU Speed` to `96 MHz` for Teensy 3.6 and `150 MHz` for Teensy 4.1
   - select the Port that shows the Teensy
 - Upload the firmware to your Teensy via `Sketch` → `Upload`.
-- If the upload was successfull, i2c2midi lights up with both LEDs turning on and off four times.
+- If the upload was successfull, Teensyduino says `Done uploading` and i2c2midi lights up with both LEDs turning on and off four times.
 
 ### Changelog
 
+- Version 4.4 (+ Teletype Firmware `I2M BETA 3.1`)
+  - New OP `I2M.C.QN`: Get the transformed chord note at index 
+  - New OP `I2M.C.QV`: Get the transformed chord note velocity at index  
 - Version 4.3 (+ Teletype Firmware `I2M BETA 3`)
   - New looping MIDI buffer / MIDI recorder feature, with new OPs: `I2M.B.R`, `I2M.B.L`, `I2M.B.START`, `I2M.B.END`, `I2M.B.DIR`, `I2M.B.SPE`, `I2M.B.FB`, `I2M.B.NSHIFT`, `I2M.B.VSHIFT`, `I2M.B.TSHIFT`, `I2M.B.NOFF`, `I2M.B.VOFF`, `I2M.B.TOFF`, `I2M.B.CLR`, `I2M.B.MODE`  
   - New OP `I2M.C.DIR`: Set a play direction for a chord
