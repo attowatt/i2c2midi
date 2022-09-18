@@ -783,7 +783,7 @@ I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
 I2M.C.SC 1 2            // set chord 2 as scale for chord 1
 
 #2
-J WRP + J 1 0 7         // increment J and warp around 0 and 7
+J WRP + J 1 0 7         // increment J and wrap around 0 and 7
 I2M.C.TRP 1 J           // transpose chord 1 by J
 I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
 ```
@@ -800,13 +800,13 @@ I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
 I2M.C.SC 1 2            // set chord 2 as scale for chord 1
 
 #2
-J WRP + J 1 0 4
-I2M.C.DIS 1 RND 3 2     // distort chord 1 by random value at anchor point 2
+J WRP + J 1 0 4         // increment J and wrap around 4
+I2M.C.DIS 1 J 2         // distort chord 1 by J at anchor point 2
 I2M.C.VCUR 1 1 40 100   // set a linear (type 1) velocity curve from 40% to 100%
 
 #3
 EV 4: $ 2
-J WRP + J 1 0 3         // increment J and warp around chord length
+J WRP + J 1 0 3         // increment J and wrap around chord length
 X I2M.C.QN 1 60 J       // get chord note and store in X
 Y I2M.C.QV 1 127 J      // get chord note velocity and store in Y
 Z SCL 0 127 0 800 Y     // scale velocity from 0..127 to 0..800
