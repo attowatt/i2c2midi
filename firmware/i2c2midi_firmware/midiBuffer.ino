@@ -82,8 +82,8 @@ void checkBuffer() {
     if (buffer[i][2]) {                                     // check if there is a note to be played
       if (bufferRoundCount != buffer[i][5]) {               // check if note has been played already in this round
         
-        if ( !bufferReverse && bufferFrame > buffer[i][3] ||
-              bufferReverse && bufferFrame < buffer[i][3] ) {
+        if ( (!bufferReverse && bufferFrame > buffer[i][3] ) ||
+             ( bufferReverse && bufferFrame < buffer[i][3] ) ) {
           
           // calculate new velocity
           int newVelocity1 = buffer[i][2] - (buffer[i][6] / bufferFeedback); // add shift via I2M.B.FB
@@ -159,8 +159,8 @@ void reverseBuffer(bool reverse) {
 void clearBufferNotes(unsigned long position) {
   for (int i = 0; i < maxBuffer; i++) {
     if (buffer[i][2]) {    
-      if (bufferReverse && buffer[i][3] > position ||     // for reverse, exclude notes after offset
-         !bufferReverse && buffer[i][3] < position ) {    // for forward, exclude notes before offset
+      if ( ( bufferReverse && buffer[i][3] > position ) ||     // for reverse, exclude notes after offset
+           (!bufferReverse && buffer[i][3] < position ) ) {    // for forward, exclude notes before offset
         buffer[i][5] = bufferRoundCount;
       }         
     }

@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v4_3
+  – Firmware v4_4
 
   https://github.com/attowatt/i2c2midi
 
@@ -141,16 +141,16 @@ unsigned long notes[channelsOut][maxNotes][7];
 // 4 : velocity
 // 5 : ratchet count
 // 6 : repeat count
-int noteCount[channelsOut];              // total note count, per channel
-int currentNote[channelsOut];            // current note number between 0 and maxNotes, per channel
-int currentNoteDuration[channelsOut];    // setting for note duration per channel
-int8_t currentNoteShift[channelsOut];    // setting for note shift per channel
-byte currentRepetition[channelsOut];     // setting for note repetition per channel
-byte currentRatcheting[channelsOut];     // setting for note ratcheting per channel
-const int ratchetingLength = 75;         // in percent: 75 means 75% of original note length for racheted notes
-byte noteUpperLimit[channelsOut];        // setting for highest allowed midi note per channel
-byte noteLowerLimit[channelsOut];        // setting for lowest allowed midi note per channel
-byte noteLimitMode[channelsOut];        // setting for limit mode per channel
+int noteCount[channelsOut];                        // total note count, per channel
+int currentNote[channelsOut];                      // current note number between 0 and maxNotes, per channel
+int currentNoteDuration[channelsOut];              // setting for note duration per channel
+int8_t currentNoteShift[channelsOut];              // setting for note shift per channel
+byte currentRepetition[channelsOut];               // setting for note repetition per channel
+byte currentRatcheting[channelsOut];               // setting for note ratcheting per channel
+const int ratchetingLength = 75;                   // in percent: 75 means 75% of original note length for racheted notes
+byte noteUpperLimit[channelsOut];                  // setting for highest allowed midi note per channel
+byte noteLowerLimit[channelsOut];                  // setting for lowest allowed midi note per channel
+byte noteLimitMode[channelsOut];                   // setting for limit mode per channel
 
 // CCs
 int CCs[channelsOut][127][3];                    
@@ -170,29 +170,29 @@ int NRPNs[maxNRPNs][4];
 byte nrpnCount = 0;
 
 // Chords
-const byte maxChords = 8;                // number of chords
-const byte chordMaxLength = 8;           // maximum allowed length of chords
-int chord[maxChords][chordMaxLength];    // array to store chords
-byte chordNoteCount[maxChords];          // number of added notes per chord
-byte chordLength[maxChords];             // size of chord that should be played
-int chordScaled[2][chordMaxLength];      // store current chord w transformations; 0 scaled notes, 1 deltas
-byte currentChordLength;                 // length of current chord
-byte currentChordNoteCount;              // number of added notes in current chord
-int chordReverse[maxChords];             // reverse transformation setting per chord
-bool chordReversedQ = 0;                 // keeping track of wether the chord is reversed or not
-int chordRotate[maxChords];              // rotate transformation setting per chord
-int chordInversion[maxChords];           // inversion transformation setting per chord
-int chordStrumming[maxChords];           // strumming transformation setting per chord
-int chordShift[maxChords];               // shift transformation setting per chord
-int chordStretch[maxChords][2];          // stretch transformation setting per chord; 0 value, 1 anchor point
-int chordReflection[maxChords][2];       // reflection setting per chord; 0 refl value, 1 refl point
-int currentScaleChord[maxChords];        // storing the chord number which is set as the scale for each chord
-int currentScale[maxChords][12];         // storing the current scale for each chord
-int currentScaleLength[maxChords];       // storing the length of the current scale for each chord
-int curveVelocity[maxChords][3];         // type of curve, start percent, end percent
-int curveTime[maxChords][3];             // type of curve, start percent, end percent 
-byte chordDirection[maxChords];          // play direction for chord
-int chordNotePlayCount[maxChords];       // count how often a note of a chord has been played 
+const byte maxChords = 8;                          // number of chords
+const byte chordMaxLength = 8;                     // maximum allowed length of chords
+int chord[maxChords][chordMaxLength];              // array to store chords
+byte chordNoteCount[maxChords];                    // number of added notes per chord
+byte chordLength[maxChords];                       // size of chord that should be played
+int chordScaled[2][chordMaxLength];                // store current chord w transformations; 0 scaled notes, 1 deltas
+byte currentChordLength;                           // length of current chord
+byte currentChordNoteCount;                        // number of added notes in current chord
+int chordReverse[maxChords];                       // reverse transformation setting per chord
+bool chordReversedQ = 0;                           // keeping track of wether the chord is reversed or not
+int chordRotate[maxChords];                        // rotate transformation setting per chord
+int chordInversion[maxChords];                     // inversion transformation setting per chord
+int chordStrumming[maxChords];                     // strumming transformation setting per chord
+int chordShift[maxChords];                         // shift transformation setting per chord
+int chordStretch[maxChords][2];                    // stretch transformation setting per chord; 0 value, 1 anchor point
+int chordReflection[maxChords][2];                 // reflection setting per chord; 0 refl value, 1 refl point
+int currentScaleChord[maxChords];                  // storing the chord number which is set as the scale for each chord
+int currentScale[maxChords][12];                   // storing the current scale for each chord
+int currentScaleLength[maxChords];                 // storing the length of the current scale for each chord
+int curveVelocity[maxChords][3];                   // type of curve, start percent, end percent
+int curveTime[maxChords][3];                       // type of curve, start percent, end percent 
+byte chordDirection[maxChords];                    // play direction for chord
+int chordNotePlayCount[maxChords];                 // count how often a note of a chord has been played 
 int chordRandomIndices[maxChords][chordMaxLength*2];
 
 // Scheduled notes
@@ -222,27 +222,27 @@ unsigned long buffer[maxBuffer][10];
 // 8 : note index
 // 9 : note index original
 // internal values
-uint8_t bufferCount = 0;                          // the current splot position in the buffer array
-uint8_t bufferRoundCount = 0;                     // keeping track of rounds
-int bufferOffset = 0;                             // time when play direction was changed
-bool bufferReverse = 0;                           // play direction
+uint8_t bufferCount = 0;                           // the current splot position in the buffer array
+uint8_t bufferRoundCount = 0;                      // keeping track of rounds
+int bufferOffset = 0;                              // time when play direction was changed
+bool bufferReverse = 0;                            // play direction
 unsigned long bufferFrame = 0;
 elapsedMicros bufferElapsedMicros;
 // parameters set by OPs
-byte bufferRecord = 0;                            // if notes should be recorded to buffer or not
-int bufferLength = 1000;                          // length of the buffer in ms
-int bufferStartOffset = 0;                        // offset added to the start in ms
-int bufferEndOffset = 0;                          // negative offset added to the end in ms
-byte bufferDirection = 0;                         // direction of buffer, 0 = forward, 1 = backward, 2 = ping pong
-int bufferSpeed = 100;                            // buffer speed, 100 = normal speed, 50 = double speed, 200 = half speed
-byte bufferFeedback = 8;                          // how many rounds the note should survive (affects note velocity)
-int bufferPitchShift = 0;                         // pitch added to note with each round
-int bufferDurationShift = 0;                      // duration added to note with each round
+byte bufferRecord = 0;                             // if notes should be recorded to buffer or not
+int bufferLength = 1000;                           // length of the buffer in ms
+int bufferStartOffset = 0;                         // offset added to the start in ms
+int bufferEndOffset = 0;                           // negative offset added to the end in ms
+byte bufferDirection = 0;                          // direction of buffer, 0 = forward, 1 = backward, 2 = ping pong
+int bufferSpeed = 100;                             // buffer speed, 100 = normal speed, 50 = double speed, 200 = half speed
+byte bufferFeedback = 8;                           // how many rounds the note should survive (affects note velocity)
+int bufferPitchShift = 0;                          // pitch added to note with each round
+int bufferDurationShift = 0;                       // duration added to note with each round
 int bufferVelocityShift = 0;
-int bufferNoteOffset = 0;                         // pitch offset added to all notes, fixed for all rounds
-int bufferVelocityOffset = 0;                     // velocity offset added to all notes, fixed for all rounds
-int bufferDurationOffset = 0;                     // duration offset added to all notes, fixed for all rounds
-byte bufferMode = 0;                              // buffer mode, 0 = "digital", 1 = "tape" (pitch/duration fixed to speed)
+int bufferNoteOffset = 0;                          // pitch offset added to all notes, fixed for all rounds
+int bufferVelocityOffset = 0;                      // velocity offset added to all notes, fixed for all rounds
+int bufferDurationOffset = 0;                      // duration offset added to all notes, fixed for all rounds
+byte bufferMode = 0;                               // buffer mode, 0 = "digital", 1 = "tape" (pitch/duration fixed to speed)
 
 // Ramp (slew)
 const byte maxRamps = 8;                           // maximum allowed ramps
@@ -292,9 +292,9 @@ void setup() {
   #ifdef TEENSY41
     Wire.begin(i2cAddress);        
   #endif
-  received = 0;                                                               // i2c data initalize
-  memset(i2cData, 0, sizeof(i2cData));                                        // save I2C data in memory
-  Wire.onReceive(i2cReceiveEvent);                                            // register i2c events
+  received = 0;                                    // i2c data initalize
+  memset(i2cData, 0, sizeof(i2cData));             // save I2C data in memory
+  Wire.onReceive(i2cReceiveEvent);                 // register i2c events
   Wire.onRequest(i2cRequestEvent);
 
   // serial
@@ -367,8 +367,8 @@ void loop() {
       Serial.println("");
     #endif
 
-    opFunctions(false, i2cData); // call the respective OP with isRequest = false
-    received = 0;                // reset back to 0
+    opFunctions(false, i2cData);                   // call the respective OP with isRequest = false
+    received = 0;                                  // reset back to 0
   }
 
   #ifdef MK2

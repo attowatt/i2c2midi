@@ -8,18 +8,18 @@
 
 // function for playing chord or getting chord note/velocity
 int playChord(int channel, int noteNumber, int velocity, int noteDuration, int chordNumber, bool getNote, bool getVelocity, byte index) {
-
-  // keep values in range
-  if (channel < 0 || channel >= channelsOut) return;
-  if (noteNumber < 0 || noteNumber > 127) return;
-  if (noteDuration < 0) return;
-  if (chordNumber < 0 || chordNumber >= maxChords) return;
   
+  // keep values in range
+  if (channel < 0 || channel >= channelsOut) return 0;
+  if (noteNumber < 0 || noteNumber > 127) return 0;
+  if (noteDuration < 0) return 0;
+  if (chordNumber < 0 || chordNumber >= maxChords) return 0;
+
   currentChordLength = chordLength[chordNumber];
   currentChordNoteCount = chordNoteCount[chordNumber];
   
   // if no notes are defined for the chord, don't do anything
-  if (currentChordLength == 0) return;
+  if (currentChordLength == 0) return 0 ;
   
   // create a scaled chord (chordScaled) based on original chord and currentScale
   createChordScaled(chordNumber);
