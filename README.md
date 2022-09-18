@@ -398,14 +398,14 @@ Set time curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`%
 Set play direction for chord `x` (0..8) to direction `y` (0..8). This will affect the order in which chord notes are played. Make sure to set strumming via `I2M.C.STR`. The following directions are available: 0) Forward (0,1,2,3,4) 1) Backward (4,3,2,1,0) 2) Inside out (2,1,3,0,4) 3) Outside in (0,4,1,3,2) 4) Random (2,3,1,0,4) 5) Bottom repeat (0,1,0,2,0,3,0,4) 6) Top repeat (0,4,1,4,2,4,3,4) 7) Pingpong (0,1,2,3,4,3,2,1,0) 8) Ping & pong (0,1,2,3,4,4,3,2,1,0). Default is `y = 0`.
 
 #### I2M.C.QN
-`I2M.C.QN x y i`   
+`I2M.C.QN x y z`   
 
-Get the transformed note number of a chord note for chord `x` (1..8) with root note `y` (0..127) at index `i` (0..7). Use this OP to send the transformed note number to other devices within eurorack, e.g. via V/OCT to any oscillator or via I2C to I2C-enabled devices like Just Friends or disting EX.
+Get the transformed note number of a chord note for chord `x` (1..8) with root note `y` (0..127) at index `z` (0..7). The reponse is the absolute note number (0..127). Use this OP to send the transformed note number to other devices within eurorack, e.g. via V/OCT to any oscillator or via I2C to I2C-enabled devices like Just Friends or disting EX.
 
 #### I2M.C.QV
-`I2M.C.QV x y i`   
+`I2M.C.QV x y z`   
 
-Get the transformed note velocity of a chord note for chord `x` (1..8) with root velocity `y` (1..127) at index `i` (0..7). Use this OP to send the transformed note velocity to other devices within eurorack, e.g. via CV to a VCA or via I2C to I2C-enabled devices like Just Friends or disting EX.
+Get the transformed note velocity of a chord note for chord `x` (1..8) with root velocity `y` (1..127) at index `z` (0..7). The response is the absolute note velocity (0..127). Use this OP to send the transformed note velocity to other devices within eurorack, e.g. via CV to a VCA or via I2C to I2C-enabled devices like Just Friends or disting EX.
 
 ---
 
