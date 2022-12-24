@@ -784,6 +784,7 @@ I2M.C.SC 1 2            // set chord 2 as scale for chord 1
 
 #2
 J WRP + J 1 0 7         // increment J and wrap around 0 and 7
+I2M.C.STR 1 200         // set strumming for chord 1 to 200 ms
 I2M.C.TRP 1 J           // transpose chord 1 by J
 I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
 ```
