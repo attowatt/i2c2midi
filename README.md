@@ -789,7 +789,9 @@ I2M.C.TRP 1 J           // transpose chord 1 by J
 I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
 ```
 
-#### Send transformed chord notes to Just Friends
+#### Send transformed chord notes to Just Friends or ER-301 
+
+To Just Friends:
 ```
 #I 
 JF.MODE 1
@@ -808,10 +810,20 @@ I2M.C.VCUR 1 1 40 100   // set a linear (type 1) velocity curve from 40% to 100%
 #3
 EV 4: $ 2
 J WRP + J 1 0 3         // increment J and wrap around chord length
-X I2M.C.QN 1 60 J       // get chord note and store in X
+X I2M.C.QN 1 0 J        // get chord note and store in X
 Y I2M.C.QV 1 127 J      // get chord note velocity and store in Y
 Z SCL 0 127 0 800 Y     // scale velocity from 0..127 to 0..800
-JF.NOTE N - X 60 VV Z   // play on Just Friends
+JF.NOTE N X VV Z        // play on Just Friends
+```
+
+To ER-301:  
+
+```
+#3
+J WRP + J 1 0 3                 // increment J and wrap around chord length
+SC.CV 1 N I2M.C.QN 1 0 J        // send V/Oct to ER-301
+SC.CV 2 VV I2M.C.QV 1 127 J     // send velocity to ER-301 (set Gain to 7.88)
+SC.TR.P 1                       // send a trigger to ER-301 envelope
 ```
 
 
