@@ -333,6 +333,8 @@ Get current length / Set length of chord `x` (0..8) to `y` (1..8). The length of
 
 Set scale for chord `x` (0..8) based on chord `y` (0..8). Setting a scale for a chord comes in handy when using chord transformations that introduce new notes, like `I2M.C.TRP`, `I2M.C.DIS` or `I2M.C.REF`. Use `y = 0` to remove the scale. Use `x = 0` to set scale for all chords.    
 
+→ [More info on how scales work on i2c2midi](#how-scales-work-on-i2c2midi)
+
 #### I2M.C.REV
 `I2M.C.REV x y`  
 
@@ -988,6 +990,8 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 4.4.1 (+ Teletype Firmware `I2M BETA 3.1`)
+  - Bugfix: Chord 1 could not be set as a scale
 - Version 4.4 (+ Teletype Firmware `I2M BETA 3.1`)
   - New OP `I2M.C.QN`: Get the transformed chord note at index 
   - New OP `I2M.C.QV`: Get the transformed chord note velocity at index  
