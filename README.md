@@ -826,8 +826,8 @@ I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
 #### Use chord 2 as scale for a chord 1
 ```
 #1
-I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8
-I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
+I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8 (alternatively use "393")
+I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale) (or "1453")
 I2M.C.SC 1 2            // set chord 2 as scale for chord 1
 
 #2
