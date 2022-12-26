@@ -749,8 +749,8 @@ Notes `0` ✅, `4` ✅ and `7` ✅ are part of the scale, Note `8` ❗️ is not
    | Note Name                     | C | C#| D | D#| E | F | F#| G | G#| A | A# | B  |
    |---                            |---|---|---|---|---|---|---|---|---|---|--- |--- |
    | Chromatic Scale               | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
-   | Defined Scale (e.g. Chord 2)  | 0 |   | 2 |   | 4 | 5 |   | 7 |   | 9 |    | 11 |
-   | Defined Chord (e.g. Chord 1)  | 0 ✅ |   |   |   | 4 ✅  |  |    | 7 ✅  | 8❗️| | | |
+   | Def. Scale (e.g. Chord 2)  | 0 |   | 2 |   | 4 | 5 |   | 7 |   | 9 |    | 11 |
+   | Def. Chord (e.g. Chord 1)  | 0 ✅ |   |   |   | 4 ✅  |  |    | 7 ✅  | 8❗️| | | |
    | How i2c2midi stores the Chord | 0 |   |   |   | 4 |  |    | 7 | 7+1|   |    |    |
 
 3) If notes in a chord are not part of the defined scale, i2c2midi looks for the nearest scale note and stores this note together with the respective delta.  
