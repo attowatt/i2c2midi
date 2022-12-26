@@ -907,7 +907,7 @@ i2c2midi comes in two hardware versions:
 
 Number | Part | Value
 --- | --- | ---
-1 | T36 | Teensy 3.6 (with pins or without pins)
+1 | T36 | Teensy 3.6 (with pins or without pins), or Teensy 4.1
 2 | C1 | 10 uF capacitor
 3 | C2 | 10 uF capacitor
 4 | D1 | LED 3 mm
