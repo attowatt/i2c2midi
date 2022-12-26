@@ -723,6 +723,52 @@ I2M.CC# 3 1 RND 60 120
 
 
 
+---
+
+
+### How scales work on i2c2midi
+
+Scales in i2c2midi do not work like a quantizer where notes "outside" of the scale are forced in place. Instead, i2c2midi will respect "outside" notes and keep their position in respect to the defined scale. This means, you can use a scale for chord transformations and still intentionally define notes in your chord that are not part of that scale.
+
+Let's say, you define chord 1 with notes `0,4,7,8` and set a major scale `0,2,4,5,7,9,11` via chord 2, note `8` of chord 1 will be "outside" the scale – instead of removing this note or forcing it into another note, i2c2midi will store for the nearest note in the scale (`7`) and the respective delta (`+1`). In other words, this note will be treated by i2c2midi as the "5th note in the scale raised by 1 semitone".
+
+Let's break this down step by step:
+
+1) The following three lines of Teletype code will define two chords, and set chord 2 as the scale for chord 1:
+   ```
+   I2M.C.B 1 R100010011       // define chord 1: 0,4,7,8
+   I2M.C.B 2 R101011010101    // define chord 2: 0,2,4,5,7,9,11 (major scale)
+   I2M.C.SC 1 2               // set chord 2 as scale for chord 1
+   ```
+
+2) Chord 1 has a note that is not part of the scale defined by Chord 2:   
+Notes `0` ✅, `4` ✅ and `7` ✅ are part of the scale, Note `8` ❗️ is not:
+
+   | Note Name                     | C | C#| D | D#| E | F | F#| G | G#| A | A# | B  |
+   |---                            |---|---|---|---|---|---|---|---|---|---|--- |--- |
+   | Chromatic Scale               | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+   | Defined Scale (e.g. Chord 2)  | 0 |   | 2 |   | 4 | 5 |   | 7 |   | 9 |    | 11 |
+   | Defined Chord (e.g. Chord 1)  | 0 ✅ |   |   |   | 4 ✅  |  |    | 7 ✅  | 8❗️| | | |
+   | How i2c2midi stores the Chord | 0 |   |   |   | 4 |  |    | 7 | 7+1|   |    |    |
+
+3) If notes in a chord are not part of the defined scale, i2c2midi looks for the nearest scale note and stores this note together with the respective delta.  
+In this example the note not beeing part of the scale is `8`. The nearest note in the scale would be `7`, and the delta would be `+1`. So, i2c2midi will store `0,4,7,7+1`.  
+
+4) Without any Chord Transformations, Chord 1 will be playing exactly as defined: `0,4,7,8` – the defined scale has no effect yet. But as soon as we use Chord Transformations, each transformation will happen within the defined scale, and the "outside" note `8` will also be transformed within the scale as note `7+1`:
+    
+   | Transformation | → | Note 1 | Note 2 | Note 3 | Note 4 | → | Resulting Chord |
+   |------------|---|--------|--------|--------|--------|---|-----------------|
+   | Transpose = 0  |   | 0      | 4      | 7      | 7+1    |   | 0,  4,   7,  8  |
+   | Transpose = 1  |   | 2      | 5      | 9      | 9+1    |   | 2,  5,   9,  10 |
+   | Transpose = 2  |   | 4      | 7      | 11     | 11+1   |   | 4,  7,   11, 12 |
+   | Transpose = 3  |   | 5      | 9      | 0+12   | 0+12+1 |   | 5,  9,   12, 13 |
+   | Transpose = 4  |   | 7      | 11     | 2+12   | 2+12+1 |   | 7,  11,  14, 15 |
+   | Transpose = 5  |   | 9      | 0+12   | 4+12   | 4+12+1 |   | 9,  12,  16, 17 |
+   | Transpose = 6  |   | 11     | 2+12   | 5+12   | 5+12+1 |   | 11, 14,  17, 18 |
+   | Transpose = 7  |   | 0+12   | 4+12   | 7+12   | 7+12+1 |   | 12, 16,  19, 20 |
+   | Transpose = 8  |   | 2+12   | 5+12   | 9+12   | 9+12+1 |   | 14, 17,  21, 22 |
+
+
 
 ---
 
