@@ -414,6 +414,8 @@ void op_I2M_C_L_set(uint8_t data[]) {
 void op_I2M_C_SC(uint8_t data[]) {
   const int8_t chordNumber = data[1];
   const int8_t scaleChordNumber = data[2];
+  
+
   if (chordNumber < 0 || chordNumber > maxChords) return;
   if (scaleChordNumber < 0 || scaleChordNumber > maxChords) return;
   
@@ -421,6 +423,7 @@ void op_I2M_C_SC(uint8_t data[]) {
   const int end   = chordNumber ? chordNumber : maxChords;
 
   for (int chord = start; chord < end; chord++) {
+
     // set scale based on a chord
     if (scaleChordNumber > 0) {
       currentScaleChord[chord] = scaleChordNumber - 1;
@@ -428,12 +431,10 @@ void op_I2M_C_SC(uint8_t data[]) {
     } 
     // reset scale to 12 tone chromatic
     else if (scaleChordNumber == 0) {
-      for (int i = 0; i < maxChords; i++) {
-        currentScaleChord[i] = 0;
-        currentScaleLength[i] = 12;
-        for (int j = 0; j < 12; j++) {
-          currentScale[i][j] = j;
-        }
+      currentScaleChord[chord] = 0;
+      currentScaleLength[chord] = 12;
+      for (int j = 0; j < 12; j++) {
+        currentScale[chord][j] = j;
       }
     }
   }

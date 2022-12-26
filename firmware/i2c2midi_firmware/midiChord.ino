@@ -306,7 +306,7 @@ void setCurrentScale(int chordNumber) {
   // 3: final notes are calculated from chordScaled and added to currentScale
   const int scaleChordNumber = currentScaleChord[chordNumber];
 
-  if (scaleChordNumber > 0) {
+  if (scaleChordNumber >= 0) {
     
     currentChordLength = chordLength[scaleChordNumber];
     currentChordNoteCount = chordNoteCount[scaleChordNumber];
