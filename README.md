@@ -783,12 +783,6 @@ I2M.CH 1                // set channel to 1
 I2M.N + 60 RND 24 127   // play note between 60 and 84
 ```
 
-#### Query CC 1-4 and store values in Pattern 0
-```
-#1 
-L 0 3: PN 0 I I2M.Q.CC + I 1
-```
-
 #### Define and play a chord
 ```
 #1
@@ -874,6 +868,29 @@ SC.CV 2 VV I2M.C.QV 1 127 J     // send velocity to ER-301 (set Gain to 7.88)
 SC.TR.P 1                       // send a trigger to ER-301 envelope
 ```
 
+#### Query CC 1-4 and store values in Pattern 0
+```
+#1 
+L 0 3: PN 0 I I2M.Q.CC + I 1
+```
+
+#### Query MIDI notes from controller
+
+Arpeggiator that plays MIDI notes currently held down on a connected MIDI controller.  
+CV 1 sends out the V/OCT and CV 2 sends out the velocity. 
+
+```
+#I
+I2M.Q.LATCH 0           // setting to only store currently played MIDI notes
+
+#M
+$ 1
+
+#1
+J WRP + J 1 0 7         // counter from 0..7
+CV 1 N - I2M.Q.N J 48   // query MIDI note number and subtract 4 octaves
+CV 2 VV * 4 I2M.Q.V J   // query MIDI note velocity and scale to VV 0..508
+```
 
 ---
 
