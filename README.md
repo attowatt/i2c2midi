@@ -12,6 +12,7 @@ i2c2midi bridges the gap between [monome Teletype](https://monome.org/docs/telet
 - Automatic MIDI Note Off messages (settable note duration per note)
 - Chords and Chord Transformations
 - Looping MIDI buffer / MIDI recorder
+- Works with monome crow, too, thanks to [mreid](https://github.com/mreid/crow-i2c2midi)  
 - 8 voice polyphony per MIDI channel, 16 channels simultaneously
 - 2 HP, 42 mm depth
 
@@ -33,6 +34,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 [Example Scripts](#example-scripts)   
 [Build the module](#build-the-module)  
 [Firmware](#firmware)  
+[crow Library](#crow-library)  
 [Thanks](#thanks)  
 [Sources](#sources)  
 
@@ -1064,6 +1066,12 @@ Ground | → Sleeve | → MIDI Pin 2
   
 <br/><br/>
 
+## crow Library
+
+@mreid created a great library connects i2c2midi to monome crow:  
+https://github.com/mreid/crow-i2c2midi
+
+<br/><br/>
 
 ## Thanks
 A huge *Thank You* to the legendary [scanner-darkly](https://github.com/scanner-darkly) who not only implemented i2c2midi's Teletype OPs, but also joined forces with me in designing the feature set and OP concept for MKII.
