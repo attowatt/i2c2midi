@@ -220,61 +220,107 @@ Get currently set MIDI channel / Set MIDI channel `x` (1..16 for TRS, 17..32 for
 `I2M.TIME x`  
 `I2M.T`  
 
-Get current note duration / Set note duration for MIDI notes to `x` ms (0..32767). Based on note duration, i2c2midi will send a MIDI Note Off message automatically. Set `x = 0` to deactivate automatic Note Off messages. Default is `x = 100`. Use `I2M.T#` to add channel parameter [(see below)](#channel-specific-op-variants).
+Get current note duration / Set note duration of MIDI notes to `x` ms (0..32767) for current channel. Based on note duration, i2c2midi will send a MIDI Note Off message automatically. Set `x = 0` to deactivate automatic Note Off messages. Default is `x = 100`.
+
+#### I2M.T#
+`I2M.T# ch`
+`I2M.T# ch x`  
+
+Get current note duration / Set note duration of MIDI notes to `x` ms (0..32767) for channel `ch` (0..32). Based on note duration, i2c2midi will send a MIDI Note Off message automatically. Set `x = 0` to deactivate automatic Note Off messages. Default is `x = 100`. Use `ch = 0` to set for all channels.
 
 #### I2M.SHIFT
 `I2M.SHIFT`  
 `I2M.SHIFT x`  
 `I2M.S`  
 
-Get current transposition / Set transposition of MIDI notes to `x` semitones (-127..127). Default is `x = 0`. Use `I2M.S#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current transposition / Set transposition of MIDI notes to `x` semitones (-127..127) for current channel. Default is `x = 0`.  
+
+#### I2M.S#
+`I2M.S# ch`  
+`I2M.S# ch x`  
+
+Get current transposition / Set transposition of MIDI notes to `x` semitones (-127..127) for channel `ch` (0..32). Default is `x = 0`. Use `ch = 0` to set for all channels.  
 
 #### I2M.MIN
 `I2M.MIN x y`  
 
-Set minimum note number for MIDI notes to `x` (0..127), using mode `y` (0..3). Default is `x = 0` and `y = 0`. The following modes are available for notes lower than the minimum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `I2M.MIN#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Set minimum note number of MIDI notes to `x` (0..127), using mode `y` (0..3), for current channel. Default is `x = 0` and `y = 0`. The following modes are available for notes lower than the minimum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves.  
+
+#### I2M.MIN#
+`I2M.MIN# ch x y`  
+
+Set minimum note number of MIDI notes to `x` (0..127), using mode `y` (0..3), for channel `ch` (0..32). Default is `x = 0` and `y = 0`. The following modes are available for notes lower than the minimum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `ch = 0` to set for all channels.  
 
 #### I2M.MAX
 `I2M.MAX x y`  
 
-Set maximum note number for MIDI notes to `x` (0..127), using mode `y` (0..3). Default is `x = 0` and `y = 0`. The following modes are available for notes higher than the maximum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `I2M.MAX#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Set maximum note number of MIDI notes to `x` (0..127), using mode `y` (0..3), for current channel. Default is `x = 0` and `y = 0`. The following modes are available for notes higher than the maximum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. 
+
+#### I2M.MAX#
+`I2M.MAX# ch x y`  
+
+Set maximum note number of MIDI notes to `x` (0..127), using mode `y` (0..3), for channel `ch` (0..32). Default is `x = 0` and `y = 0`. The following modes are available for notes higher than the maximum: 0) Ignore notes 1) Clamp notes 2) Fold back notes by one octave 3) Fold back notes by multiple octaves. Use `ch = 0` to set for all channels.  
 
 #### I2M.REP
 `I2M.REP`  
 `I2M.REP x`  
 
-Get current repetition / Set repetition of MIDI notes to `x` repetitions (1..127). Set `x = 1` for no repetitions. Default is `x = 1`. Use `I2M.REP#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current repetition / Set repetition of MIDI notes to `x` repetitions (1..127) for current channel. Set `x = 1` for no repetitions. Default is `x = 1`.  
+
+#### I2M.REP#
+`I2M.REP# ch`  
+`I2M.REP# ch x`  
+
+Get current repetition / Set repetition of MIDI notes to `x` repetitions (1..127) for channel `ch` (0..32). Set `x = 1` for no repetitions. Default is `x = 1`. Use `ch = 0` to set for all channels.  
 
 #### I2M.RAT
 `I2M.RAT`  
 `I2M.RAT x`  
 
-Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127). Set `x = 1` for no ratcheting. Default is `x = 1`. Use `I2M.RAT#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127) for current channel. Set `x = 1` for no ratcheting. Default is `x = 1`.  
 
+#### I2M.RAT#
+`I2M.RAT# ch`  
+`I2M.RAT# ch x`  
+
+Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127) for channel `ch` (0..32). Set `x = 1` for no ratcheting. Default is `x = 1`. Use `ch = 0` to set for all channels.  
 
 ---
 
 ### MIDI out: Notes
 *Send an individual MIDI note. Each note consists of a note number (pitch), velocity and duration. i2c2midi will take care of Note Off messages send an automatic Note Off message based on the set note duration. The note duration can be set globally via `I2M.TIME` or individually via `I2M.NT`.*  
 
-
 #### I2M.NOTE
 `I2M.NOTE x y`  
 `I2M.N`  
 
-Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127). A velocity of `0` will be treated as a MIDI Note Off message. Use `I2M.N#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) on current channel. A velocity of `0` will be treated as a MIDI Note Off message.  
+
+#### I2M.N#
+`I2M.N# ch x y`    
+
+Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) on channel `ch` (1..32). A velocity of `0` will be treated as a MIDI Note Off message.
 
 #### I2M.NOTE.O
 `I2M.NOTE.O x`  
 `I2M.NO`  
 
-Send a manual MIDI Note Off message for note number `x` (0..127). This can be used either before i2c2midi sends the automatic Note Off message (to stop the note from playing before its originally planned ending), or in combination with `I2M.TIME` set to `0` (in which case i2c2midi does not send automatic Note Off messages). Use `I2M.NO#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send a manual MIDI Note Off message for note number `x` (0..127) on current channel. This can be used either before i2c2midi sends the automatic Note Off message (to stop the note from playing before its originally planned ending), or in combination with `I2M.TIME` set to `0` (in which case i2c2midi does not send automatic Note Off messages).
+
+#### I2M.NO#
+`I2M.NO# ch x`  
+
+Send a manual MIDI Note Off message for note number `x` (0..127) on channel `ch` (1..32). This can be used either before i2c2midi sends the automatic Note Off message (to stop the note from playing before its originally planned ending), or in combination with `I2M.TIME` set to `0` (in which case i2c2midi does not send automatic Note Off messages).  
 
 #### I2M.NT
 `I2M.NT x y z`  
 
-Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) and note duration `z` ms (0..32767). Use `I2M.NT#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) and note duration `z` ms (0..32767) on current channel.   
 
+#### I2M.NT#
+`I2M.NT# ch x y z`  
+
+Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127) and note duration `z` ms (0..32767) on channel `ch` (1..32).    
 
 ---
 
@@ -285,7 +331,12 @@ Send MIDI Note On message for note number `x` (0..127) with velocity `y` (1..127
 `I2M.CHORD x y z`  
 `I2M.C`  
 
-Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127). Use `I2M.C#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127) on current channel.  
+
+#### I2M.C#
+`I2M.C# ch x y z`  
+
+Play chord `x` (1..8) with root note `y` (0..127) and velocity `z` (1..127) on channel `ch` (1..32).  
 
 #### I2M.C.ADD
 `I2M.C.ADD x y`  
@@ -417,7 +468,6 @@ Get the transformed note velocity of a chord note for chord `x` (1..8) with root
 *Record MIDI notes into a looping buffer. i2c2midi's MIDI buffer behaves much like a looping tape recorder, recording every MIDI note that leaves i2c2midi into the buffer. When the buffer reaches its end, it starts over and plays back the recorded notes, while new notes are recorded (overdubbed). Notes in the buffer can be modified with each buffer iteration. Change the note pitch via `I2M.B.NSHIFT` and `I2M.B.VSHIFT`, change note velocity via `I2M.B.FB`, `I2M.B.VSHIFT` and `I2M.B.VOFF`, change note duration via `I2M.B.TSHIFT` and `I2M.B.TOFF`. When notes reach a velocity of zero they get deleted from the buffer. However, notes can be held in the buffer indefinitely by setting `I2M.B.FB` to 0. Furthermore, the speed and playback direction of the buffer can be set, as well as the length and a start and end offset. The buffer can work in two modes, set via `I2M.B.MODE`.*   
 *Depending on the settings, the buffer can act more like a MIDI looper or more like a pitch-shifting delay for MIDI notes.*  
 
-
 #### I2M.B.R  
 `I2M.B.R x`  
 
@@ -468,7 +518,6 @@ Set the velocity shift of recorded notes to `x` (-127..127). With each buffer it
 
 Set the note duration shift ("time shift") of recorded notes to `x` ms (-16384..16383). With each buffer iteration, this value gets added accumulatively to the original note duration. E.g. with a duration shift setting of `x = 100`, a recorded note with duration `200` will be played with duration `300` during the first buffer iteration, with duration `400` during the second iteration, etc. Default is `x = 0`.  
 
-
 #### I2M.B.NOFF     
 `I2M.B.NOFF x`  
 
@@ -494,8 +543,6 @@ Clear the buffer, erasing all recorded notes in the buffer.
 
 Set the buffer mode to `x` (0..1). The buffer can work in two different modes: 1) Digital 2) Tape. In Digital mode, the buffer speed ( set via `I2M.B.SPE`) works independent of note number and note duration: If the buffer speed changes, the note number and note duration of a recorded note stays unaffected. In Tape mode on the other hand, the buffer speed affects the note number and note duration of recorded notes in the buffer, mimicking the behaviour of real tape. If the buffer speed gets doubled, the note number is pitched up by one octave and the note duration gets divided in half. Similarly, if the buffer speed gets divided in half, the note number is pitched down an octave and the note duration gets doubled, etc. Default is `x = 0`.  
 
-
-
 ---
 
 ### MIDI out: CCs
@@ -504,65 +551,110 @@ Set the buffer mode to `x` (0..1). The buffer can work in two different modes: 1
 #### I2M.CC
 `I2M.CC x y`  
 
-Send MIDI CC message for controller `x` (0..127) with value `y` (0..127). Use `I2M.CC#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI CC message for controller `x` (0..127) with value `y` (0..127) on current channel.  
+
+#### I2M.CC#
+`I2M.CC# ch x y`  
+
+Send MIDI CC message for controller `x` (0..127) with value `y` (0..127) on channel `ch` (1..32).  
 
 #### I2M.CCV
 `I2M.CCV x y`  
 
-Send MIDI CC message for controller `x` (0..127) with volt value `y` (0..16383, 0..+10V). Use `I2M.CCV#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI CC message for controller `x` (0..127) with volt value `y` (0..16383, 0..+10V) on current channel.  
+
+#### I2M.CCV#
+`I2M.CCV# ch x y`  
+
+Send MIDI CC message for controller `x` (0..127) with volt value `y` (0..16383, 0..+10V) on channel `ch` (1..32).  
 
 #### I2M.CC.OFF
 `I2M.CC.OFF x`  
 `I2M.CC.OFF x y`  
 
-Get current offset / Set offset of values of controller `x` (0..127) to `y` (-127..127). Default is `y = 0`. Use `I2M.CC.OFF#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current offset / Set offset of values of controller `x` (0..127) to `y` (-127..127) for current channel. Default is `y = 0`.  
+
+#### I2M.CC.OFF#
+`I2M.CC.OFF# ch x`  
+`I2M.CC.OFF# ch x y`  
+
+Get current offset / Set offset of values of controller `x` (0..127) to `y` (-127..127) for channel `ch` (1..32). Default is `y = 0`.  
 
 #### I2M.CC.SLEW
 `I2M.CC.SLEW x`  
 `I2M.CC.SLEW x y`  
 
-Get current slew time for controller `x` / Set slew time for controller `x` (0..127) to `y` ms (0..32767). i2c2midi will ramp from the controller's last value to a new value within the given time `x`, sending MIDI CCs at a maximum rate of 30 ms. If the slewing is still ongoing when a new value is set, the slewing uses its current position as the last value. Is 8 CC controller values can be slewed simoultaneously before the oldest currently slewing value is overwritten by the newest. Default is `y = 0`. Use `I2M.CC.SLEW#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current slew time / Set slew time for controller `x` (0..127) to `y` ms (0..32767) for current channel. i2c2midi will ramp from the controller's last value to a new value within the given time `x`, sending MIDI CCs at a maximum rate of 30 ms. If the slewing is still ongoing when a new value is set, the slewing uses its current position as the last value. Is 8 CC controller values can be slewed simoultaneously before the oldest currently slewing value is overwritten by the newest. Default is `y = 0`.  
+
+#### I2M.CC.SLEW#
+`I2M.CC.SLEW# ch x`  
+`I2M.CC.SLEW# ch x y`  
+
+Get current slew time / Set slew time for controller `x` (0..127) to `y` ms (0..32767) for channel `ch` (1..32). i2c2midi will ramp from the controller's last value to a new value within the given time `x`, sending MIDI CCs at a maximum rate of 30 ms. If the slewing is still ongoing when a new value is set, the slewing uses its current position as the last value. Is 8 CC controller values can be slewed simoultaneously before the oldest currently slewing value is overwritten by the newest. Default is `y = 0`.  
 
 #### I2M.CC.SET
 `I2M.CC.SET x y`  
 
-Send MIDI CC message for controller `x` (0..127) with value `y` (0..127), bypassing any slew settings. Use `I2M.CC.SET#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI CC message for controller `x` (0..127) with value `y` (0..127) on current channel, bypassing any slew settings.  
 
+#### I2M.CC.SET#
+`I2M.CC.SET# ch x y`  
+
+Send MIDI CC message for controller `x` (0..127) with value `y` (0..127) on channel `ch` (1..32), bypassing any slew settings.  
 
 ---
 
 ### MIDI out: NRPN
 *Send MIDI NRPN messages*
 
-
 #### I2M.NRPN
 `I2M.NRPN x y z`  
 
-Send MIDI NRPN message (high-res CC) for parameter MSB `x` and LSB `y` with value `y` (0..16383). Use `I2M.NRPN#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI NRPN message (high-res CC) for parameter MSB `x` and LSB `y` with value `y` (0..16383) on current channel.  
+
+#### I2M.NRPN#
+`I2M.NRPN# ch x y z`  
+
+Send MIDI NRPN message (high-res CC) for parameter MSB `x` and LSB `y` with value `y` (0..16383) on channel `ch` (1..32).  
 
 #### I2M.NRPN.OFF
 `I2M.NRPN.OFF x y`  
 `I2M.NRPN.OFF x y z`  
 
-Get current offset / Set offset of values of NRPN messages to `z` (-16384..16383). Default is z = 0. Use `I2M.NRPN.OFF#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current offset / Set offset of values of NRPN messages to `z` (-16384..16383) for current channel. Default is `z = 0`.  
+
+#### I2M.NRPN.OFF#
+`I2M.NRPN.OFF# ch x y`  
+`I2M.NRPN.OFF# ch x y z`  
+
+Get current offset / Set offset of values of NRPN messages to `z` (-16384..16383) for channel `ch` (1..32). Default is `z = 0`.  
 
 #### I2M.NRPN.SLEW
 `I2M.NRPN.SLEW x y`  
 `I2M.NRPN.SLEW x y z`  
 
-Get current slew time / Set slew time for NRPN messages to `z` ms (0..32767). Default is z = 0. Use `I2M.NRPN.SLEW#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Get current slew time / Set slew time for NRPN messages to `z` ms (0..32767) for current channel. Default is `z = 0`.  
+
+#### I2M.NRPN.SLEW#
+`I2M.NRPN.SLEW# ch x y`  
+`I2M.NRPN.SLEW# ch x y z`  
+
+Get current slew time / Set slew time for NRPN messages to `z` ms (0..32767) for channel `ch` (1..32). Default is `z = 0`.  
 
 #### I2M.NRPN.SET
 `I2M.NRPN.SET x y z`  
 
-Send MIDI NRPN message for parameter MSB `x` and LSB `y` with value `y` (0..16383), bypassing any slew settings. Use `I2M.NRPN.SET#` to add channel parameter [(see below)](#channel-specific-op-variants).  
+Send MIDI NRPN message for parameter MSB `x` and LSB `y` with value `y` (0..16383) on current channel, bypassing any slew settings.  
 
+#### I2M.NRPN.SET#
+`I2M.NRPN.SET# ch x y z`  
+
+Send MIDI NRPN message for parameter MSB `x` and LSB `y` with value `y` (0..16383) on channel `ch` (1..32), bypassing any slew settings.  
 
 ---
 
 ### MIDI out: Misc
 *Send other MIDI messages like Program Change, Pitch Bend and Clock*
-
 
 #### I2M.PRG
 `I2M.PRG x`  
@@ -604,12 +696,10 @@ Send MIDI Clock Continue message
 
 Send MIDI Note Off messages for all notes on all channels, and reset note duration, shift, repetition, ratcheting, min/max  
 
-
 ---
 
 ### MIDI in: Settings
 *Settings for incoming MIDI messages*
-
 
 #### I2M.Q.CH
 `I2M.Q.CH`  
@@ -623,12 +713,10 @@ Get currently set MIDI channel / Set MIDI channel `x` (1..16) for MIDI in. Defau
 
 Turn on or off latching for MIDI notes received via MIDI in. `x = 0` means Note Off messages are recorded in the note history, so only notes with keys currently held down on the MIDI controller are stored. `x = 1` means Note Off messages are not recorded in the note history, so notes are still stored after releasing the respective key on the MIDI controller. Default is `x = 1`.  
 
-
 ---
 
 ### MIDI in: Notes
 *Access the note history – the eight last received note numbers and velocities*
-
 
 #### I2M.Q.NOTE
 `I2M.Q.NOTE x`  
@@ -642,24 +730,20 @@ Get `x` (0..7) last note number (0..127) received via MIDI in
 
 Get `x` (0..7) last note velocity (1..127) received via MIDI in  
 
-
 --- 
 
 ### MIDI in: CCs
 *Access the stored data of CC values received via MIDI in*
-
 
 #### I2M.Q.CC
 `I2M.Q.CC x`  
 
 Get current value (0..127) of controller `x` (0..127) received via MIDI in  
 
-
 ---
 
 ### MIDI in: Get latest
 *Get the respective latest value reveived via MIDI in*
-
 
 #### I2M.Q.LCH
 `I2M.Q.LCH`  
