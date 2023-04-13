@@ -818,7 +818,7 @@ I2M.CC# 3 1 RND 60 120
 
 Scales in i2c2midi do not work like a quantizer where notes "outside" of the scale are forced in place. Instead, i2c2midi will respect "outside" notes and keep their position in respect to the defined scale. This means, you can use a scale for chord transformations and still intentionally define notes in your chord that are not part of that scale.
 
-Let's say, you define chord 1 with notes `0,4,7,8` and set a major scale `0,2,4,5,7,9,11` via chord 2, note `8` of chord 1 will be "outside" the scale – instead of removing this note or forcing it into another note, i2c2midi will store for the nearest note in the scale (`7`) and the respective delta (`+1`). In other words, this note will be treated by i2c2midi as the "5th note in the scale raised by 1 semitone".
+Let's say, you define chord 1 with notes `0,4,7,8` and set a major scale `0,2,4,5,7,9,11` via chord 2, note `8` of chord 1 will be "outside" the scale – instead of removing this note or forcing it into another note, i2c2midi will store the nearest note in the scale (`7`) and the respective delta (`+1`). In other words, this note will be treated by i2c2midi as the "5th note in the scale raised by 1 semitone".
 
 Let's break this down step by step:
 
@@ -1152,7 +1152,7 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ## crow Library
 
-@mreid created a great library connects i2c2midi to monome crow:  
+@mreid created a great library that connects i2c2midi to monome crow:  
 https://github.com/mreid/crow-i2c2midi
 
 <br/><br/>
