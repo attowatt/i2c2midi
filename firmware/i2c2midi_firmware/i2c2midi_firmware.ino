@@ -3,13 +3,13 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v4_4_1
+  – Firmware v5_0_0
 
   https://github.com/attowatt/i2c2midi
 
   -------------------------------------------------------------------------------------------
 
-  Copyright (c) 2022 attowatt (http://www.attowatt.com)
+  Copyright (c) 2023 attowatt (http://www.attowatt.com)
   
   MIT License
   
@@ -32,25 +32,30 @@
   -------------------------------------------------------------------------------------------
 */ 
 
+
 // Turn on MK2 features
-#define MK2
-
-// USB Device
-//   i2c2midi can also act as a USB device and send MIDI data over the Teensy Micro USB jack to a host (e.g. a computer).
-//   Please note: Do not connect Teensy USB and Euro Power at the same time! Please cut the 5V pads on the Teensy!
-//   Select Tools -> USB Type "MIDI" in Teensyduino, and uncomment the next line to turn the MIDI device feature on:
-//#define USB_DEVICE
-
-// Turn on debugging mode
-//#define DEBUG      
-
-// Turn on testing mode
-//   Sending Channel 1, note 60, velocity 127
-//#define TEST
+    #define MK2
 
 // Set Teensy model (Teensy 3.x vs. Teensy 4.1)
-#define TEENSY3X
-//#define TEENSY41
+    #define TEENSY3X
+    //#define TEENSY41
+
+// USB Device
+//  i2c2midi can also act as a USB device and send MIDI data over the Teensy Micro USB jack to a host (e.g. a computer).
+//  Please note: Do not connect Teensy USB and Euro Power at the same time! Please cut the 5V pads on the Teensy!
+//  Select Tools -> USB Type "MIDI" in Teensyduino, and uncomment the next line to turn the MIDI device feature on:
+//  #define USB_DEVICE
+
+// Debug Mode
+//  Turn on debug mode to plot some debug message to the Serial Monitor
+    //#define DEBUG      
+
+// Turn on testing mode
+//  Sending: channel 1, random note between  50 and 70, velocity 127
+    //#define TEST
+
+// Experimental feature enabling multiple devices for USB MIDI out
+    //#define MULTIPLEUSBOUT
 
 
 // -------------------------------------------------------------------------------------------
@@ -92,13 +97,18 @@
 
 
 // USB Host
-//   The front panel USB jack ...
-//   ... receives data from MIDI controllers (MIDI in)
-//   ... sends out MIDI data to devices (MIDI out)
+//  The front panel USB jack ...
+//  ... receives data from MIDI controllers (MIDI in)
+//  ... sends out MIDI data to devices (MIDI out)
 #ifdef MK2
   USBHost myusb;                                        
   USBHub hub1(myusb);                                   // USB host: MIDI in     
   MIDIDevice_BigBuffer midiDevice(myusb);               // USB host: MIDI out
+  #ifdef MULTIPLEUSBOUT
+    USBHub hub2(myusb);
+    MIDIDevice_BigBuffer midiDevice2(myusb);     
+    MIDIDevice_BigBuffer* midiDeviceList[2] = { 0 };
+  #endif
 #endif
 
 // I2C
@@ -109,17 +119,15 @@ void i2cReceiveEvent(size_t count); // function for receiving I2C messages, coun
 void i2cRequestEvent(void);         // function for receiving I2C messages, count = number of bites
 
 // I2C Address
-//   i2c2midi acts as a I2C follower and listens to messages on address 0x3F (63).
-//   To use Teletype's distingEX OPs, change the address back to 0x42. 
+//  i2c2midi acts as a I2C follower and listens to messages on address 0x3F (63).
 const uint8_t i2cAddress = 0x3F;    // official I2C address for Teletype I2M OPs
 
 // MIDI TRS
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);  
 
  
-
-
 // -------------------------------------------------------------------------------------------
+
 
 // channels
 #ifdef MK2
@@ -127,8 +135,12 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
   const byte channelsIn = 16;     // number of MIDI channels IN  (16 for USB in)
 #else
   const byte channelsOut = 16;    // number of MIDI channels OUT
-  const byte channelsIn = 0;     // number of MIDI channels IN
+  const byte channelsIn = 0;      // number of MIDI channels IN
 #endif
+
+// channels
+int channelMute[channelsOut];     // mute state for each MIDI out channel
+int channelSolo[channelsOut];     // solo state for each MIDI out channel
 
 // notes
 const byte maxNotes = 8;
@@ -273,7 +285,6 @@ unsigned long lastLEDMillis2 = 0;                  // last time LED 2 turned on
 const byte animationSpeed = 100;                   // start up animation speed
 
 
-
 // -------------------------------------------------------------------------------------------
 // SETUP
 // -------------------------------------------------------------------------------------------
@@ -287,7 +298,8 @@ void setup() {
 
   // I2C
   #ifdef TEENSY3X
-    Wire.begin(I2C_SLAVE, i2cAddress, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);  // setup for slave mode, address, pins 18/19, external pullups, 400kHz
+    // setup for slave mode, address, pins 18/19, external pullups, 400kHz
+    Wire.begin(I2C_SLAVE, i2cAddress, I2C_PINS_18_19, I2C_PULLUP_EXT, 400000);  
   #endif
   #ifdef TEENSY41
     Wire.begin(i2cAddress);        
@@ -297,12 +309,16 @@ void setup() {
   Wire.onReceive(i2cReceiveEvent);                 // register i2c events
   Wire.onRequest(i2cRequestEvent);
 
-  // serial
+  // Serial
   Serial.begin(115200);
 
   // MIDI & USB MIDI
   MIDI.begin();
   #ifdef MK2
+    #ifdef MULTIPLEUSBOUT
+      midiDeviceList[0] = &midiDevice;
+      midiDeviceList[1] = &midiDevice2;
+    #endif
     myusb.begin();
   #endif
 
@@ -319,6 +335,7 @@ void setup() {
       currentScale[i][j] = j;
     }
   }
+
   // setup default note duration & note shift
   for (int i = 0; i < channelsOut; i++) {
     currentNoteDuration[i] = 100;
@@ -329,10 +346,11 @@ void setup() {
     noteLowerLimit[i] = 0;
     noteLowerLimit[i] = 0;
     noteLimitMode[i] = 0;
+    channelMute[i] = 0;
+    channelSolo[i] = 0;
   }
 
-
-  //start up animation
+  // start up animation
   for (int i = 0; i < 4; i++) {
     digitalWrite(led2,HIGH); delay(animationSpeed);
     digitalWrite(led1,HIGH); delay(animationSpeed);
@@ -343,7 +361,6 @@ void setup() {
   #ifdef DEBUG
     Serial.println("started");
   #endif
-
 
 }
 

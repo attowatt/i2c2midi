@@ -16,6 +16,17 @@ bool isTRS(int channel) {
 // function for handling MIDI Note Ons
 void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration, bool toBuffer, int chordNumber, int noteIndex) {
   
+  // check channel mute
+  if (channelMute[channel] == 1 && channelSolo[channel] != 1) return;
+  
+  // check channel solo
+  int solo = 0;
+  for(int i = 0; i < channelsOut; i++) 
+  {
+    solo = solo + channelSolo[i];
+  }
+  if (solo > 0 && channelSolo[channel] != 1) return; 
+
   // keep values in range
   if (channel < 0 || channel >= channelsOut) return;
   int noteNumberUnlimited = noteNumber_ + currentNoteShift[channel];
@@ -305,18 +316,27 @@ byte getLimitedNote(int channel, int noteNumber) {
 
 // function for sending MIDI Note On
 void sendMidiNoteOn(int channel, int noteNumber, int velocity) {
-  
+
   if (isTRS(channel)) {
     MIDI.sendNoteOn(noteNumber, velocity, channel+1);
+    blinkLED(1);
     #ifdef USB_DEVICE
       usbMIDI.sendNoteOn(noteNumber, velocity, channel+1);
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendNoteOn(noteNumber, velocity, channel+1-16);
+      #ifdef MULTIPLEUSBOUT
+        for (int i = 0; i < 2; i++) {
+          if (* midiDeviceList[i] && channel == i+16) {
+            midiDeviceList[i]->sendNoteOn(noteNumber, velocity, i+1);  
+          }
+        }
+      #else
+        midiDevice.sendNoteOn(noteNumber, velocity, channel+1-16);
+      #endif
     #endif
   }
-  blinkLED(1);
+  
   
   #ifdef DEBUG  
     Serial.print("Sending MIDI Note On: ");
@@ -335,15 +355,24 @@ void sendMidiNoteOff(int channel, int noteNumber) {
 
   if (isTRS(channel)) {
     MIDI.sendNoteOff(noteNumber, 0, channel+1);
+    blinkLED(1);
     #ifdef USB_DEVICE
       usbMIDI.sendNoteOff(noteNumber, 0, channel+1);
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendNoteOff(noteNumber, 0, channel+1-16);
+      #ifdef MULTIPLEUSBOUT
+        for (int i = 0; i < 2; i++) {
+          if (* midiDeviceList[i] && channel == i+16) {
+            midiDeviceList[i]->sendNoteOff(noteNumber, 0, i+1);  
+          }
+        }
+      #else
+        midiDevice.sendNoteOff(noteNumber, 0, channel+1-16);
+      #endif
     #endif
   }
-  blinkLED(1);
+  
 
   #ifdef DEBUG  
     Serial.print("Sending MIDI Note Off: ");

@@ -37,10 +37,6 @@ void checkBuffer() {
       fixedOffset2 = bufferSpeed / 100.;
     }
   }
-
-  #ifdef DEBUG
-    int lastPosition = bufferFrame;
-  #endif
   
   if (bufferElapsedMicros >= bufferSpeed * 10) {            // default bufferSpeed of 100 * 10 = 1000, so 1 bufferframe per millisecond
     
@@ -70,13 +66,6 @@ void checkBuffer() {
     } 
   bufferElapsedMicros = bufferElapsedMicros - bufferSpeed * 10;  // reset the timer
   }
-
-  #ifdef DEBUG
-    if (bufferFrame != lastPosition) {    
-      Serial.print(bufferRoundCount); Serial.print(" : ");
-      Serial.println(bufferFrame);
-    }
-  #endif
 
   for (int i = 0; i < maxBuffer; i++) {                     // go through the MIDI buffer
     if (buffer[i][2]) {                                     // check if there is a note to be played

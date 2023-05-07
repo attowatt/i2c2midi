@@ -65,7 +65,7 @@ void handleRamp(int channel, int controller, int value, int slewTime, bool type)
 
 // function for updating ramps
 void updateRamps() {
-  for (int i = 0; i < maxRamps; i++) {                                      // go through all ramps
+  for (int i = 0; i < maxRamps; i++) {                                  // go through all ramps
     if (myRamps[i].isRunning()) {                                       // check if the ramp is running
       int currentValue = myRamps[i].update();                           // update the ramp
       //int currentValueScaled = scaleDown(currentValue);               // scale the value down from 14 bit to 0..127
@@ -125,6 +125,19 @@ int scaleDown (int value) {
 
 // function for sending MIDI CC
 void sendMidiCC(int channel, int controller, int value) {
+
+  // check channel mute
+  if (channelMute[channel] == 1 && channelSolo[channel] != 1) return;
+  
+  // check channel solo
+  int solo = 0;
+  for(int i = 0; i < channelsOut; i++) 
+  {
+    solo = solo + channelSolo[i];
+  }
+  if (solo > 0 && channelSolo[channel] != 1) return; 
+
+
   if (isTRS(channel)) {
     MIDI.sendControlChange(controller, value, channel+1);
     #ifdef USB_DEVICE
@@ -132,7 +145,15 @@ void sendMidiCC(int channel, int controller, int value) {
     #endif
   } else {
     #ifdef MK2
-      midiDevice.sendControlChange(controller, value, channel+1-16);
+      #ifdef MULTIPLEUSBOUT
+        for (int i = 0; i < 2; i++) {
+          if (* midiDeviceList[i] && channel == i+16) {
+            midiDeviceList[i]->sendControlChange(controller, value, i+1);  
+          }
+        }
+      #else
+        midiDevice.sendControlChange(controller, value, channel+1-16);
+      #endif
     #endif
   }
   blinkLED(1); 

@@ -9,6 +9,17 @@ void sendMidiProgramChange(int channel, int programNumber) {
   // keep values in range
   if (channel < 0 || channel >= channelsOut) return;
   if (programNumber < 0 || programNumber > 127) return;
+  
+  // check channel mute
+  if (channelMute[channel] == 1 && channelSolo[channel] != 1) return;
+  
+  // check channel solo
+  int solo = 0;
+  for(int i = 0; i < channelsOut; i++) 
+  {
+    solo = solo + channelSolo[i];
+  }
+  if (solo > 0 && channelSolo[channel] != 1) return; 
 
   if (isTRS(channel)) {
     MIDI.sendProgramChange(programNumber, channel+1);
@@ -21,12 +32,6 @@ void sendMidiProgramChange(int channel, int programNumber) {
     #endif
   }
   blinkLED(1);
-
-  #ifdef DEBUG  
-    Serial.print("Sending MIDI Program Change: ");
-    Serial.print(programNumber); Serial.print(", ");
-    Serial.println(channel+1);
-  #endif 
 }
 
 
@@ -41,6 +46,17 @@ void sendMidiPitchBend(int channel, int value) {
   if (value < -8192) value = -8192;
   else if (value > 8191) value = 8191;
 
+  // check channel mute
+  if (channelMute[channel] == 1 && channelSolo[channel] != 1) return;
+  
+  // check channel solo
+  int solo = 0;
+  for(int i = 0; i < channelsOut; i++) 
+  {
+    solo = solo + channelSolo[i];
+  }
+  if (solo > 0 && channelSolo[channel] != 1) return;  
+  
   if (isTRS(channel)) {
     MIDI.sendPitchBend(value, channel+1);
     #ifdef USB_DEVICE
@@ -52,12 +68,6 @@ void sendMidiPitchBend(int channel, int value) {
     #endif
   }
   blinkLED(1);
-  
-  #ifdef DEBUG  
-    Serial.print("Sending MIDI Pitch Bend: ");
-    Serial.print(value); Serial.print(", ");
-    Serial.println(channel+1);
-  #endif 
 }
 
 
@@ -72,6 +82,17 @@ void sendMidiAftertouch(int channel, int value) {
   if (value < 0)   value = 0;
   if (value > 127) value = 127;
 
+  // check channel mute
+  if (channelMute[channel] == 1 && channelSolo[channel] != 1) return;
+  
+  // check channel solo
+  int solo = 0;
+  for(int i = 0; i < channelsOut; i++) 
+  {
+    solo = solo + channelSolo[i];
+  }
+  if (solo > 0 && channelSolo[channel] != 1) return; 
+
   if (isTRS(channel)) {
     MIDI.sendAfterTouch(value, channel+1);
     #ifdef USB_DEVICE
@@ -83,12 +104,6 @@ void sendMidiAftertouch(int channel, int value) {
     #endif
   }        
   blinkLED(1);
-
-  #ifdef DEBUG  
-    Serial.print("Sending MIDI Aftertouch: ");
-    Serial.print(value); Serial.print(", ");
-    Serial.println(channel+1);
-  #endif 
 }
 
 
@@ -119,9 +134,6 @@ void sendMidiClockStart() {
   #ifdef MK2
     midiDevice.sendRealTime(midiDevice.Start);
   #endif
-  #ifdef DEBUG
-    Serial.println("Sending MIDI Clock Start");
-  #endif
 }
 
 
@@ -137,9 +149,6 @@ void sendMidiClockStop() {
   #ifdef MK2 
     midiDevice.sendRealTime(midiDevice.Stop);
   #endif
-  #ifdef DEBUG
-    Serial.println("Sending MIDI Clock Stop");
-  #endif
 }
 
 
@@ -154,9 +163,6 @@ void sendMidiClockContinue() {
   #endif 
   #ifdef MK2  
     midiDevice.sendRealTime(midiDevice.Continue);
-  #endif
-  #ifdef DEBUG
-    Serial.println("Sending MIDI Clock Continue");
   #endif
 }
 
@@ -187,6 +193,8 @@ void panic() {
 void setDefaults() {
 
   for (int i = 0; i < channelsOut; i++) {
+    channelMute[i] = 0;
+    channelSolo[i] = 0;
     currentNoteDuration[i] = 100;
     currentNoteShift[i] = 0;
     currentRepetition[i] = 1;

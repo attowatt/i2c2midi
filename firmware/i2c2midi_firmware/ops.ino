@@ -18,6 +18,10 @@ void opFunctions(bool isRequest, uint8_t data[]) {
     case 8:                    op_I2M_RAT_set(data);       break;
     case 10:                   op_I2M_MIN(data);           break;
     case 12:                   op_I2M_MAX(data);           break;
+    case 13:    if (isRequest) op_I2M_MUTE_get(data);      break;
+    case 14:                   op_I2M_MUTE_set(data);      break;
+    case 15:    if (isRequest) op_I2M_SOLO_get(data);      break;
+    case 16:                   op_I2M_SOLO_set(data);      break;
     
     // MIDI out: Notes
     case 20:                   op_I2M_NOTE(data);          break;
@@ -282,6 +286,62 @@ void op_I2M_MAX(uint8_t data[]) {
     for (int i = 0; i < channelsOut; i++) {
       noteLimitMode[i] = mode;
       noteUpperLimit[i] = value;
+    }
+  }
+}
+
+// channel: 1..16
+void op_I2M_MUTE_get(uint8_t data[]) {
+  const int8_t channel = data[1] - 1;
+  const byte response = channelMute[channel];
+  if (channel < 0 || channel >= channelsOut || response < 0 || response > 1) {
+    Wire.write(-1);
+  } else {
+    Wire.write(response);
+  }
+}
+
+// channel: 0..16
+void op_I2M_MUTE_set(uint8_t data[]) {
+  const int8_t channel = data[1];
+  int8_t value = data[2];
+  if (channel < 0 || channel > channelsOut) return;
+  if (value < 0) value = 0;
+  else if (value > 1) value = 1;
+  if (channel > 0) {
+    channelMute[channel - 1] = value;
+  } 
+  else if (channel == 0) {
+    for (int i = 0; i < channelsOut; i++) {
+      channelMute[i] = value;
+    }
+  }
+}
+
+
+void op_I2M_SOLO_get(uint8_t data[]) {
+  const int8_t channel = data[1] - 1;
+  const byte response = channelSolo[channel];
+  if (channel < 0 || channel >= channelsOut || response < 0 || response > 1) {
+    Wire.write(-1);
+  } else {
+    Wire.write(response);
+  }
+}
+
+
+void op_I2M_SOLO_set(uint8_t data[]) {
+  const int8_t channel = data[1];
+  int8_t value = data[2];
+  if (channel < 0 || channel > channelsOut) return;
+  if (value < 0) value = 0;
+  else if (value > 1) value = 1;
+  if (channel > 0) {
+    channelSolo[channel - 1] = value;
+  } 
+  else if (channel == 0) {
+    for (int i = 0; i < channelsOut; i++) {
+      channelSolo[i] = value;
     }
   }
 }

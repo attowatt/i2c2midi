@@ -117,6 +117,8 @@ Caution: Do not connect power from the modular and the default USB port of the T
 |      | [I2M.REP repetitions](#i2mrep)                 |         | [I2M.REP# channel repetitions](#i2mrep-1)             | Set note repetition                 |
 | get  | [I2M.RAT](#i2mrat)                             |         | [I2M.RAT# channel](#i2mrat-1)                         | Get note ratcheting                 |
 |      | [I2M.RAT ratchets](#i2mrat)                    |         | [I2M.RAT# channel ratchets](#i2mrat-1)                | Set note ratcheting                 |
+|      | [I2M.MUTE on/off](#i2mmute)                    |         | [I2M.MUTE# channel on/off](i2mmute-1)                 | Set channel mute state              |
+|      | [I2M.SOLO on/off](#i2msolo)                    |         | [I2M.SOLO# channel on/off](i2msolo-2)                 | Set channel solo state              |
 |      | [I2M.NOTE note velocity](#i2mnote)             | I2M.N   | [I2M.N# channel note velocity](#i2mn)                 | Send Note On                        |
 |      | [I2M.NOTE.O note](#i2mnoteo)                   | I2M.NO  | [I2M.NO# channel note](#i2mno)                        | Send Note Off                       |
 |      | [I2M.NT note velocity duration](#i2mnt)        |         | [I2M.NT# channel note velocity dur](#i2mnt-1)         | Send Note On with duration          |
@@ -284,6 +286,27 @@ Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127) f
 `I2M.RAT# ch x`  
 
 Get current ratcheting / Set ratcheting of MIDI notes to `x` ratchets (1..127) for channel `ch` (0..32). Set `x = 1` for no ratcheting. Default is `x = 1`. Use `ch = 0` to set for all channels.  
+
+#### I2M.MUTE
+`I2M.MUTE x`  
+  
+Set mute state of current MIDI channel to `x`. If `x = 1` all outoing MIDI messages on that channel are muted. Default is `x = 0`.  
+
+#### I2M.MUTE#
+`I2M.MUTE# ch x`  
+  
+Set mute state of MIDI channel `ch` to `x`. If `x = 1` all outoing MIDI messages on that channel are muted. Default is `x = 0`. Use `ch = 0` to set for all channels.  
+
+#### I2M.SOLO
+`I2M.SOLO x`  
+
+Set solo state of current MIDI channel to `x`. If `x = 1` all outoing MIDI messages on that channel are solod. Default is `x = 0`.  
+
+#### I2M.SOLO#
+`I2M.SOLO x`  
+
+Set solo state of MIDI channel `ch` to `x`. If `x = 1` all outoing MIDI messages on that channel are solod. Default is `x = 0`. Use `ch = 0` to set for all channels.  
+
 
 ---
 
@@ -1070,17 +1093,17 @@ Ground | → Sleeve | → MIDI Pin 2
 - Unzip the files and open `firmware/i2c2midi_firmware/i2c2midi_firmware.ino` with [Teensyduino](https://www.pjrc.com/teensy/td_download.html).
 - Depending on your hardware, change the following settings:
   - For MKI / Teensy 3.2: 
-    - Set line 36 to `//#define MK2`
-    - Set line 52 to `#define TEENSY3X`
-    - Set line 53 to `//#define TEENSY41 `
+    - Set line 37 to `//#define MK2`
+    - Set line 40 to `#define TEENSY3X`
+    - Set line 41 to `//#define TEENSY41 `
   - For MKII / Teensy 3.6:
-    - Set line 36 to `#define MK2`   
-    - Set line 52 to `#define TEENSY3X`
-    - Set line 53 to `//#define TEENSY41 `
+    - Set line 37 to `#define MK2`   
+    - Set line 40 to `#define TEENSY3X`
+    - Set line 41 to `//#define TEENSY41 `
   - For MKII / Teensy 4.1:
-    - Set line 36 to `#define MK2`   
-    - Set line 52 to `//#define TEENSY3X`
-    - Set line 53 to `#define TEENSY41 `
+    - Set line 37 to `#define MK2`   
+    - Set line 40 to `//#define TEENSY3X`
+    - Set line 41 to `#define TEENSY41 `
 - Make sure to install all necessary libraries (see list of libraries below). [More info on how to install libraries](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries).
 - Connect the Teensy to your computer with a USB cable. Caution: Don't connect the module to Euro power and USB at the same time!
 - Under `Tools`:
@@ -1093,15 +1116,18 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 5.0.0 (works with Teletype Firmware `5.0.0 BETA 1` [Link](https://llllllll.co/t/teletype-5-0-0-beta-testing/62210))
+  - New OP `I2M.MUTE` / `I2M.MUTE#`: Get/Set mute state of MIDI channel
+  - New OP `I2M.SOLO` / `I2M.SOLO#`: Get/Set solo state of MIDI channel
 - Version 4.4.1 (+ Teletype Firmware `I2M BETA 3.1`)
   - Bugfix: Chord 1 could not be set as a scale
-- Version 4.4 (+ Teletype Firmware `I2M BETA 3.1`)
+- Version 4.4.0 (+ Teletype Firmware `I2M BETA 3.1`)
   - New OP `I2M.C.QN`: Get the transformed chord note at index 
   - New OP `I2M.C.QV`: Get the transformed chord note velocity at index  
-- Version 4.3 (+ Teletype Firmware `I2M BETA 3`)
+- Version 4.3.0 (+ Teletype Firmware `I2M BETA 3`)
   - New looping MIDI buffer / MIDI recorder feature, with new OPs: `I2M.B.R`, `I2M.B.L`, `I2M.B.START`, `I2M.B.END`, `I2M.B.DIR`, `I2M.B.SPE`, `I2M.B.FB`, `I2M.B.NSHIFT`, `I2M.B.VSHIFT`, `I2M.B.TSHIFT`, `I2M.B.NOFF`, `I2M.B.VOFF`, `I2M.B.TOFF`, `I2M.B.CLR`, `I2M.B.MODE`  
   - New OP `I2M.C.DIR`: Set a play direction for a chord
-- Version 4.2 (+ Teletype Firmware `I2M BETA 2`)
+- Version 4.2.0 (+ Teletype Firmware `I2M BETA 2`)
   - New channel-specific OP variants for most of the existing OPs
   - New OP `I2M.NT`: Send a note with specific duration
   - New OP `I2M.C.B`: Define chord using reverse binary notation (`R...`)
@@ -1117,15 +1143,15 @@ Ground | → Sleeve | → MIDI Pin 2
   - _BREAKING_: New modes for `I2M.MIN` and `I2M.MAX`: Ignore notes, clamp notes, fold back notes by one octave, fold back notes by multiple octaves
   - _BREAKING_: Removed getter OPs for `I2M.MIN`, `I2M.MAX`, `I2M.C.ROT`, `I2M.C.INV`, `I2M.C.STR` because OPs have multiple parameters
   - _BREAKING_: Removed `I2M.NC`, `I2M.NOC`, `I2M.CCC`, `I2M.CCVC`; replaced by channel-specific OP variants
-- Version 4.1
+- Version 4.1.0
   - Experimental support for Teensy 4.1
-- Version 4.0 (+ Teletype Firmware `I2M BETA 1`) ([more info](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/229))
+- Version 4.0.0 (+ Teletype Firmware `I2M BETA 1`) ([more info](https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/40950/229))
   - Completely rewritten firmware with support for i2c2midi's dedicated Teletype OPs (`I2M`).
   - Updated README.
-- Version 3.1 
+- Version 3.1.0
   - Added feature flag to use i2c2midi as USB device, using the Teensy Micro USB jack.
   - Fixed a bug where unknown I2C request messages would freeze the I2C bus.
-- Version 3.0 (MKII)
+- Version 3.0.0 (MKII)
   - Firmware for i2c2midi hardware MKII, adding USB Host functionality.
 
 
