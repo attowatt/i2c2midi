@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v5_0_0
+  – Firmware v5_0_1
 
   https://github.com/attowatt/i2c2midi
 
@@ -37,8 +37,8 @@
     #define MK2
 
 // Set Teensy model (Teensy 3.x vs. Teensy 4.1)
-    #define TEENSY3X
-    //#define TEENSY41
+    //#define TEENSY3X
+    #define TEENSY41
 
 // USB Device
 //  i2c2midi can also act as a USB device and send MIDI data over the Teensy Micro USB jack to a host (e.g. a computer).

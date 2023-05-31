@@ -79,6 +79,7 @@ int playChord(int channel, int noteNumber, int velocity, int noteDuration, int c
       }
     }
   }
+  return 0;
 }
 
 
@@ -110,7 +111,7 @@ void insertIntoChord(int8_t chordNumber, int8_t index, int8_t noteNumber) {
   if (index < 0 || index > chordNoteCount[c]) return;
   if (noteNumber < -127 || noteNumber > 127) return;
   
-  for (int i = chordMaxLength - 1; i >= index; i--) {
+  for (int i = chordMaxLength - 1; i > index; i--) {
     chord[c][i] = chord[c][i-1];                             // shift note number values to the right by 1 index
   }
   chord[c][index] = noteNumber;                              // store new note number

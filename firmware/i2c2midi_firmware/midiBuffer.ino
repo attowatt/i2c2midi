@@ -38,11 +38,11 @@ void checkBuffer() {
     }
   }
   
-  if (bufferElapsedMicros >= bufferSpeed * 10) {            // default bufferSpeed of 100 * 10 = 1000, so 1 bufferframe per millisecond
-    
+  if (bufferElapsedMicros >= static_cast<long unsigned int>(bufferSpeed * 10)) {  // default bufferSpeed of 100 * 10 = 1000, so 1 bufferframe per millisecond
+  
     if (!bufferReverse) {
       bufferFrame += 1;  
-      if (bufferFrame >= bufferLength - bufferEndOffset) {  // when reaching the end of the buffer...
+      if (bufferFrame >= static_cast<long unsigned int>(bufferLength - bufferEndOffset)) {  // when reaching the end of the buffer...
         if (bufferDirection == 2) {                         // ...if direction 2 = ping pong: reverse the direction
           reverseBuffer(1);                                 
         } else {
@@ -54,7 +54,7 @@ void checkBuffer() {
     } 
     else {
       bufferFrame -= 1;
-      if (bufferFrame <= 0 + bufferStartOffset) {           // when reaching the start of the buffer...
+      if (bufferFrame <= static_cast<long unsigned int>(0 + bufferStartOffset)) {           // when reaching the start of the buffer...
         if (bufferDirection == 2) {                         // ...if direction 2 = ping pong: re-reverse the direction
           reverseBuffer(0);                                 
         } else {
