@@ -894,6 +894,7 @@ I2M.N + 60 RND 24 127   // play note between 60 and 84
 
 #### Play a V/Oct note using `VN`
 ```
+#1
 J N.B RRND 1 15         // random note from a scale in V/Oct
 K VN J                  // convert the V/Oct value to MIDI note number
 I2M.N + 60 K 127        // play note 
