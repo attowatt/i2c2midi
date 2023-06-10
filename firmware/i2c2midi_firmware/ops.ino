@@ -53,6 +53,7 @@ void opFunctions(bool isRequest, uint8_t data[]) {
     case 165:                  op_I2M_C_DIR(data);         break;
     case 166:   if (isRequest) op_I2M_C_QN(data);          break;
     case 167:   if (isRequest) op_I2M_C_QV(data);          break;
+    case 168:                  op_I2M_C_DCUR(data);        break;
     
     // MIDI out: CC
     case 40:                   op_I2M_CC(data);            break;
@@ -716,6 +717,28 @@ void op_I2M_C_TCUR(uint8_t data[]) {
       curveTime[i][0] = curve;
       curveTime[i][1] = start;
       curveTime[i][2] = end; 
+    }
+  } 
+}
+
+
+void op_I2M_C_DCUR(uint8_t data[]) {
+  const int8_t chordNumber = data[1];
+  const int8_t curve = data[2];
+  int16_t start = (data[3] << 8) + data[4];
+  int16_t end = (data[5] << 8) + data[6];
+  if (start < 0 || end < 0 ) return;
+  if (chordNumber < 0 || chordNumber > maxChords) return;
+  if (chordNumber > 0) {
+    curveDuration[chordNumber-1][0] = curve;
+    curveDuration[chordNumber-1][1] = start;
+    curveDuration[chordNumber-1][2] = end;  
+  } 
+  else if (chordNumber == 0) {
+    for (int i = 0; i < maxChords; i++) {
+      curveDuration[i][0] = curve;
+      curveDuration[i][1] = start;
+      curveDuration[i][2] = end; 
     }
   } 
 }

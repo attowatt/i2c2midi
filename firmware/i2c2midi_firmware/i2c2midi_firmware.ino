@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v5_0_1
+  – Firmware v5_1_0
 
   https://github.com/attowatt/i2c2midi
 
@@ -202,6 +202,7 @@ int currentScaleChord[maxChords];                  // storing the chord number w
 int currentScale[maxChords][12];                   // storing the current scale for each chord
 int currentScaleLength[maxChords];                 // storing the length of the current scale for each chord
 int curveVelocity[maxChords][3];                   // type of curve, start percent, end percent
+int curveDuration[maxChords][3];                   // type of curve, start percent, end percent 
 int curveTime[maxChords][3];                       // type of curve, start percent, end percent 
 byte chordDirection[maxChords];                    // play direction for chord
 int chordNotePlayCount[maxChords];                 // count how often a note of a chord has been played 

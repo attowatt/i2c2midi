@@ -142,6 +142,7 @@ Caution: Do not connect power from the modular and the default USB port of the T
 |      | [I2M.C.STR chord ms](#i2mcstr)                 |         |                                                       | Set chord strumming                 |
 |      | [I2M.C.VCUR chord curve start end](#i2mcvcur)  | I2M.V~  |                                                       | Set chord velocity curve            |
 |      | [I2M.C.TCUR chord curve start end](#i2mctcur)  | I2M.T~  |                                                       | Set chord time curve                |
+|      | [I2M.C.DCUR chord curve start end](#i2mcdcur)  | I2M.D~  |                                                       | Set chord duration curve            |
 |      | [I2M.C.DIR chord direction](#i2mcdir)          |         |                                                       | Set chord play direction            |
 |      | [I2M.C.QN chord rootnote index](#i2mcqn)       |         |                                                       | Query chord note at index           |
 |      | [I2M.C.QV chord velocity index](#i2mcqv)       |         |                                                       | Query chord note velocity at index  |
@@ -469,6 +470,12 @@ Set velocity curve for chord `w` (0..8) with curve type `x` (0..5), start value 
 `I2M.C.T~`  
 
 Set time curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the time interval between the notes in the order they are defined in the chord. Start and end percentages refer to the current strumming setting of the chord, set via `I2M.C.STR`. Use `x = 0` to turn time curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set time curve for all chords. Try a square curve with similar values to create swing. Try a random curve with subtle values for a humanizing effect.  
+
+#### I2M.C.DCUR
+`I2M.C.DCUR w x y z`  
+`I2M.C.D~`  
+
+Set duration curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the note duration of the notes in the order they are defined in the chord. Start and end percentages refer to the current note duration setting. Use `x = 0` to turn time curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set time curve for all chords. Try a square curve with similar values to create swing. Try a random curve with subtle values for a humanizing effect.  
 
 #### I2M.C.DIR
 `I2M.C.DIR x y`   
@@ -1124,6 +1131,10 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 5.1.0
+  - New OP: `I2M.C.DCUR`: Apply duration curve to chord notes
+- Version 5.0.1
+  - Bugfixes for Teensyduino 1.58
 - Version 5.0.0 (works with Teletype Firmware `5.0.0 BETA 1` [Link](https://llllllll.co/t/teletype-5-0-0-beta-testing/62210))
   - New OP `I2M.MUTE` / `I2M.MUTE#`: Get/Set mute state of MIDI channel
   - New OP `I2M.SOLO` / `I2M.SOLO#`: Get/Set solo state of MIDI channel

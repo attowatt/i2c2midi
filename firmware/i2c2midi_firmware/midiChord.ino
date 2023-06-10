@@ -57,12 +57,15 @@ int playChord(int channel, int noteNumber, int velocity, int noteDuration, int c
     // Transformation: VELOCITY CURVE
     const int velocityCurved = getCurveValue(curveVelocity[chordNumber][0], j, currentChordLength2, velocity, curveVelocity[chordNumber][1], curveVelocity[chordNumber][2]);
     
+    // Transformation: DURATION CURVE
+    const int durationCurved = getCurveValue(curveDuration[chordNumber][0], j, currentChordLength2, noteDuration, curveDuration[chordNumber][1], curveDuration[chordNumber][2]);
+    
     // if note or velocity is requested, return the values and stop the function
     if (getNote) return chordNote;
     if (getVelocity) return velocityCurved;
 
     if (j == 0) {   
-      midiNoteOn(channel, chordNote, velocityCurved, noteDuration, 1, chordNumber, chordScaled[0][i]);
+      midiNoteOn(channel, chordNote, velocityCurved, durationCurved, 1, chordNumber, chordScaled[0][i]);
     }
     else {
       // Transformation: STRUMMING
@@ -73,9 +76,9 @@ int playChord(int channel, int noteNumber, int velocity, int noteDuration, int c
       delay += currentStrumming + timeCurved;
       
       if (currentStrumming == 0) {
-        midiNoteOn(channel, chordNote, velocityCurved, noteDuration, 1, chordNumber, chordScaled[0][i]);
+        midiNoteOn(channel, chordNote, velocityCurved, durationCurved, 1, chordNumber, chordScaled[0][i]);
       } else {
-        scheduleNote(channel, chordNote, velocityCurved, noteDuration, delay, chordNumber, chordScaled[0][i]);
+        scheduleNote(channel, chordNote, velocityCurved, durationCurved, delay, chordNumber, chordScaled[0][i]);
       }
     }
   }
