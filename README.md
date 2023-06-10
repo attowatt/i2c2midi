@@ -475,7 +475,7 @@ Set time curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`%
 `I2M.C.DCUR w x y z`  
 `I2M.C.D~`  
 
-Set duration curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the note duration of the notes in the order they are defined in the chord. Start and end percentages refer to the current note duration setting. Use `x = 0` to turn time curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set time curve for all chords. Try a square curve with similar values to create swing. Try a random curve with subtle values for a humanizing effect.  
+Set duration curve for chord `w` (0..8) with curve type `x` (0..5), start value `y`% (0..32767) and end value `z`% (0..32767). This will affect the note duration of the notes in the order they are defined in the chord. Start and end percentages refer to the current note duration setting. Use `x = 0` to turn duration curve off. The following curves are available: 0) Off 1) Linear 2) Exponential 3) Triangle 4) Square 5) Random. Use `w = 0` to set duration curve for all chords.
 
 #### I2M.C.DIR
 `I2M.C.DIR x y`   
