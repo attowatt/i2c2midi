@@ -30,8 +30,9 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ## Table of contents
 [Connections](#connections)  
+[Example Scripts](#example-scripts) 
 [Teletype OPs](#teletype-ops)   
-[Example Scripts](#example-scripts)   
+[Further Reading](#further-reading)   
 [Build the module](#build-the-module)  
 [Firmware](#firmware)  
 [crow Library](#crow-library)  
@@ -99,7 +100,136 @@ Caution: Do not connect power from the modular and the default USB port of the T
 
 ---
 
+## Example Scripts
+
+#### Play a random note
+```
+#1 
+I2M.CH 1                // set channel to 1
+I2M.N + 60 RND 24 127   // play note between 60 and 84
+```
+
+#### Play a V/Oct note using `VN`
+```
+#1
+J N.B RRND 1 15         // random note from a scale in V/Oct
+K VN J                  // convert the V/Oct value to MIDI note number
+I2M.N + 60 K 127        // play note 
+```
+
+#### Define and play a chord
+```
+#1
+I2M.C.CLR 1             // clear chord 1
+I2M.C.ADD 1 0           // add relative note 0
+I2M.C.ADD 1 3           // add relative note 3
+I2M.C.ADD 1 7           // add relative note 7
+
+#2
+I2M.C.STR 1 100         // set strumming to 100
+I2M.C.DIR 1 7           // set play direction to 7: Pingpong
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
+```
+
+#### Define a chord using reverse binary
+```
+#1
+I2M.C.B 1 R10010001     // define chord: 1 means add, 0 means don't add = 0,3,7
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
+```
+
+#### Play chords stored in pattern 0
+```
+#1 
+I2M.C.B 1 PN.NEXT 0     // define chord with next value in pattern 0
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
+
+#Pattern 0
+137                     // = R10010001    = 0,3,7
+265                     // = R100100001   = 0,3,8
+1064                    // = R00010100001 = 3,5,10
+1060                    // = R00100100001 = 2,5,10
+```
+
+#### Use chord 2 as scale for a chord 1
+```
+#1
+I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8 (alternatively use "393")
+I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale) (or "1453")
+I2M.C.SC 1 2            // set chord 2 as scale for chord 1
+
+#2
+J WRP + J 1 0 7         // increment J and wrap around 0 and 7
+I2M.C.STR 1 200         // set strumming for chord 1 to 200 ms
+I2M.C.TRP 1 J           // transpose chord 1 by J
+I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
+```
+
+#### Send transformed chord notes to Just Friends or ER-301 
+
+To Just Friends:
+```
+#I 
+JF.MODE 1
+JF.SHIFT N 0
+
+#1
+I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8
+I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
+I2M.C.SC 1 2            // set chord 2 as scale for chord 1
+
+#2
+J WRP + J 1 0 4         // increment J and wrap around 4
+I2M.C.DIS 1 J 2         // distort chord 1 by J at anchor point 2
+I2M.C.VCUR 1 1 40 100   // set a linear (type 1) velocity curve from 40% to 100%
+
+#3
+EV 4: $ 2
+J WRP + J 1 0 3         // increment J and wrap around chord length
+X I2M.C.QN 1 0 J        // get chord note and store in X
+Y I2M.C.QV 1 127 J      // get chord note velocity and store in Y
+Z SCL 0 127 0 800 Y     // scale velocity from 0..127 to 0..800
+JF.NOTE N X VV Z        // play on Just Friends
+```
+
+To ER-301:  
+
+```
+#3
+J WRP + J 1 0 3                 // increment J and wrap around chord length
+SC.CV 1 N I2M.C.QN 1 0 J        // send V/Oct to ER-301
+SC.CV 2 VV I2M.C.QV 1 127 J     // send velocity to ER-301 (set Gain to 7.88)
+SC.TR.P 1                       // send a trigger to ER-301 envelope
+```
+
+#### Query CC 1-4 and store values in Pattern 0
+```
+#1 
+L 0 3: PN 0 I I2M.Q.CC + I 1
+```
+
+#### Query MIDI notes from controller
+
+Arpeggiator that plays MIDI notes currently held down on a connected MIDI controller.  
+CV 1 sends out the V/OCT and CV 2 sends out the velocity. 
+
+```
+#I
+I2M.Q.LATCH 0           // setting to only store currently played MIDI notes
+
+#M
+$ 1
+
+#1
+J WRP + J 1 0 7         // counter from 0..7
+CV 1 N - I2M.Q.N J 48   // query MIDI note number and subtract 4 octaves
+CV 2 VV * 4 I2M.Q.V J   // query MIDI note velocity and scale to VV 0..508
+```
+
+---
+
 ## Teletype OPs
+
 
 ### Overview
 
@@ -837,6 +967,8 @@ I2M.CC# 3 1 RND 60 120
 ---
 
 
+## Further Reading
+
 ### How scales work on i2c2midi
 
 Scales in i2c2midi do not work like a quantizer where notes "outside" of the scale are forced in place. Instead, i2c2midi will respect "outside" notes and keep their position in respect to the defined scale. This means, you can use a scale for chord transformations and still intentionally define notes in your chord that are not part of that scale.
@@ -880,136 +1012,68 @@ In this example the note not beeing part of the scale is `8`. The nearest note i
    | Transpose = 8  |   | 2+12   | 5+12   | 9+12   | 9+12+1 |   | 14, 17,  21, 22 |
 
 
+---
+
+
+### How curve transformations work
+
+Curve transformations allow you to manipulate the notes of a chord in different ways. Like chord transformations, curve transformations are intentionally designed to encourage experimentation, inviting unexpected and surprising results.
+
+There are two types of curves:
+- **Velocity Curve**: Manipulates the velocity of each note in a chord
+  
+- **Time Curve**: Manipulates the strumming of notes in a chord
+
+Curves are defined by three parameters: A **start value** (%), an **end value** (%), and a **curve type**. 
+Start and end values are percentage values, referring to the respective originally set value (velocity for velocity curve, strumming for time curve).
+The curve type defines the inpolation of values between the defined start and end values. There are different types available:
+  - 1) Linear: Linear from start to end
+  - 2) Exponential: Exponential from start to end
+  - 3) Triangle: Linear from start to end to start
+  - 4) Square: Alternating between start and end
+  - 5) Random: Random values between start and end
+
+Here are some examples :
+
+**Example: Chord with 3 notes**
+Note duration: 1000 ms; Start: 1%; End: 100%
+
+| Curve Type | Value 1 | Value 2 | Value 3 |
+|---|---|---|---|
+| 0) Off | 1000 | 1000 | 1000 |
+| 1) Linear | 10 | 505 | 1000 |
+| 2) Exponential | 10 | 133 | 1000 |
+| 3) Triangle | 10 | 1000 | 10 |
+| 4) Square | 10 | 1000 | 10 |
+| 5) Random | 907 | 393 | 729 |
+ 
+
+**Example: Chord with 4 notes**
+Note duration: 1000 ms; Start: 1%; End: 100%
+
+| Curve Type | Value 1 | Value 2 | Value 3 | Value 4 |
+|---|---|---|---|---|
+| 0) Off | 1000 | 1000 | 1000 | 1000 |
+| 1) Linear | 10 | 340 | 670 | 1000 |
+| 2) Exponential | 10 | 46 | 303 | 1000 |
+| 3) Triangle | 10 | 505 | 1000 | 505 |
+| 4) Alternating | 10 | 1000 | 10 | 1000 |
+| 5) Random | 863 | 47 | 677 | 841 |
+
+**Example: Chord with 8 notes**
+Note duration: 1000 ms; Start: 1%; End: 100%
+
+| Curve Type | Value 1 | Value 2 | Value 3 | Value 4 | Value 5 | Value 6 | Value 7 | Value 8
+|---|---|---|---|---|---|---|---|---|
+| 0) Off | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 
+| 1) Linear | 10 | 151 | 292 | 434 | 575 | 717 | 858 | 1000 | 
+| 2) Exponential | 10 | 12 | 33 | 87 | 194 | 370 | 633 | 1000 | 
+| 3) Triangle | 10 | 257 | 505 | 752 | 1000 | 752 | 505 | 257 | 
+| 4) Alternating | 10 | 1000 | 10 | 1000 | 10 | 1000 | 10 | 1000 | 
+| 5) Random | 468 | 781 | 472 | 34 | 546 | 164 | 301 | 189 |
 
 ---
 
-### Example Scripts
-
-#### Play a random note
-```
-#1 
-I2M.CH 1                // set channel to 1
-I2M.N + 60 RND 24 127   // play note between 60 and 84
-```
-
-#### Play a V/Oct note using `VN`
-```
-#1
-J N.B RRND 1 15         // random note from a scale in V/Oct
-K VN J                  // convert the V/Oct value to MIDI note number
-I2M.N + 60 K 127        // play note 
-```
-
-#### Define and play a chord
-```
-#1
-I2M.C.CLR 1             // clear chord 1
-I2M.C.ADD 1 0           // add relative note 0
-I2M.C.ADD 1 3           // add relative note 3
-I2M.C.ADD 1 7           // add relative note 7
-
-#2
-I2M.C.STR 1 100         // set strumming to 100
-I2M.C.DIR 1 7           // set play direction to 7: Pingpong
-I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
-```
-
-#### Define a chord using reverse binary
-```
-#1
-I2M.C.B 1 R10010001     // define chord: 1 means add, 0 means don't add = 0,3,7
-I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127 (= 60,63,67)
-```
-
-#### Play chords stored in pattern 0
-```
-#1 
-I2M.C.B 1 PN.NEXT 0     // define chord with next value in pattern 0
-I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
-
-#Pattern 0
-137                     // = R10010001    = 0,3,7
-265                     // = R100100001   = 0,3,8
-1064                    // = R00010100001 = 3,5,10
-1060                    // = R00100100001 = 2,5,10
-```
-
-#### Use chord 2 as scale for a chord 1
-```
-#1
-I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8 (alternatively use "393")
-I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale) (or "1453")
-I2M.C.SC 1 2            // set chord 2 as scale for chord 1
-
-#2
-J WRP + J 1 0 7         // increment J and wrap around 0 and 7
-I2M.C.STR 1 200         // set strumming for chord 1 to 200 ms
-I2M.C.TRP 1 J           // transpose chord 1 by J
-I2M.C 1 60 127          // play chord 1 with rootnote 60 and velocity 127
-```
-
-#### Send transformed chord notes to Just Friends or ER-301 
-
-To Just Friends:
-```
-#I 
-JF.MODE 1
-JF.SHIFT N 0
-
-#1
-I2M.C.B 1 R100100011    // define chord 1 = 0,3,7,8
-I2M.C.B 2 R10110101101  // define chord 2 = 0,2,3,5,7,8,10 (minor scale)
-I2M.C.SC 1 2            // set chord 2 as scale for chord 1
-
-#2
-J WRP + J 1 0 4         // increment J and wrap around 4
-I2M.C.DIS 1 J 2         // distort chord 1 by J at anchor point 2
-I2M.C.VCUR 1 1 40 100   // set a linear (type 1) velocity curve from 40% to 100%
-
-#3
-EV 4: $ 2
-J WRP + J 1 0 3         // increment J and wrap around chord length
-X I2M.C.QN 1 0 J        // get chord note and store in X
-Y I2M.C.QV 1 127 J      // get chord note velocity and store in Y
-Z SCL 0 127 0 800 Y     // scale velocity from 0..127 to 0..800
-JF.NOTE N X VV Z        // play on Just Friends
-```
-
-To ER-301:  
-
-```
-#3
-J WRP + J 1 0 3                 // increment J and wrap around chord length
-SC.CV 1 N I2M.C.QN 1 0 J        // send V/Oct to ER-301
-SC.CV 2 VV I2M.C.QV 1 127 J     // send velocity to ER-301 (set Gain to 7.88)
-SC.TR.P 1                       // send a trigger to ER-301 envelope
-```
-
-#### Query CC 1-4 and store values in Pattern 0
-```
-#1 
-L 0 3: PN 0 I I2M.Q.CC + I 1
-```
-
-#### Query MIDI notes from controller
-
-Arpeggiator that plays MIDI notes currently held down on a connected MIDI controller.  
-CV 1 sends out the V/OCT and CV 2 sends out the velocity. 
-
-```
-#I
-I2M.Q.LATCH 0           // setting to only store currently played MIDI notes
-
-#M
-$ 1
-
-#1
-J WRP + J 1 0 7         // counter from 0..7
-CV 1 N - I2M.Q.N J 48   // query MIDI note number and subtract 4 octaves
-CV 2 VV * 4 I2M.Q.V J   // query MIDI note velocity and scale to VV 0..508
-```
-
----
 
 
 <br/><br/>
