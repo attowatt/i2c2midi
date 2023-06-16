@@ -30,7 +30,7 @@ https://llllllll.co/t/i2c2midi-a-diy-module-that-translates-i2c-to-midi/
 
 ## Table of contents
 [Connections](#connections)  
-[Example Scripts](#example-scripts) 
+[Example Scripts](#example-scripts)  
 [Teletype OPs](#teletype-ops)   
 [Further Reading](#further-reading)   
 [Build the module](#build-the-module)  
