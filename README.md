@@ -1177,7 +1177,7 @@ Ground | → Sleeve | → MIDI Pin 2
     - Set line 40 to `//#define TEENSY3X`
     - Set line 41 to `#define TEENSY41 `
 - Make sure to install all necessary libraries (see list of libraries below). [More info on how to install libraries](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries).
-- Connect the Teensy to your computer with a USB cable. Caution: Don't connect the module to Euro power and USB at the same time!
+- Connect the Teensy to your computer with a USB cable. Caution: Don't connect the module to Euro power and USB at the same time! (Unless you have [cut the "5V pad"](https://github.com/attowatt/i2c2midi/blob/main/hardware/hardware-MK2/BUILD-GUIDE.md#iii) during your build)
 - Under `Tools`:
   - set `Board` to `Teensy 3.2`, `Teensy 3.6` or `Teensy 4.1`
   - set `USB Type` to `Serial`
