@@ -649,7 +649,7 @@ void op_I2M_C_INS(uint8_t data[]) {
 
 void op_I2M_C_DEL(uint8_t data[]) {
   const int8_t chordNumber = data[1];
-  const int8_t index = chordNoteCount[chordNumber] - 1 - data[2];
+  const int8_t index = chordNoteCount[chordNumber - 1] - data[2];
   if (chordNumber > 0) {
     deleteFromChord(chordNumber - 1, index);
   } 
@@ -663,7 +663,7 @@ void op_I2M_C_DEL(uint8_t data[]) {
 
 void op_I2M_C_SET(uint8_t data[]) {
   const int8_t chordNumber = data[1];
-  const int8_t index = chordNoteCount[chordNumber] - 1 - data[2];
+  const int8_t index = chordNoteCount[chordNumber - 1] - data[2];
   const int8_t noteNumber = data[3]; 
   if (chordNumber > 0) {
     setChord(chordNumber - 1, index, noteNumber);
