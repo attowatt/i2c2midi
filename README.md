@@ -1188,6 +1188,8 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 5.0.2
+  - Bugfix for op_I2M_C_DEL and op_I2M_C_SET thanks to @autumnblue-d
 - Version 5.0.1
   - Bugfix for Teensyduino 1.58  
 - Version 5.0.0 (works with Teletype Firmware `5.0.0 BETA 1` [Link](https://llllllll.co/t/teletype-5-0-0-beta-testing/62210))
