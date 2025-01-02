@@ -116,6 +116,10 @@ void opFunctions(bool isRequest, uint8_t data[]) {
     case 134:   if (isRequest) op_I2M_Q_LC(data);          break;
     case 135:   if (isRequest) op_I2M_Q_LCC(data);         break;
 
+    // disting EX OPs
+    case 70:                   op_EX_P(data);              break;
+    case 79:                   op_EX_M(data);              break;
+    
     // for development
     case 255:                  op_I2M_TEST(data);          break;
 
@@ -1243,6 +1247,58 @@ void op_I2M_Q_LCC(uint8_t data[]) {
   }
 }
 
+
+// -------------------------------------------------------------------------------------------
+// distingEX Support
+// legacy support for distingEX OPs (see i2c2midi MKI) // needed mostly for use with ansible
+// mapping EX OPs to I2M OPs:
+
+void op_EX_P(int8_t data[]) {
+  const int status = data[1];
+  // EX.M.P 1
+  if (status == 1) {
+    int8_t dataEX[] = { data[0], data[1], data[2], data[3] };
+    op_I2M_TIME_set(dataEX);
+  }
+  #ifdef DEBUG
+    Serial.println("op_EX_P");
+  #endif
+}
+void op_EX_M(int8_t data[]) {
+  const int status = data[1]; 
+  // EX.M.N
+  if (status >= 144 && status <= 159) { 
+    int8_t dataEX[] = { data[0], data[1]-144, data[2], data[3] };
+    op_I2M_NOTE(dataEX);
+    #ifdef DEBUG
+      Serial.println("op_EX_M_N");
+    #endif
+  } 
+  // EX.M.CC
+  else if (status >= 176 && status <= 191) {
+    int8_t dataEX[] = { data[0], data[1]-176, data[2], data[3] };
+    op_I2M_CC(dataEX);
+    #ifdef DEBUG
+      Serial.println("op_EX_M_CC");
+    #endif
+  }
+  // EX.M.PRG
+  else if (status >= 192 && status <= 207) {
+    int8_t dataEX[] = { data[0], data[1]-192, data[2] };
+    op_I2M_PRG(dataEX);
+    #ifdef DEBUG
+      Serial.println("op_EX_M_PRG");
+    #endif
+  }
+  // EX.M.PB
+  else if (status >= 224 && status <= 239) {
+    int8_t dataEX[] = { data[0], data[1]-224, data[2], data[3] };
+    op_I2M_PB(dataEX);
+    #ifdef DEBUG
+      Serial.println("op_EX_M_PB");
+    #endif
+  }
+}
 
 
 // -------------------------------------------------------------------------------------------

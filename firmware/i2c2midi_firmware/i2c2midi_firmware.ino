@@ -3,13 +3,13 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v5_0_2
+  – Firmware v5_0_2 experimental disting ex support
 
   https://github.com/attowatt/i2c2midi
 
   -------------------------------------------------------------------------------------------
 
-  Copyright (c) 2023 attowatt (http://www.attowatt.com)
+  Copyright (c) 2025 attowatt (http://www.attowatt.com)
   
   MIT License
   
@@ -120,7 +120,11 @@ void i2cRequestEvent(void);         // function for receiving I2C messages, coun
 
 // I2C Address
 //  i2c2midi acts as a I2C follower and listens to messages on address 0x3F (63).
-const uint8_t i2cAddress = 0x3F;    // official I2C address for Teletype I2M OPs
+//  const uint8_t i2cAddress = 0x3F;    // official I2C address for Teletype I2M OPs
+
+// To use Teletype's distingEX OPs, change the address back to 0x42. 
+byte i2cAddress = 0x41;           // legacy I2C addresses for Teletype distingEX OPs (EX1: 0x41, EX2: 0x42, EX3: 0x43, EX4: 0x44)
+
 
 // MIDI TRS
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);  
