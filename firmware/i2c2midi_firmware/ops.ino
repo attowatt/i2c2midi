@@ -1253,22 +1253,22 @@ void op_I2M_Q_LCC(uint8_t data[]) {
 // legacy support for distingEX OPs (see i2c2midi MKI) // needed mostly for use with ansible
 // mapping EX OPs to I2M OPs:
 
-void op_EX_P(int8_t data[]) {
+void op_EX_P(uint8_t data[]) {
   const int status = data[1];
   // EX.M.P 1
   if (status == 1) {
-    int8_t dataEX[] = { data[0], data[1], data[2], data[3] };
+    uint8_t dataEX[] = { data[0], data[1], data[2], data[3] };
     op_I2M_TIME_set(dataEX);
   }
   #ifdef DEBUG
     Serial.println("op_EX_P");
   #endif
 }
-void op_EX_M(int8_t data[]) {
+void op_EX_M(uint8_t data[]) {
   const int status = data[1]; 
   // EX.M.N
   if (status >= 144 && status <= 159) { 
-    int8_t dataEX[] = { data[0], data[1]-144, data[2], data[3] };
+    uint8_t dataEX[] = { data[0], static_cast<uint8_t>(data[1] - 144), data[2], data[3] };
     op_I2M_NOTE(dataEX);
     #ifdef DEBUG
       Serial.println("op_EX_M_N");
@@ -1276,7 +1276,7 @@ void op_EX_M(int8_t data[]) {
   } 
   // EX.M.CC
   else if (status >= 176 && status <= 191) {
-    int8_t dataEX[] = { data[0], data[1]-176, data[2], data[3] };
+    uint8_t dataEX[] = { data[0], static_cast<uint8_t>(data[1] - 176), data[2], data[3] };
     op_I2M_CC(dataEX);
     #ifdef DEBUG
       Serial.println("op_EX_M_CC");
@@ -1284,7 +1284,7 @@ void op_EX_M(int8_t data[]) {
   }
   // EX.M.PRG
   else if (status >= 192 && status <= 207) {
-    int8_t dataEX[] = { data[0], data[1]-192, data[2] };
+    uint8_t dataEX[] = { data[0], static_cast<uint8_t>(data[1] - 192), data[2] };
     op_I2M_PRG(dataEX);
     #ifdef DEBUG
       Serial.println("op_EX_M_PRG");
@@ -1292,7 +1292,7 @@ void op_EX_M(int8_t data[]) {
   }
   // EX.M.PB
   else if (status >= 224 && status <= 239) {
-    int8_t dataEX[] = { data[0], data[1]-224, data[2], data[3] };
+    uint8_t dataEX[] = { data[0], static_cast<uint8_t>(data[1] - 224), data[2], data[3] };
     op_I2M_PB(dataEX);
     #ifdef DEBUG
       Serial.println("op_EX_M_PB");
