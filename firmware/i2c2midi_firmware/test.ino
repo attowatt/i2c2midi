@@ -6,14 +6,17 @@
 
 
 unsigned long lastTEST;  
-int TESTinterval = 500;
+int TESTinterval = 1000;
 
 void TESTFunction() {  
   unsigned long currentMillis = millis();
   
   if (currentMillis - lastTEST >= TESTinterval) {
     //blinkLED(1);
-    i2cReceiveEventTEST(20, 0, random(50,70), 120, 0, 0);
+    int randomTestNote = random(50,70);
+    i2cReceiveEventTEST(20, 0, randomTestNote, 120, 0, 0);
+    Serial.print("Test Note: ");
+    Serial.println(randomTestNote);
     lastTEST = millis();
   }
 }

@@ -38,8 +38,8 @@ void checkBuffer() {
     }
   }
   
-  if (bufferElapsedMicros >= static_cast<long unsigned int>(bufferSpeed * 10)) {  // default bufferSpeed of 100 * 10 = 1000, so 1 bufferframe per millisecond
-  
+  //if (bufferElapsedMicros >= static_cast<long unsigned int>(bufferSpeed * 10)) {  // default bufferSpeed of 100 * 10 = 1000, so 1 bufferframe per millisecond
+  if (micros() - bufferLastMicros >= static_cast<long unsigned int>(bufferSpeed * 10)) {
     if (!bufferReverse) {
       bufferFrame += 1;  
       if (bufferFrame >= static_cast<long unsigned int>(bufferLength - bufferEndOffset)) {  // when reaching the end of the buffer...
@@ -64,8 +64,9 @@ void checkBuffer() {
         }
       }
     } 
-  bufferElapsedMicros = bufferElapsedMicros - bufferSpeed * 10;  // reset the timer
-  }
+  //bufferElapsedMicros = bufferElapsedMicros - bufferSpeed * 10;  // reset the timer
+  bufferLastMicros = micros();
+  }    
 
   for (int i = 0; i < maxBuffer; i++) {                     // go through the MIDI buffer
     if (buffer[i][2]) {                                     // check if there is a note to be played

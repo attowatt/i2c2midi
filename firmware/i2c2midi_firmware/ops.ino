@@ -510,7 +510,12 @@ void op_I2M_C_B(uint8_t data[]) {
   for (int chord = start; chord < end; chord++) {
     clearChord(chord);
     for (int i = 0; i < 16; i++) {
-      if (binary & (1 << i)) insertIntoChord(chord, 0, i);
+      if (binary & (1 << i)) {
+        insertIntoChord(chord, 0, i);
+        #ifdef DEBUG 
+          Serial.println(i);
+        #endif
+      }    
     }
   }
 }
