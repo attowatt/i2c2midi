@@ -1110,7 +1110,7 @@ Number | Part | Value
 3 | C2 | 10 uF capacitor
 4 | D1 | LED 3 mm
 5 | D2 | LED 3 mm
-6 | IC1 | LM1117 5V regulator
+6 | IC1 | LM1117 5V regulator (SOT-223 package)
 7 | R1 | 47 Ω resistor
 8 | R2 | 47 Ω resistor
 9 | R3 | 2.2k Ω resistor
