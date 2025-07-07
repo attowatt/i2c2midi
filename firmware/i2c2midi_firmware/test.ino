@@ -12,7 +12,6 @@ void TESTFunction() {
   unsigned long currentMillis = millis();
   
   if (currentMillis - lastTEST >= TESTinterval) {
-    //blinkLED(1);
     i2cReceiveEventTEST(20, 0, random(50,70), 120, 0, 0);
     lastTEST = millis();
   }

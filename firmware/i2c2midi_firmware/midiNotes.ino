@@ -319,7 +319,6 @@ void sendMidiNoteOn(int channel, int noteNumber, int velocity) {
 
   if (isTRS(channel)) {
     MIDI.sendNoteOn(noteNumber, velocity, channel+1);
-    blinkLED(1);
     #ifdef USB_DEVICE
       usbMIDI.sendNoteOn(noteNumber, velocity, channel+1);
     #endif
@@ -336,6 +335,7 @@ void sendMidiNoteOn(int channel, int noteNumber, int velocity) {
       #endif
     #endif
   }
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
   
   
   #ifdef DEBUG  
@@ -355,7 +355,6 @@ void sendMidiNoteOff(int channel, int noteNumber) {
 
   if (isTRS(channel)) {
     MIDI.sendNoteOff(noteNumber, 0, channel+1);
-    blinkLED(1);
     #ifdef USB_DEVICE
       usbMIDI.sendNoteOff(noteNumber, 0, channel+1);
     #endif
@@ -372,7 +371,7 @@ void sendMidiNoteOff(int channel, int noteNumber) {
       #endif
     #endif
   }
-  
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
 
   #ifdef DEBUG  
     Serial.print("Sending MIDI Note Off: ");

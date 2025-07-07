@@ -31,7 +31,7 @@ void sendMidiProgramChange(int channel, int programNumber) {
       midiDevice.sendProgramChange(programNumber, channel+1-16);
     #endif
   }
-  blinkLED(1);
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
 }
 
 
@@ -67,7 +67,7 @@ void sendMidiPitchBend(int channel, int value) {
       midiDevice.sendPitchBend(value, channel+1-16);
     #endif
   }
-  blinkLED(1);
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
 }
 
 
@@ -103,7 +103,7 @@ void sendMidiAftertouch(int channel, int value) {
       midiDevice.sendAfterTouch(value, channel+1-16);
     #endif
   }        
-  blinkLED(1);
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
 }
 
 

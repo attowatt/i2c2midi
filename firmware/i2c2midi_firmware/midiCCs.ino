@@ -156,7 +156,7 @@ void sendMidiCC(int channel, int controller, int value) {
       #endif
     #endif
   }
-  blinkLED(1); 
+  blinkLED(1);                                                  // blink LED 1 to indicate MIDI out messages
   #ifdef DEBUG  
     Serial.print("Sending MIDI CC: ");
     Serial.print(controller); Serial.print(", ");

@@ -1188,6 +1188,8 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 5.0.3
+  - Bugfix to correctly blink leds for USB MIDI in/out
 - Version 5.0.2
   - Bugfix for op_I2M_C_DEL and op_I2M_C_SET thanks to @autumnblue-d
 - Version 5.0.1

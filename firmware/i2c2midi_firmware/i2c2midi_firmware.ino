@@ -3,13 +3,13 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v5_0_2
+  – Firmware v5_0_3
 
   https://github.com/attowatt/i2c2midi
 
   -------------------------------------------------------------------------------------------
 
-  Copyright (c) 2023 attowatt (http://www.attowatt.com)
+  Copyright (c) 2025 attowatt (http://www.attowatt.com)
   
   MIT License
   
@@ -47,14 +47,17 @@
 //  #define USB_DEVICE
 
 // Debug Mode
-//  Turn on debug mode to plot some debug message to the Serial Monitor
+//  Turn on debug mode to plot some debug message to the Serial Monitor: 
+//  Note On, Note Off, CC, MIDI in via USB
     //#define DEBUG      
 
-// Turn on testing mode
-//  Sending: channel 1, random note between  50 and 70, velocity 127
+// Testing mode
+//  Turn on testing mode for testing MIDI connection. i2c2midi will start sending MIDI notes directly after startup: 
+//  Channel 1, random note between 50 and 70, velocity 127
     //#define TEST
 
-// Experimental feature enabling multiple devices for USB MIDI out
+// Multiple USB Devices
+//  Experimental feature enabling multiple devices for USB MIDI out
     //#define MULTIPLEUSBOUT
 
 
@@ -160,8 +163,8 @@ int8_t currentNoteShift[channelsOut];              // setting for note shift per
 byte currentRepetition[channelsOut];               // setting for note repetition per channel
 byte currentRatcheting[channelsOut];               // setting for note ratcheting per channel
 const int ratchetingLength = 75;                   // in percent: 75 means 75% of original note length for racheted notes
-byte noteUpperLimit[channelsOut];                  // setting for highest allowed midi note per channel
-byte noteLowerLimit[channelsOut];                  // setting for lowest allowed midi note per channel
+byte noteUpperLimit[channelsOut];                  // setting for highest allowed MIDI note per channel
+byte noteLowerLimit[channelsOut];                  // setting for lowest allowed MIDI note per channel
 byte noteLimitMode[channelsOut];                   // setting for limit mode per channel
 
 // CCs
@@ -278,8 +281,8 @@ byte lastCIn = 0;                                  // the last controller number
 byte lastCCIn = 0;                                 // the last CC value received via MIDI in
 
 // LEDs
-const byte led1 = 3;                               // pin definition for led 1
-const byte led2 = 2;                               // pin definition for led 2
+const byte led1 = 3;                               // pin definition for led 1 (indicating MIDI out messages)
+const byte led2 = 2;                               // pin definition for led 2 (indicating MIDI in messages)
 unsigned long lastLEDMillis1 = 0;                  // last time LED 1 turned on
 unsigned long lastLEDMillis2 = 0;                  // last time LED 2 turned on
 const byte animationSpeed = 100;                   // start up animation speed
@@ -389,7 +392,7 @@ void loop() {
   }
 
   #ifdef MK2
-    // USB MIDI
+    // USB MIDI IN
     if (midiDevice.read()) {  
     
       uint8_t type =       midiDevice.getType();
@@ -449,7 +452,7 @@ void loop() {
       
       lastChannelIn = channel;                                      // store the channel as last used channel
 
-      blinkLED(2);
+      blinkLED(2);                                                  // blink LED 2 to indicate MIDI in messages
 
     }
   #endif
