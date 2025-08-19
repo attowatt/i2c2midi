@@ -1192,6 +1192,9 @@ Ground | → Sleeve | → MIDI Pin 2
 
 ### Changelog
 
+- Version 5.0.4
+  - Bugfix for `I2M.T` / `I2M.T#`: turning off automatic note off messages when setting note duration to `0`
+  - Bugfix for `I2M.REP` / `I2M.RAT`: fixed default value; value of `1` means no repitition/ratcheting.
 - Version 5.0.3
   - Bugfix to correctly blink leds for USB MIDI in/out
 - Version 5.0.2

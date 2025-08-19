@@ -33,7 +33,7 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration, bo
   byte noteNumber = getLimitedNote(channel, noteNumberUnlimited);
   
   if (noteNumber < 0 || noteNumber > 127) return; 
-  if (noteDuration < 1) return;
+  if (noteDuration < 0) return;                   // value of 0 means no automatic note off
   if (velocity < 1) {
     sendMidiNoteOff(channel, noteNumber);         // velocity = 0 is treated as Note Off
     return;
@@ -63,15 +63,16 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration, bo
   if (notes[channel][currentNote[channel]][3] == 1) {
     sendMidiNoteOff(channel, notes[channel][currentNote[channel]][0]);
   }
-
-  int newNoteDuration = noteDuration;
-
-  if (currentRepetition[channel] > 1 || currentRatcheting[channel] > 1) {
-    newNoteDuration = noteDuration / currentRatcheting[channel] * ratchetingLength / 100;
-    if (newNoteDuration <= 0) return; 
-    notes[channel][currentNote[channel]][5] = currentRepetition[channel] * currentRatcheting[channel];  
-  }
   
+  int newNoteDuration = noteDuration;
+  if (newNoteDuration) {                                          // value of 0 means no automatic note off
+    if (currentRepetition[channel] > 1 || currentRatcheting[channel] > 1) {
+      newNoteDuration = noteDuration / currentRatcheting[channel] * ratchetingLength / 100;
+      if (newNoteDuration <= 0) return; 
+      notes[channel][currentNote[channel]][5] = currentRepetition[channel] * currentRatcheting[channel];  
+    }
+  }
+    
   // store the values for the note in the notes array
   notes[channel][currentNote[channel]][0] = noteNumber;           // note number
   notes[channel][currentNote[channel]][1] = millis();             // note start time
@@ -85,8 +86,8 @@ void midiNoteOn(int channel, int noteNumber_, int velocity, int noteDuration, bo
   // only "inital" notes are recorded to the buffer;
   // notes that are triggered from the buffer itself are not recorded to the buffer
   if (toBuffer) {     
-    // notes are only recorded, if recording is on
-    if (bufferRecord) {
+    // notes are only recorded, if recording is on and automatic note off is on
+    if (bufferRecord && newNoteDuration) {
       recordToBuffer(channel, noteNumber - currentNoteShift[channel], velocity, millis(), newNoteDuration, chordNumber, noteIndex);
     }
   }

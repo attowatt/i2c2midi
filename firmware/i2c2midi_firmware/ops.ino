@@ -143,7 +143,7 @@ void op_I2M_TIME_set(uint8_t data[]) {
   const uint8_t value_LSB = data[3];
   int16_t value = (value_MSB << 8 ) | value_LSB;
   if (channel < 0 || channel > channelsOut) return;
-  if (value < 0) return;
+  if (value < 0) return;            // value of 0 means no automatic note off
   if (channel > 0) {
     currentNoteDuration[channel - 1] = value;
   } 
@@ -186,7 +186,7 @@ void op_I2M_SHIFT_set(uint8_t data[]) {
 void op_I2M_REP_get(uint8_t data[]) {
   const int8_t channel = data[1] - 1;
   if (channel < 0 || channel >= channelsOut) return;
-  const byte response = currentRepetition[channel] - 1; // -1 because internally 1 means "play note once" 
+  const byte response = currentRepetition[channel];
   if (response < 0 || response > 127) {
     Wire.write(255);
     Wire.write(255);
@@ -206,11 +206,11 @@ void op_I2M_REP_set(uint8_t data[]) {
   if (value < 0) value = 0;
   else if (value > 127) value = 127;
   if (channel > 0) {
-    currentRepetition[channel - 1] = value + 1; // +1 because internally 1 means "play note once"    
+    currentRepetition[channel - 1] = value;
   } 
   else if (channel == 0) {
     for (int i = 0; i < channelsOut; i++) {
-      currentRepetition[i] = value + 1;
+      currentRepetition[i] = value;
     }
   }
 }
@@ -219,7 +219,7 @@ void op_I2M_REP_set(uint8_t data[]) {
 void op_I2M_RAT_get(uint8_t data[]) {
   const int8_t channel = data[1] - 1;
   if (channel < 0 || channel >= channelsOut) return;
-  const byte response = currentRatcheting[channel] - 1; // -1 because internally 1 means "play note once" 
+  const byte response = currentRatcheting[channel];
   if (response < 0 || response > 127) {
     Wire.write(255);
     Wire.write(255);
@@ -239,11 +239,11 @@ void op_I2M_RAT_set(uint8_t data[]) {
   if (value < 0) value = 0;
   else if (value > 127) value = 127;
   if (channel > 0) {
-    currentRatcheting[channel - 1] = value + 1; // +1 because internally 1 means "play note once"
+    currentRatcheting[channel - 1] = value;
   } 
   else if (channel == 0) {
     for (int i = 0; i < channelsOut; i++) {
-      currentRatcheting[i] = value + 1;
+      currentRatcheting[i] = value;
     }
   }
 }

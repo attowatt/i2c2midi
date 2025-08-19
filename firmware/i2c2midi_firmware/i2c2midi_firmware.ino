@@ -3,7 +3,7 @@
 
 
   I2C2MIDI MK2 
-  – Firmware v5_0_3
+  – Firmware v5_0_4
 
   https://github.com/attowatt/i2c2midi
 
