@@ -2,9 +2,13 @@
 
 ### i2c2midi is a DIY open source 2 HP Teletype Expander that speaks I2C and MIDI.
 
-i2c2midi bridges the gap between [monome Teletype](https://monome.org/docs/teletype/) and external MIDI-enabled devices, using I2C:  
-→ It receives I2C messages from Teletype and converts them to MIDI notes, MIDI CC messages and other MIDI messages to control external devices like synths and effects.  
-← It receives MIDI messages from external MIDI controllers and stores the values internally, which can be requested at any time by Teletype via I2C.
+i2c2midi bridges the gap between [monome Teletype](https://monome.org/docs/teletype/) and external MIDI-enabled devices. Using dedicated Teletype OPs, i2c2midi adds MIDI in and out to Teletype.
+
+→ MIDI out:  
+Sends MIDI notes, MIDI CC messages and other MIDI messages from Teletype to external devices like synths and effects.  
+
+← MIDI in:  
+Receives MIDI messages from external MIDI controllers and stores the values internally, which can be requested and used within Teletype.
 
 - Dedicated Teletype OPs: `I2M.x`
 - MIDI *out* via TRS
