@@ -851,7 +851,7 @@ Send MIDI Clock Continue message
 #### I2M.PANIC
 `I2M.PANIC`  
 
-Send MIDI Note Off messages for all notes on all channels, and reset note duration, shift, repetition, ratcheting, min/max  
+Send MIDI Note Off messages for all notes on all channels, and resets every setting like note duration, shift, repetition, ratcheting, min/max, channel mutes and solos, chords and chord transformations.
 
 ---
 
